@@ -14,6 +14,7 @@ int myStrlen(const char *str){
     int result =0 ;
     char carac = str[0];
     while(carac != '\0'){
+      
         result++;
         carac = str[result];
     }
