@@ -10,6 +10,7 @@ int valeurDecimale(char* str){
     }
     return resultat;
 }
+
 int myStrlen(const char *str){
     int result =0 ;
     char carac = str[0];
@@ -19,6 +20,7 @@ int myStrlen(const char *str){
     }
     return result;
 }
+
 char* mettreEnMajuscule(char* str){
     int index = 0;
     for(index = 0; index < myStrlen(str); index++){
@@ -82,6 +84,7 @@ void binToHex(char *strBin, char *strHexa){
 
 
 int comparerChaine(char *chaine1, char* chaine2){
+
   int result = 0, i =0 ;
   while(chaine1[i] == chaine2[i] && chaine1[i] != '\0' && chaine2[i] != '\0'){
     i++;
@@ -90,6 +93,7 @@ int comparerChaine(char *chaine1, char* chaine2){
     result = 1;
   }
   return result;
+
 }
 
 
@@ -97,15 +101,151 @@ int comparerChaine(char *chaine1, char* chaine2){
 void copierChaine(const char* tab_tmp, char *tab_bin, int pos){
   int index=0, taille = myStrlen(tab_tmp);
   for (index=0; index<taille; index++){
-    tab_bin[index+pos+1] = tab_tmp[index];
+    tab_bin[index+pos] = tab_tmp[index];
+    printf("Index: %d %c\n", index, tab_bin[index]);
+  }
+}
+
+void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab_instr, char* tab_bin, char* tab_hex, char *tab_tmp){
+  int i = 0, tmp = 0;
+  char carac;
+  tab_bin[32]= '\0';
+  tab_hex[8]= '\0';
+  for(i = 0; i <= 31; i++){
+    tab_bin[i] = '0';
+  }
+  if(comparerChaine(tab_instr, "ADD")){/*
+    tab_bin[26] = '1';
+    // On va lire successivement rs rt et rd
+    for(i = 0; i<3;i++){
+      while(carac != ' '){ // On lit l'instruction
+        tab_tmp[tmp]= carac;
+        carac = fgetc(ficInstr);
+        tmp++;
+      }
+      tab_tmp[tmp] = '\0';
+      decToBin(tab_tmp, tab_tmp);
+      if(myStrlen(tab_tmp)<=5){
+        copierChaine(tab_tmp, tab_bin, (i+1)*5+1);
+      }
+    }
+    tmp=0;
+    binToHex(tab_bin, tab_hex);
+    fprintf(ficHex, "%s\n", tab_bin);*/
+    printf("C'est le ADD.\n");
+  }
+  else if(comparerChaine(tab_instr, "ADDI")){
+    tab_bin[2] = 1;
+    i = 0;
+    while(instruction[i] != ' '){ // On passe l'instruction
+      i++;
+    }
+
+    i++;
+    tmp = 0;
+    while(instruction[i] != ' '){ // Opérande rs
+      printf("%c", instruction[i]);
+      if(instruction[i] != 0 && tmp = 0){
+
+      }
+      i++;
+    }
+    i++;
+    printf("\n");
+
+    while(instruction[i] != ' '){ // Opérande rt
+      printf("%c", instruction[i]);
+      i++;
+    }
+    i++;
+    printf("\n");
+
+    while(instruction[i] != '\n'){ // Opérande immediate
+      printf("%c", instruction[i]);
+      i++;
+    }
+    printf("\n");
+
+  }
+  else if(comparerChaine(tab_instr, "AND")){
+
+  }
+  else if(comparerChaine(tab_instr, "BEQ")){
+
+  }
+  else if(comparerChaine(tab_instr, "BGTZ")){
+
+  }
+  else if(comparerChaine(tab_instr, "BLEZ")){
+
+  }
+  else if(comparerChaine(tab_instr, "BNE")){
+
+  }
+  else if(comparerChaine(tab_instr, "DIV")){
+
+  }
+  else if(comparerChaine(tab_instr, "J")){
+
+  }
+  else if(comparerChaine(tab_instr, "JAL")){
+
+  }
+  else if(comparerChaine(tab_instr, "JR")){
+
+  }
+  else if(comparerChaine(tab_instr, "LUI")){
+
+  }
+  else if(comparerChaine(tab_instr, "LW")){
+
+  }
+  else if(comparerChaine(tab_instr, "MFHI")){
+
+  }
+  else if(comparerChaine(tab_instr, "MFLO")){
+
+  }
+  else if(comparerChaine(tab_instr, "MULT")){
+
+  }
+  else if(comparerChaine(tab_instr, "NOP")){
+
+  }
+  else if(comparerChaine(tab_instr, "OR")){
+
+  }
+  else if(comparerChaine(tab_instr, "ROTR")){
+
+  }
+  else if(comparerChaine(tab_instr, "SLL")){
+
+  }
+  else if(comparerChaine(tab_instr, "SLT")){
+
+  }
+  else if(comparerChaine(tab_instr, "SRL")){
+
+  }
+  else if(comparerChaine(tab_instr, "SUB")){
+
+  }
+  else if(comparerChaine(tab_instr, "SW")){
+
+  }
+  else if(comparerChaine(tab_instr, "SYSCALL")){
+
+  }
+  else if(comparerChaine(tab_instr, "XOR")){
+
   }
 }
 
 
 
 
-void instructToHex(char* fichierInstr, char* fichierHex){
-  printf("test");
+
+void lireInstruction(char* fichierInstr, char* fichierHex){
   FILE* ficInstr;
   FILE* ficHex;
   int i = 0, tmp=0;
@@ -113,124 +253,29 @@ void instructToHex(char* fichierInstr, char* fichierHex){
   char tab_bin[33]; /* On rentre les bits dans le tableau puis on traduit le tab en hexa */
   char tab_hex[9]; /* Contient l'instruction en hexadecimal */
   char tab_tmp[26]; /* Contient les registres codés au maximum sur 26 bits*/
-  char carac;
+  char instruction[50]; // Contient l'instruction en entier
   ficInstr = fopen(fichierInstr, "r");
   ficHex = fopen(fichierHex, "w+");
 
-  if (ficInstr != NULL && ficHex!=NULL){
-      carac= fgetc(ficInstr);
-      while (carac != EOF){
-        i=0;
-        tmp=0;
-        while(carac != ' '){ /* On lit l'instruction */
-          tab_instr[i]= carac;
-          carac = fgetc(ficInstr);
-          i++;
-        }
-        tab_instr[i] = '\0';
-        tab_bin[32]= '\0';
-        tab_hex[8]= '\0';
-        for(i=0;i<=31;i++){
-          tab_bin[i] = '0';
-        }
-        mettreEnMajuscule(tab_instr);
-        if(comparerChaine(tab_instr, "ADD")){
-          tab_bin[26] = '1';
-          /* On va lire successivement rs rt et rd */
-          for(i=0; i<3;i++){
-            while(carac != ' '){ /* On lit l'instruction */
-              tab_tmp[tmp]= carac;
-              carac = fgetc(ficInstr);
-              tmp++;
-            }
-            tab_tmp[tmp] = '\0';
-            decToBin(tab_tmp, tab_tmp);
-            if(myStrlen(tab_tmp)<=5){
-              copierChaine(tab_tmp, tab_bin, (i+1)*5+1);
-            }
-          }
-          tmp=0;
-          binToHex(tab_bin, tab_hex);
-          fprintf(ficHex, "%s\n", tab_bin);
-        }
-        else if(comparerChaine(tab_instr, "ADDI")){
+  if (ficInstr != NULL && ficHex != NULL){
+    printf("Le fichier s'est ouvert correctement.\n");
 
-        }
-        else if(comparerChaine(tab_instr, "AND")){
-
-        }
-        else if(comparerChaine(tab_instr, "BEQ")){
-
-        }
-        else if(comparerChaine(tab_instr, "BGTZ")){
-
-        }
-        else if(comparerChaine(tab_instr, "BLEZ")){
-
-        }
-        else if(comparerChaine(tab_instr, "BNE")){
-
-        }
-        else if(comparerChaine(tab_instr, "DIV")){
-
-        }
-        else if(comparerChaine(tab_instr, "J")){
-
-        }
-        else if(comparerChaine(tab_instr, "JAL")){
-
-        }
-        else if(comparerChaine(tab_instr, "JR")){
-
-        }
-        else if(comparerChaine(tab_instr, "LUI")){
-
-        }
-        else if(comparerChaine(tab_instr, "LW")){
-
-        }
-        else if(comparerChaine(tab_instr, "MFHI")){
-
-        }
-        else if(comparerChaine(tab_instr, "MFLO")){
-
-        }
-        else if(comparerChaine(tab_instr, "MULT")){
-
-        }
-        else if(comparerChaine(tab_instr, "NOP")){
-
-        }
-        else if(comparerChaine(tab_instr, "OR")){
-
-        }
-        else if(comparerChaine(tab_instr, "ROTR")){
-
-        }
-        else if(comparerChaine(tab_instr, "SLL")){
-
-        }
-        else if(comparerChaine(tab_instr, "SLT")){
-
-        }
-        else if(comparerChaine(tab_instr, "SRL")){
-
-        }
-        else if(comparerChaine(tab_instr, "SUB")){
-
-        }
-        else if(comparerChaine(tab_instr, "SW")){
-
-        }
-        else if(comparerChaine(tab_instr, "SYSCALL")){
-
-        }
-        else if(comparerChaine(tab_instr, "XOR")){
-
-        }
+    while(fgets(instruction, 50, ficInstr) != NULL){ // On lit chaque ligne jusqu'à la fin du fichier
+      i = 0;
+      while(instruction[i] != ' '){ // Récupération de l'instruction
+        tab_instr[i] = instruction[i];
+        i++;
       }
-      fclose(ficInstr);
-      fclose(ficHex);
+      tab_instr[i] = '\0';
+      mettreEnMajuscule(tab_instr);
+
+      printf("Instruction: %s\n", tab_instr);
+
+      instructionToHex(ficInstr, ficHex, instruction, tab_instr, tab_bin, tab_hex, tab_tmp);
+
+    }
+    fclose(ficInstr);
+    fclose(ficHex);
   }
 
   else if(ficHex == NULL && ficInstr != NULL){

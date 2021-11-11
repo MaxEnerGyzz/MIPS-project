@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 
-void instructToHex(char* ficInstr, char* ficBin);
+void lireInstruction(char* fichierInstr, char* fichierHex);
+void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab_instr, char* tab_bin, char* tab_hex, char *tab_tmp);
 char* mettreEnMajuscule(char* str);
 int comparerChaine(char *chaine1, char* chaine2);
 int myStrlen(const char *str);
