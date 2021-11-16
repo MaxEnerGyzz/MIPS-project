@@ -14,7 +14,7 @@ int myStrlen(const char *str){
     int result =0 ;
     char carac = str[0];
     while(carac != '\0'){
-      
+
         result++;
         carac = str[result];
     }
@@ -98,7 +98,7 @@ int comparerChaine(char *chaine1, char* chaine2){
 void copierChaine(const char* tab_tmp, char *tab_bin, int pos){
   int index=0, taille = myStrlen(tab_tmp);
   for (index=0; index<taille; index++){
-    tab_bin[index+pos+1] = tab_tmp[index];
+    tab_bin[index+pos] = tab_tmp[index];
   }
 }
 
