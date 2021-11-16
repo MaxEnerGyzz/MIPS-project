@@ -1,13 +1,9 @@
 #include "fonction.h"
-
+/* pute */
 int myStrlen(const char *str){
     int result =0 ;
     char carac = str[0];
     while(carac != '\0'){
-<<<<<<< HEAD
-
-=======
->>>>>>> 392879bf7643e84ce08eb1c2c2a89a14d0b35321
         result++;
         carac = str[result];
     }
