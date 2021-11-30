@@ -659,7 +659,24 @@ void remplir_struct(){
 */
 
 
-
+int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
+    char carac = fgetc(ficInstr);
+    int i=0, result =0;
+    while(carac != 13 && carac != EOF && carac != '#'){ /* Le caractere ASCII 13 est le retour chariot*/
+        tmp[i] = carac;
+        i++;
+        carac= fgetc(ficInstr);
+    }
+    if(carac == '#'){
+        while(carac != 13 && carac != EOF){
+            carac= fgetc(ficInstr);
+        }
+    }
+    else if(carac == EOF){
+        result = 1;
+    }
+    return result;
+}
 
 
 
@@ -667,8 +684,8 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
   FILE* ficInstr;
   FILE* ficHex;
   int i = 0;
-  char tab_instr[8]; /* Contient le nom de l'instruction */
-  char instruction[50]; // Contient l'instruction en entier
+    char instruction[50];
+    char tab_instr[32];
   ficInstr = fopen(fichierInstr, "r");
   ficHex = fopen(fichierHex, "w+");
 
