@@ -98,6 +98,26 @@ void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos){
 } // Copie une chaine en partant de la gauche
 
 
+
+
+void remplir_struct(){
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab_instr, char* tab_bin, char* tab_hex, char *tab_tmp){
   printf("Instruction actuelle: %s\n", instruction);
   int i = 0, tmp = 0;

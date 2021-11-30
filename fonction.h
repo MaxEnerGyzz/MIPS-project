@@ -24,3 +24,4 @@ void retournerMot(char* mot);
 void decToBin(char *strDec, char* strBin);
 void binToHex(char *strBin, char *strHexa);
 void copierChaine(const char* tab_tmp, char *tab_bin, int pos);
+void remplir_struct();
