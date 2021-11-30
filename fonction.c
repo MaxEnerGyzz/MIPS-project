@@ -108,19 +108,24 @@ void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos){
 
 
 void remplir_struct(){
+    int i =0;
     /* ADD */
-    tab_instruction[0].nb_arg =3;
-    /*
-    ((tab_instruction[0]).instr) = malloc(sizeof(char)*4);
-    myStrcpy((tab_instruction[0]).instr, "ADD");
-    (tab_instruction[0]).nb_arg = 3;
-    (tab_instruction[0]).pos_arg = malloc(sizeof(int)*6);
-    (tab_instruction[0]).(pos_arg[0]) = [16];
-    (tab_instruction[0]).(pos_arg[1]) = [20];
-    (tab_instruction[0]).(pos_arg[2]) = [6];
-    (tab_instruction[0]).(pos_arg[3]) = [10];
-    (tab_instruction[0]).(pos_arg[4]) = [11];
-    (tab_instruction[0]).(pos_arg[5]) = [15];*/
+    
+    tab_instruction[0].instr = malloc(sizeof(char)*4);
+    myStrcpy(tab_instruction[0].instr, "ADD");
+    tab_instruction[0].nb_arg = 3;
+    tab_instruction[0].pos_arg = malloc(sizeof(int)*6);
+    tab_instruction[0].pos_arg[0] = 16;
+    tab_instruction[0].pos_arg[1] = 20;
+    tab_instruction[0].pos_arg[2] = 6;
+    tab_instruction[0].pos_arg[3] = 10;
+    tab_instruction[0].pos_arg[4] = 11;
+    tab_instruction[0].pos_arg[5] = 15;
+    for(i=0; i<32; i++){
+        tab_instruction[0].tab_bin[i] = '0';
+    }
+    tab_instruction[0].tab_bin[32]= '\0';
+    tab_instruction[0].tab_bin[26]='1';
     
     /* ADDi */
 }

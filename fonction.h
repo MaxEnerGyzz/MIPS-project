@@ -5,10 +5,10 @@
 
 typedef struct instruction instruction;
 struct instruction {
-    char *instr ;
-    int nb_arg;
-    int* pos_arg;
-    int tab_bin[32];
+    char *instr; /* NOM de l'instruction */
+    int nb_arg; /* Nombre d'arguments */
+    int* pos_arg; /* tableau qui indique le numero des bits de debut et de fin des arguments */
+    char tab_bin[33];
 };
 
 struct instruction tab_instruction[26];
