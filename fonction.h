@@ -15,7 +15,6 @@ struct instruction tab_instruction[26];
 
 void myStrcpy(char *str, char* str2);
 void lireInstruction(char* fichierInstr, char* fichierHex);
-void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab_instr, char* tab_bin, char* tab_hex, char *tab_tmp);
 char* mettreEnMajuscule(char* str);
 int comparerChaine(char *chaine1, char* chaine2);
 int myStrlen(const char *str);

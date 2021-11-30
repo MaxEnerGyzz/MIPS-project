@@ -577,105 +577,12 @@ void remplir_struct(){
 
 
 
+/*
+  if(comparerChaine(tab_instr, "ADD")){
 
-
-
-
-
-
-
-
-
-void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab_instr, char* tab_bin, char* tab_hex, char *tab_tmp){
-  printf("Instruction actuelle: %s\n", instruction);
-  int i = 0, tmp = 0;
-  char tab_op[9]; // Opérande en décimal
-  char tab_op_bin[9]; // Opérande en binaire
-  /*char tab_op_bin_tmp[9];*/
-  /*char carac;*/
-  tab_bin[32]= '\0';
-  tab_hex[8]= '\0';
-  for(i = 0; i <= 31; i++){
-    tab_bin[i] = '0';
-  }
-  if(comparerChaine(tab_instr, "ADD")){/*
-    tab_bin[26] = '1';
-    // On va lire successivement rs rt et rd
-    for(i = 0; i<3;i++){
-      while(carac != ' '){ // On lit l'instruction
-        tab_tmp[tmp]= carac;
-        carac = fgetc(ficInstr);
-        tmp++;
-      }
-      tab_tmp[tmp] = '\0';
-      decToBin(tab_tmp, tab_tmp);
-      if(myStrlen(tab_tmp)<=5){
-        copierChaine(tab_tmp, tab_bin, (i+1)*5+1);
-      }
-    }
-    tmp=0;
-    binToHex(tab_bin, tab_hex);
-    fprintf(ficHex, "%s\n", tab_bin);*/
-    printf("C'est le ADD.\n");
   }
   else if(comparerChaine(tab_instr, "ADDI")){
-    tab_bin[2] = '1';
-    i = 0;
-    while(instruction[i] != ' '){ // On passe l'instruction
-      i++;
-    }
 
-    i++;
-    tmp = 0;
-    while(instruction[i] != ' '){ // Opérande rs
-      tab_op[tmp] = instruction[i];
-      tmp++;
-      i++;
-    }
-    tab_op[tmp] = '\0';
-
-    decToBin(tab_op, tab_op_bin);
-    retournerMot(tab_op_bin);
-    copierChaine(tab_op_bin, tab_bin, 6);
-    printf("chaine: %s\n",tab_bin);
-
-    i++;
-    tmp = 0;
-    for(int j = 0; j < myStrlen(tab_op); j++){
-      tab_op[j] = '0';
-    }
-
-    while(instruction[i] != ' '){ // Opérande rt
-      tab_op[tmp] = instruction[i];
-      tmp++;
-      i++;
-    }
-    tab_op[tmp] = '\0';
-    decToBin(tab_op, tab_op_bin);
-    retournerMot(tab_op_bin);
-    copierChaine(tab_op_bin, tab_bin, 11);
-    printf("chaine: %s\n",tab_bin);
-
-    i++;
-    tmp = 0;
-    for(int j = 0; j < myStrlen(tab_op); j++){
-      tab_op[j] = '0';
-    }
-
-    while(instruction[i] != '\n'){ // Opérande immediate
-      tab_op[tmp] = instruction[i];
-      tmp++;
-      i++;
-    }
-    tab_op[tmp] = '\0';
-    decToBin(tab_op, tab_op_bin);
-    /*char tab_op_bin_inverse[17];*/
-    retournerMot(tab_op_bin);
-    copierChaine(tab_op_bin, tab_bin, 16);
-    printf("chaine: %s\n",tab_bin);
-
-    binToHex(tab_bin, tab_hex);
-    printf("Code hexa: %s\n", tab_hex);
   }
   else if(comparerChaine(tab_instr, "AND")){
 
@@ -749,7 +656,8 @@ void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab
   else if(comparerChaine(tab_instr, "XOR")){
 
   }
-}
+*/
+
 
 
 
@@ -760,15 +668,11 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
   FILE* ficHex;
   int i = 0;
   char tab_instr[8]; /* Contient le nom de l'instruction */
-  char tab_bin[33]; /* On rentre les bits dans le tableau puis on traduit le tab en hexa */
-  char tab_hex[9]; /* Contient l'instruction en hexadecimal */
-  char tab_tmp[26]; /* Contient les registres codés au maximum sur 26 bits*/
   char instruction[50]; // Contient l'instruction en entier
   ficInstr = fopen(fichierInstr, "r");
   ficHex = fopen(fichierHex, "w+");
 
   if (ficInstr != NULL && ficHex != NULL){
-    printf("Le fichier s'est ouvert correctement.\n");
 
     while(fgets(instruction, 50, ficInstr) != NULL){ // On lit chaque ligne jusqu'à la fin du fichier
       i = 0;
@@ -781,7 +685,6 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
 
       printf("Instruction: %s\n", tab_instr);
 
-      instructionToHex(ficInstr, ficHex, instruction, tab_instr, tab_bin, tab_hex, tab_tmp);
 
     }
     fclose(ficInstr);
