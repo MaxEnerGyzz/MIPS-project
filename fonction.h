@@ -13,7 +13,7 @@ struct instruction {
 
 typedef instruction[26] tab_instruction;
 
-
+void myStrcpy(char *str, char* str2);
 void lireInstruction(char* fichierInstr, char* fichierHex);
 void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab_instr, char* tab_bin, char* tab_hex, char *tab_tmp);
 char* mettreEnMajuscule(char* str);

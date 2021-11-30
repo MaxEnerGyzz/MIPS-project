@@ -9,6 +9,14 @@ int myStrlen(const char *str){
     }
     return result;
 }
+void myStrcpy(char *str, char* str2){
+    int i=0;
+    int taille = myStrlen(str2);
+    for(i=0; i<=taille; i++){
+        str[i]=str[i];
+    }
+}
+
 char* mettreEnMajuscule(char* str){
     int index = 0;
     for(index = 0; index < myStrlen(str); index++){
@@ -101,19 +109,20 @@ void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos){
 
 
 void remplir_struct(){
+    /* ADD */
+    (tab_instruction[0].instr) = malloc(sizeof(char)*4);
+    myStrcpy(tab_instruction[0].instr, "ADD");
+    tab_instruction[0].nb_arg = 3;
+    tab_instruction[0].pos_arg = malloc(sizeof(int)*6);
+    tab_instruction[0].pos_arg[0] = [16];
+    tab_instruction[0].pos_arg[1] = [20];
+    tab_instruction[0].pos_arg[2] = [6];
+    tab_instruction[0].pos_arg[3] = [10];
+    tab_instruction[0].pos_arg[4] = [11];
+    tab_instruction[0].pos_arg[5] = [15];
     
+    /* ADDi */
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
