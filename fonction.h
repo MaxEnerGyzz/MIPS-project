@@ -3,16 +3,15 @@
 #include <math.h>
 
 
-typedef struct element element;
-struct element {
-      int ligne ;
-      int colonne;
-      int valeur;
-      element* suivantVertical;
-      element* suivantHorizontal;
+typedef struct instruction instruction;
+struct instruction {
+    char *instr ;
+    int nb_arg;
+    int* pos_arg;
+    int tab_bin[32];
 };
 
-typedef element* matrice;
+typedef instruction[26] tab_instruction;
 
 
 void lireInstruction(char* fichierInstr, char* fichierHex);
