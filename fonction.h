@@ -2,6 +2,19 @@
 #include <stdio.h>
 #include <math.h>
 
+
+typedef struct element element;
+struct element {
+      int ligne ;
+      int colonne;
+      int valeur;
+      element* suivantVertical;
+      element* suivantHorizontal;
+};
+
+typedef element* matrice;
+
+
 void lireInstruction(char* fichierInstr, char* fichierHex);
 void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab_instr, char* tab_bin, char* tab_hex, char *tab_tmp);
 char* mettreEnMajuscule(char* str);
