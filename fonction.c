@@ -1,5 +1,5 @@
 #include "fonction.h"
-/* test3 */
+
 int myStrlen(const char *str){
     int result =0 ;
     char carac = str[0];
