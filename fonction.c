@@ -109,7 +109,7 @@ void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos){
 
 void remplir_struct(){
     /* ADD */
-    tab_instruction->nb_arg =3;
+    tab_instruction[0].nb_arg =3;
     /*
     ((tab_instruction[0]).instr) = malloc(sizeof(char)*4);
     myStrcpy((tab_instruction[0]).instr, "ADD");

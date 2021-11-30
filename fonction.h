@@ -11,7 +11,7 @@ struct instruction {
     int tab_bin[32];
 };
 
-typedef instruction tab_instruction[26];
+struct instruction tab_instruction[26];
 
 void myStrcpy(char *str, char* str2);
 void lireInstruction(char* fichierInstr, char* fichierHex);
