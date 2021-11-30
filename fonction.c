@@ -681,42 +681,42 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
 
 
 void lireInstruction(char* fichierInstr, char* fichierHex){
-  FILE* ficInstr;
-  FILE* ficHex;
-  int i = 0;
+    FILE* ficInstr;
+    FILE* ficHex;
+    int i = 0;
     char instruction[50];
     char tab_instr[32];
-  ficInstr = fopen(fichierInstr, "r");
-  ficHex = fopen(fichierHex, "w+");
+    ficInstr = fopen(fichierInstr, "r");
+    ficHex = fopen(fichierHex, "w+");
 
-  if (ficInstr != NULL && ficHex != NULL){
+    if (ficInstr != NULL && ficHex != NULL){
+        carac = fgetc(ficInstr);
+        while(carac != EOF){ // On lit chaque ligne jusqu'à la fin du fichier
+            i = 0;
+            while(instruction[i] != ' '){ // Récupération de l'instruction
+                tab_instr[i] = instruction[i];
+                i++;
+            }
+            tab_instr[i] = '\0';
+            mettreEnMajuscule(tab_instr);
 
-    while(fgets(instruction, 50, ficInstr) != NULL){ // On lit chaque ligne jusqu'à la fin du fichier
-      i = 0;
-      while(instruction[i] != ' '){ // Récupération de l'instruction
-        tab_instr[i] = instruction[i];
-        i++;
-      }
-      tab_instr[i] = '\0';
-      mettreEnMajuscule(tab_instr);
-
-      printf("Instruction: %s\n", tab_instr);
+            printf("Instruction: %s\n", tab_instr);
 
 
+        }
+        fclose(ficInstr);
+        fclose(ficHex);
     }
-    fclose(ficInstr);
-    fclose(ficHex);
-  }
 
-  else if(ficHex == NULL && ficInstr != NULL){
-      printf("\nERREUR :  Impossible d'ouvrir le fichier %s\n", fichierHex);
-      fclose(ficInstr);
-  }
-  else if(ficHex != NULL && ficInstr == NULL){
-      printf("\nERREUR :  Impossible d'ouvrir le fichier %s\n", fichierInstr);
-      fclose(ficHex);
-  }
-  else{
-      printf("\nERREUR :  Impossible d'ouvrir les 2 fichiers\n");
-  }
+    else if(ficHex == NULL && ficInstr != NULL){
+        printf("\nERREUR :  Impossible d'ouvrir le fichier %s\n", fichierHex);
+        fclose(ficInstr);
+    }
+    else if(ficHex != NULL && ficInstr == NULL){
+        printf("\nERREUR :  Impossible d'ouvrir le fichier %s\n", fichierInstr);
+        fclose(ficHex);
+    }
+    else{
+        printf("\nERREUR :  Impossible d'ouvrir les 2 fichiers\n");
+    }
 }
