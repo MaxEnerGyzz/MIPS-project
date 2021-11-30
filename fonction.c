@@ -49,8 +49,7 @@ int valeurDecimale(char* str){
 }
 void decToBin(char *strDec, char* strBin){
   int nb = valeurDecimale(strDec);
-  int i =0, unit=0, tmp=0;
-  char* result;
+  int i =0, unit=0;
   while(nb!=0){
     unit = nb%2;
     nb = (nb-unit)/2;
@@ -110,16 +109,18 @@ void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos){
 
 void remplir_struct(){
     /* ADD */
-    (tab_instruction[0].instr) = malloc(sizeof(char)*4);
-    myStrcpy(tab_instruction[0].instr, "ADD");
-    tab_instruction[0].nb_arg = 3;
-    tab_instruction[0].pos_arg = malloc(sizeof(int)*6);
-    tab_instruction[0].pos_arg[0] = [16];
-    tab_instruction[0].pos_arg[1] = [20];
-    tab_instruction[0].pos_arg[2] = [6];
-    tab_instruction[0].pos_arg[3] = [10];
-    tab_instruction[0].pos_arg[4] = [11];
-    tab_instruction[0].pos_arg[5] = [15];
+    tab_instruction->nb_arg =3;
+    /*
+    ((tab_instruction[0]).instr) = malloc(sizeof(char)*4);
+    myStrcpy((tab_instruction[0]).instr, "ADD");
+    (tab_instruction[0]).nb_arg = 3;
+    (tab_instruction[0]).pos_arg = malloc(sizeof(int)*6);
+    (tab_instruction[0]).(pos_arg[0]) = [16];
+    (tab_instruction[0]).(pos_arg[1]) = [20];
+    (tab_instruction[0]).(pos_arg[2]) = [6];
+    (tab_instruction[0]).(pos_arg[3]) = [10];
+    (tab_instruction[0]).(pos_arg[4]) = [11];
+    (tab_instruction[0]).(pos_arg[5]) = [15];*/
     
     /* ADDi */
 }
@@ -132,8 +133,8 @@ void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab
   int i = 0, tmp = 0;
   char tab_op[9]; // Opérande en décimal
   char tab_op_bin[9]; // Opérande en binaire
-  char tab_op_bin_tmp[9];
-  char carac;
+  /*char tab_op_bin_tmp[9];*/
+  /*char carac;*/
   tab_bin[32]= '\0';
   tab_hex[8]= '\0';
   for(i = 0; i <= 31; i++){
@@ -210,7 +211,7 @@ void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab
     }
     tab_op[tmp] = '\0';
     decToBin(tab_op, tab_op_bin);
-    char tab_op_bin_inverse[17];
+    /*char tab_op_bin_inverse[17];*/
     retournerMot(tab_op_bin);
     copierChaine(tab_op_bin, tab_bin, 16);
     printf("chaine: %s\n",tab_bin);
@@ -299,7 +300,7 @@ void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab
 void lireInstruction(char* fichierInstr, char* fichierHex){
   FILE* ficInstr;
   FILE* ficHex;
-  int i = 0, tmp=0;
+  int i = 0;
   char tab_instr[8]; /* Contient le nom de l'instruction */
   char tab_bin[33]; /* On rentre les bits dans le tableau puis on traduit le tab en hexa */
   char tab_hex[9]; /* Contient l'instruction en hexadecimal */
