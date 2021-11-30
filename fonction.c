@@ -1,5 +1,34 @@
 #include "fonction.h"
 
+int myStrlen(const char *str){
+    int result =0 ;
+    char carac = str[0];
+    while(carac != '\0'){
+        result++;
+        carac = str[result];
+    }
+    return result;
+}
+char* mettreEnMajuscule(char* str){
+    int index = 0;
+    for(index = 0; index < myStrlen(str); index++){
+        if(str[index] >=97 && str[index] <= 122){
+            str[index] -= 32;
+        }
+    }
+    return str;
+}
+void retournerMot(char* mot){
+	int i, n;
+	n = myStrlen(mot);
+  char res[n + 1];
+	for (i=0; i<n; i++){
+		res[i] = mot[n-1-i];
+	}
+	res[i] = '\0';
+  copierChaine(mot, res, 0);
+}
+
 int valeurDecimale(char* str){
     int index=0, resultat=0, multiplication=1;
     for(index = myStrlen(str)-1; index >=0; index--){
@@ -10,36 +39,6 @@ int valeurDecimale(char* str){
     }
     return resultat;
 }
-
-int myStrlen(const char *str){
-    int result =0 ;
-    char carac = str[0];
-    while(carac != '\0'){
-        result++;
-        carac = str[result];
-    }
-    return result;
-}
-
-char* mettreEnMajuscule(char* str){
-    int index = 0;
-    for(index = 0; index < myStrlen(str); index++){
-        if(str[index] >=97 && str[index] <= 122){
-            str[index] -= 32;
-        }
-    }
-    return str;
-}
-void retournerMot(char mot[], char res[]){
-	int i, n;
-	n = myStrlen(mot);
-	for (i=0; i<n; i++){
-		res[i] = mot[n-1-i];
-	}
-	res[i] = '\0';
-}
-
-
 void decToBin(char *strDec, char* strBin){
   int nb = valeurDecimale(strDec);
   int i =0, unit=0, tmp=0;
@@ -51,17 +50,8 @@ void decToBin(char *strDec, char* strBin){
     i++;
   }
   strBin[i]='\0';
-  result = malloc(sizeof(char)*(i+1));
-  retournerMot(strBin, result);
-  for(tmp=i;tmp>=0;tmp--){
-    strBin[tmp] = result[tmp];
-  }
-  free(result);
+  retournerMot(strBin);
 }
-
-
-
-
 void binToHex(char *strBin, char *strHexa){
   int i =0, i2=0, unit=0;
   for(i=0;i<8;i++){
@@ -81,8 +71,6 @@ void binToHex(char *strBin, char *strHexa){
   strHexa[8]='\0';
 }
 
-
-
 int comparerChaine(char *chaine1, char* chaine2){
 
   int result = 0, i =0 ;
@@ -95,19 +83,27 @@ int comparerChaine(char *chaine1, char* chaine2){
   return result;
 
 }
-
-
-
 void copierChaine(const char* tab_tmp, char *tab_bin, int pos){
   int index=0, taille = myStrlen(tab_tmp);
   for (index=0; index<taille; index++){
     tab_bin[index+pos] = tab_tmp[index];
-    printf("Index: %d %c\n", index, tab_bin[index]);
   }
 }
+void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos){
+  int index, taille = myStrlen(tab_tmp), index2 = 0;
+  for(index = pos ; index > pos- taille; index--){
+    tab_bin[index] = tab_tmp[index2];
+    index2++;
+  }
+} // Copie une chaine en partant de la gauche
+
 
 void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab_instr, char* tab_bin, char* tab_hex, char *tab_tmp){
+  printf("Instruction actuelle: %s\n", instruction);
   int i = 0, tmp = 0;
+  char tab_op[9]; // Opérande en décimal
+  char tab_op_bin[9]; // Opérande en binaire
+  char tab_op_bin_tmp[9];
   char carac;
   tab_bin[32]= '\0';
   tab_hex[8]= '\0';
@@ -135,7 +131,7 @@ void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab
     printf("C'est le ADD.\n");
   }
   else if(comparerChaine(tab_instr, "ADDI")){
-    tab_bin[2] = 1;
+    tab_bin[2] = '1';
     i = 0;
     while(instruction[i] != ' '){ // On passe l'instruction
       i++;
@@ -144,28 +140,54 @@ void instructionToHex(FILE* ficInstr, FILE* ficHex, char* instruction, char* tab
     i++;
     tmp = 0;
     while(instruction[i] != ' '){ // Opérande rs
-      printf("%c", instruction[i]);
-      if(instruction[i] != 0 && tmp = 0){
-
-      }
+      tab_op[tmp] = instruction[i];
+      tmp++;
       i++;
     }
+    tab_op[tmp] = '\0';
+
+    decToBin(tab_op, tab_op_bin);
+    retournerMot(tab_op_bin);
+    copierChaine(tab_op_bin, tab_bin, 6);
+    printf("chaine: %s\n",tab_bin);
+
     i++;
-    printf("\n");
+    tmp = 0;
+    for(int j = 0; j < myStrlen(tab_op); j++){
+      tab_op[j] = '0';
+    }
 
     while(instruction[i] != ' '){ // Opérande rt
-      printf("%c", instruction[i]);
+      tab_op[tmp] = instruction[i];
+      tmp++;
       i++;
     }
+    tab_op[tmp] = '\0';
+    decToBin(tab_op, tab_op_bin);
+    retournerMot(tab_op_bin);
+    copierChaine(tab_op_bin, tab_bin, 11);
+    printf("chaine: %s\n",tab_bin);
+
     i++;
-    printf("\n");
+    tmp = 0;
+    for(int j = 0; j < myStrlen(tab_op); j++){
+      tab_op[j] = '0';
+    }
 
     while(instruction[i] != '\n'){ // Opérande immediate
-      printf("%c", instruction[i]);
+      tab_op[tmp] = instruction[i];
+      tmp++;
       i++;
     }
-    printf("\n");
+    tab_op[tmp] = '\0';
+    decToBin(tab_op, tab_op_bin);
+    char tab_op_bin_inverse[17];
+    retournerMot(tab_op_bin);
+    copierChaine(tab_op_bin, tab_bin, 16);
+    printf("chaine: %s\n",tab_bin);
 
+    binToHex(tab_bin, tab_hex);
+    printf("Code hexa: %s\n", tab_hex);
   }
   else if(comparerChaine(tab_instr, "AND")){
 
