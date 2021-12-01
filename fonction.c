@@ -667,12 +667,14 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
         i++;
         carac= fgetc(ficInstr);
     }
+    tmp[i]='\0';
+    printf("%c", carac);
     if(carac == '#'){
         while(carac != 13 && carac != EOF){
             carac= fgetc(ficInstr);
         }
     }
-    else if(carac == EOF){
+    if(carac == EOF){  /*Pas de Else if car si on met un commentaire sur la derniere ligne ca va pas renvoyer 1*/
         result = 1;
     }
     return result;
@@ -682,25 +684,19 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
 
 void lireInstruction(char* fichierInstr, char* fichierHex){
     FILE* ficInstr;
-    FILE* ficHex;
-    int i = 0;
-    char instruction[50];
-    char tab_instr[32];
+    FILE* ficHex;    char instruction[33];
+    char tmp[33];
+    tmp[0]='\0';
     ficInstr = fopen(fichierInstr, "r");
     ficHex = fopen(fichierHex, "w+");
 
     if (ficInstr != NULL && ficHex != NULL){
-        carac = fgetc(ficInstr);
-        while(carac != EOF){ // On lit chaque ligne jusqu'à la fin du fichier
-            i = 0;
-            while(instruction[i] != ' '){ // Récupération de l'instruction
-                tab_instr[i] = instruction[i];
-                i++;
-            }
-            tab_instr[i] = '\0';
-            mettreEnMajuscule(tab_instr);
-
-            printf("Instruction: %s\n", tab_instr);
+        while(recupereInstr(ficInstr, instruction)){ // On lit chaque ligne jusqu'à la fin du fichier
+            mettreEnMajuscule(instruction);
+            
+            
+            
+            printf("Instruction: %s\n", instruction);
 
 
         }

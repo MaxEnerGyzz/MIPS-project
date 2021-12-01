@@ -11,5 +11,7 @@ int main(int argc, char* argv[]){
     printf("%s\n", tab_instruction[0].tab_bin);
     printf("%s\n", hex);
     
+    lireInstruction("instr.txt","result.txt");
+    
     return 0;
 }
