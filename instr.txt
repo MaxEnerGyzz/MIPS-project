@@ -1,2 +1,4 @@
-ADD 2 3 4
-ADDI 2 3 200
+ADD 2 3 4 #test
+ADDI 2 3 100 #test2
+#test3
+ADD 3 4 5

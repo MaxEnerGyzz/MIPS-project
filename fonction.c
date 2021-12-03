@@ -662,20 +662,28 @@ void remplir_struct(){
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
     int i=0, result =0;
-    while(carac != 13 && carac != EOF && carac != '#'){ /* Le caractere ASCII 13 est le retour chariot*/
+    if(carac == '#'){
+        while(carac != 10 && carac != EOF){
+            carac= fgetc(ficInstr);
+        }
+    }
+    while(carac != 10 && carac != EOF && carac != '#'){ /* Le caractere ASCII 13 est le saut de ligne*/
+        
         tmp[i] = carac;
         i++;
         carac= fgetc(ficInstr);
     }
-    tmp[i]='\0';
-    printf("%c", carac);
     if(carac == '#'){
-        while(carac != 13 && carac != EOF){
+        while(carac != 10 && carac != EOF){
             carac= fgetc(ficInstr);
         }
     }
     if(carac == EOF){  /*Pas de Else if car si on met un commentaire sur la derniere ligne ca va pas renvoyer 1*/
         result = 1;
+    }
+    tmp[i]='\0';
+    if(i==0){  /* Si la ligne commence par un commentaire, on réappelle la fonction pour aller a la fin de la ligne et passer à la suivante */
+        result = recupereInstr(ficInstr, tmp);
     }
     return result;
 }
@@ -684,22 +692,21 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
 
 void lireInstruction(char* fichierInstr, char* fichierHex){
     FILE* ficInstr;
-    FILE* ficHex;    char instruction[33];
+    FILE* ficHex;
+    char instruction[33];
     char tmp[33];
     tmp[0]='\0';
     ficInstr = fopen(fichierInstr, "r");
     ficHex = fopen(fichierHex, "w+");
 
     if (ficInstr != NULL && ficHex != NULL){
-        while(recupereInstr(ficInstr, instruction)){ // On lit chaque ligne jusqu'à la fin du fichier
+        while(!(recupereInstr(ficInstr, instruction))){ // On lit chaque ligne une par une jusqu'à la fin du fichier
             mettreEnMajuscule(instruction);
-            
-            
-            
             printf("Instruction: %s\n", instruction);
 
 
         }
+        printf("Instruction: %s\n", instruction);
         fclose(ficInstr);
         fclose(ficHex);
     }
