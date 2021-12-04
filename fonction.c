@@ -13,7 +13,7 @@ void myStrcpy(char *str, char* str2){
     int i=0;
     int taille = myStrlen(str2);
     for(i=0; i<=taille; i++){
-        str[i]=str[i];
+        str[i]=str2[i];
     }
 }
 
@@ -695,18 +695,29 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
     FILE* ficHex;
     char instruction[33];
     char tmp[33];
-    tmp[0]='\0';
+    int i = 0;
     ficInstr = fopen(fichierInstr, "r");
     ficHex = fopen(fichierHex, "w+");
+    remplir_struct();
 
     if (ficInstr != NULL && ficHex != NULL){
         while(!(recupereInstr(ficInstr, instruction))){ // On lit chaque ligne une par une jusqu'à la fin du fichier
             mettreEnMajuscule(instruction);
-            printf("Instruction: %s\n", instruction);
+            i=0;
+            while(instruction[i]!=' '){
+                tmp[i]= instruction[i];
+                i++;
+            }
+            tmp[i]='\0';
+            i=0;
+            while(!(comparerChaine(tmp, tab_instruction[i].instr))){
+                i++;
+            }
+            printf("Instruction: %s\n", tab_instruction[i].instr);
 
 
         }
-        printf("Instruction: %s\n", instruction);
+        printf("Instruction: %s\n", tab_instruction[i].instr);
         fclose(ficInstr);
         fclose(ficHex);
     }
