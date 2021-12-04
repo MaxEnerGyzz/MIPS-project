@@ -575,8 +575,6 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[30]='1';
 }
 
-
-
 /*
   if(comparerChaine(tab_instr, "ADD")){
 
@@ -658,11 +656,10 @@ void remplir_struct(){
   }
 */
 
-
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
     int i=0, result =0;
-    if(carac == '#'){
+    if(carac == '#'){ // Cas où une ligne commence par un commentaire
         while(carac != 10 && carac != EOF){
             carac= fgetc(ficInstr);
         }
@@ -673,7 +670,7 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
         i++;
         carac= fgetc(ficInstr);
     }
-    if(carac == '#'){
+    if(carac == '#'){ // Cas où une ligne finit par un commentaire
         while(carac != 10 && carac != EOF){
             carac= fgetc(ficInstr);
         }
@@ -689,37 +686,40 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
 }
 
 
-
 void lireInstruction(char* fichierInstr, char* fichierHex){
     FILE* ficInstr;
     FILE* ficHex;
     char instruction[33];
-    char tmp_bin[33];
-    char tmp_hexa[9];
+    char tmp[33];
     int i = 0;
     ficInstr = fopen(fichierInstr, "r");
     ficHex = fopen(fichierHex, "w+");
     remplir_struct();
+    int nb_instructions = 0;
 
     if (ficInstr != NULL && ficHex != NULL){
         while(!(recupereInstr(ficInstr, instruction))){ // On lit chaque ligne une par une jusqu'à la fin du fichier
             mettreEnMajuscule(instruction);
             i=0;
             while(instruction[i]!=' '){
-                tmp_bin[i]= instruction[i];
+                tmp[i]= instruction[i];
                 i++;
             }
-            tmp_bin[i]='\0';
-            i=0;
-            while(!(comparerChaine(tmp_bin, tab_instruction[i].instr))){
-                i++;
-            }
-            binToHex(tmp_bin, tmp_hexa);
-            fprintf(ficHex,"%s\n", tmp_hexa);
+            printf("Instruction: %s\n", instruction);
+            remplir_liste_instructions(instruction, nb_instructions);
 
+            tmp[i]='\0';
+            i=0;
+            while(!(comparerChaine(tmp, tab_instruction[i].instr))){
+                i++;
+            }
+            printf("Instruction: %s\n", tab_instruction[i].instr);
+
+            nb_instructions++;
         }
-        binToHex(tmp_bin, tmp_hexa);
-        fprintf(ficHex,"%s\n", tmp_hexa);
+        remplir_liste_instructions(instruction, nb_instructions);
+        printf("Instruction: %s\n", instruction);
+        printf("Instruction: %s\n", tab_instruction[i].instr);
         fclose(ficInstr);
         fclose(ficHex);
     }
@@ -734,5 +734,104 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
     }
     else{
         printf("\nERREUR :  Impossible d'ouvrir les 2 fichiers\n");
+    }
+}
+
+int recherche_instr_dans_structure(char* nom_instr){
+    int trouve = 0;
+    int i = 0;
+    while(!trouve){
+        if(!comparerChaine(tab_instruction[i].instr, nom_instr)){
+            i++;
+        }
+        else{
+            trouve = 1;
+        }
+    }
+    return i;
+}
+
+void remplir_liste_instructions(char* instruction, int instruction_actuelle){
+    char nom_instr[8];
+    int i = 0;
+    while(instruction[i]!=' '){ // Récupère le nom de l'instruction
+                nom_instr[i]= instruction[i];
+                i++;
+            }
+    nom_instr[i] = '\0';
+    i++;
+
+    tab_liste_instructions[instruction_actuelle].instr = malloc(sizeof(char)*myStrlen(nom_instr));
+    myStrcpy(tab_liste_instructions[instruction_actuelle].instr,nom_instr);
+    tab_liste_instructions[instruction_actuelle].pos_instr_struct = recherche_instr_dans_structure(nom_instr);
+    tab_liste_instructions[instruction_actuelle].nb_arg = tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].nb_arg;
+
+    tab_liste_instructions[instruction_actuelle].arg = malloc(sizeof(char)*tab_liste_instructions[instruction_actuelle].nb_arg);
+    char argument_char[10];
+    int argument_int;
+    int k;
+    for(int j = 0; j < tab_liste_instructions[instruction_actuelle].nb_arg; j++){ /* Récupère les arguments */
+        k = 0;
+        while(instruction[i]!=' '){ 
+                argument_char[k] = instruction[i];
+                i++;
+                k++;
+            }
+        argument_char[k] = '\0';
+        i++;
+
+        argument_int = valeurDecimale(argument_char);
+        tab_liste_instructions[instruction_actuelle].arg[j] = argument_int;
+
+        argument_char[0] = '\0';
+        k = 0;
+    }
+}
+
+void verifier_structure_instruction(){ 
+    printf("\n");
+    for(int i = 0; i < 5; i++){
+        printf("Nom d'instruction: %s\n", tab_liste_instructions[i].instr);
+        printf("Position de l'instruction: %d\n", tab_liste_instructions[i].pos_instr_struct);
+        printf("Nombre d'arguments: %d\n", tab_liste_instructions[i].nb_arg);
+        for(int j = 0; j < tab_liste_instructions[i].nb_arg; j++){
+            printf("Argument n°%d: %d\n", (j+1), tab_liste_instructions[i].arg[j]);
+        }
+        printf("\n-----------------\n");
+    }
+}
+
+int compte_nb_instructions(char* fichierInstr){
+    FILE* ficInstr = fopen(fichierInstr, "r");
+    int nb_instructions = 0;
+    int ligne_commentaire = 0;
+    int nouvelle_ligne = 1;
+    char carac = fgetc(ficInstr);
+    char carac_tmp;
+
+    if (ficInstr != NULL){
+        while(carac != EOF){
+            if(carac == '\n' || carac == EOF){
+                if(ligne_commentaire == 0){
+                    nb_instructions++;
+                }
+                ligne_commentaire = 0;
+                nouvelle_ligne = 1;
+            }
+            else if(nouvelle_ligne == 1 && carac == '#'){
+                ligne_commentaire = 1;
+                nouvelle_ligne = 0;
+            }
+            else if(nouvelle_ligne = 1 && carac != '#'){
+                nouvelle_ligne = 0;
+            }
+            carac_tmp = carac;
+            carac = fgetc(ficInstr);
+        }
+        if(!ligne_commentaire){
+            nb_instructions++;
+        }
+        fclose(ficInstr);
+        return(nb_instructions);
     }
 }
