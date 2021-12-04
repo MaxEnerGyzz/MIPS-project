@@ -694,7 +694,8 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
     FILE* ficInstr;
     FILE* ficHex;
     char instruction[33];
-    char tmp[33];
+    char tmp_bin[33];
+    char tmp_hexa[9];
     int i = 0;
     ficInstr = fopen(fichierInstr, "r");
     ficHex = fopen(fichierHex, "w+");
@@ -705,19 +706,20 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
             mettreEnMajuscule(instruction);
             i=0;
             while(instruction[i]!=' '){
-                tmp[i]= instruction[i];
+                tmp_bin[i]= instruction[i];
                 i++;
             }
-            tmp[i]='\0';
+            tmp_bin[i]='\0';
             i=0;
-            while(!(comparerChaine(tmp, tab_instruction[i].instr))){
+            while(!(comparerChaine(tmp_bin, tab_instruction[i].instr))){
                 i++;
             }
-            printf("Instruction: %s\n", tab_instruction[i].instr);
-
+            binToHex(tmp_bin, tmp_hexa);
+            fprintf(ficHex,"%s\n", tmp_hexa);
 
         }
-        printf("Instruction: %s\n", tab_instruction[i].instr);
+        binToHex(tmp_bin, tmp_hexa);
+        fprintf(ficHex,"%s\n", tmp_hexa);
         fclose(ficInstr);
         fclose(ficHex);
     }
