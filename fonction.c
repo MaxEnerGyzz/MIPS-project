@@ -102,7 +102,7 @@ void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos){
     tab_bin[index] = tab_tmp[index2];
     index2++;
   }
-} // Copie une chaine en partant de la gauche
+} 
 
 
 
@@ -659,7 +659,7 @@ void remplir_struct(){
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
     int i=0, result =0;
-    if(carac == '#'){ // Cas où une ligne commence par un commentaire
+    if(carac == '#'){ /* Cas où une ligne commence par un commentaire*/
         while(carac != 10 && carac != EOF){
             carac= fgetc(ficInstr);
         }
@@ -698,7 +698,7 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
     int nb_instructions = 0;
 
     if (ficInstr != NULL && ficHex != NULL){
-        while(!(recupereInstr(ficInstr, instruction))){ // On lit chaque ligne une par une jusqu'à la fin du fichier
+        while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
             mettreEnMajuscule(instruction);
             i=0;
             while(instruction[i]!=' '){
@@ -807,7 +807,6 @@ int compte_nb_instructions(char* fichierInstr){
     int ligne_commentaire = 0;
     int nouvelle_ligne = 1;
     char carac = fgetc(ficInstr);
-    char carac_tmp;
 
     if (ficInstr != NULL){
         while(carac != EOF){
@@ -825,7 +824,6 @@ int compte_nb_instructions(char* fichierInstr){
             else if(nouvelle_ligne = 1 && carac != '#'){
                 nouvelle_ligne = 0;
             }
-            carac_tmp = carac;
             carac = fgetc(ficInstr);
         }
         if(!ligne_commentaire){
@@ -834,4 +832,21 @@ int compte_nb_instructions(char* fichierInstr){
         fclose(ficInstr);
         return(nb_instructions);
     }
+}
+
+int compte_nb_lignes(char* fichierInstr){
+    FILE* ficInstr = fopen(fichierInstr, "r");
+    int nb_lignes = 0;
+    char carac = fgetc(ficInstr);
+
+    if (ficInstr != NULL){
+        while(carac != EOF){
+            if(carac == '\n' || carac == EOF){
+                nb_lignes++;
+            }
+            carac = fgetc(ficInstr);
+        }
+        fclose(ficInstr);
+        return(nb_lignes + 1); 
+    } 
 }

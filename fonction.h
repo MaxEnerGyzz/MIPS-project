@@ -1,7 +1,6 @@
 #ifndef MON_H
 #define MON_H 
 
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -12,7 +11,7 @@ struct instruction {
     char *instr; /* NOM de l'instruction */
     int nb_arg; /* Nombre d'arguments */
     int* pos_arg; /* tableau qui indique le numero des bits de debut et de fin des arguments */
-    char tab_bin[33];
+    char tab_bin[33]; /* Tableau en binaire associé */
 };
 struct instruction tab_instruction[26];
 
@@ -27,12 +26,12 @@ struct liste_instructions {
 struct liste_instructions tab_liste_instructions[50];
 
 void myStrcpy(char *str, char* str2); /* str = chaine à coller, str2 = chaine à copier */
-int myStrlen(const char *str);
-void retournerMot(char* mot);
-char* mettreEnMajuscule(char* str);
-int comparerChaine(char *chaine1, char* chaine2);
-void copierChaine(const char* tab_tmp, char *tab_bin, int pos);
-void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos);
+int myStrlen(const char *str); /* Renvoit la taille de la chaine */
+void retournerMot(char* mot); /* Retourne une chaine de caractères */
+char* mettreEnMajuscule(char* str); /* Transforme les lettres d'une chaine de caractères en majuscule */
+int comparerChaine(char *chaine1, char* chaine2); /* Renvoit 1 si les deux chaines sont identiques, 0 sinon */
+void copierChaine(const char* tab_tmp, char *tab_bin, int pos); /* Copie une chaine en partant de la droite */
+void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos); /* Copie une chaine en partant de la gauche */
 
 int valeurDecimale(char* str); /* Transforme un chiffre mis dans un tableau de char en entier */
 void decToBin(char *strDec, char* strBin); /* Transforme un décimal en binaire */
@@ -47,6 +46,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle); /*
 void verifier_structure_instruction(); /* Affiche les instructions (d'entrée) stockées en mémoire dans le tableau de structure */
 
 int compte_nb_instructions(char* fichierInstr); /* Compte le nombre d'instructions dans le fichier d'entrée --> je crois qu'elle sert à rien pour l'instant*/
+int compte_nb_lignes(char* fichierInstr); /* Compte le nombre de lignes dans le fichier d'entrée */
 
 #endif
 
