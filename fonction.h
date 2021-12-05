@@ -1,10 +1,12 @@
-#ifndef MON_H
-#define MON_H 
+#ifndef __MON_H__
+#define __MON_H__ 
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 
+#define FICHIER_TEST "./in/instr.txt"
+#define FICHIER_OUT "./out/result.txt"
 
 typedef struct instruction instruction;
 struct instruction {

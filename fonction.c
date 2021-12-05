@@ -690,7 +690,8 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
     FILE* ficInstr;
     FILE* ficHex;
     char instruction[33];
-    char tmp[33];
+    char tmp_bin[33];
+    char tmp_hexa[9];
     int i = 0;
     ficInstr = fopen(fichierInstr, "r");
     ficHex = fopen(fichierHex, "w+");
@@ -702,24 +703,27 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
             mettreEnMajuscule(instruction);
             i=0;
             while(instruction[i]!=' '){
-                tmp[i]= instruction[i];
+                tmp_bin[i]= instruction[i];
                 i++;
             }
             printf("Instruction: %s\n", instruction);
             remplir_liste_instructions(instruction, nb_instructions);
 
-            tmp[i]='\0';
+            tmp_bin[i]='\0';
             i=0;
-            while(!(comparerChaine(tmp, tab_instruction[i].instr))){
+            while(!(comparerChaine(tmp_bin, tab_instruction[i].instr))){
                 i++;
             }
             printf("Instruction: %s\n", tab_instruction[i].instr);
-
+            binToHex(tmp_bin, tmp_hexa);
+            fprintf(ficHex,"%s\n", tmp_hexa);
             nb_instructions++;
         }
         remplir_liste_instructions(instruction, nb_instructions);
         printf("Instruction: %s\n", instruction);
         printf("Instruction: %s\n", tab_instruction[i].instr);
+        binToHex(tmp_bin, tmp_hexa);
+        fprintf(ficHex,"%s\n", tmp_hexa);
         fclose(ficInstr);
         fclose(ficHex);
     }
@@ -821,7 +825,7 @@ int compte_nb_instructions(char* fichierInstr){
                 ligne_commentaire = 1;
                 nouvelle_ligne = 0;
             }
-            else if(nouvelle_ligne = 1 && carac != '#'){
+            else if(nouvelle_ligne == 1 && carac != '#'){
                 nouvelle_ligne = 0;
             }
             carac = fgetc(ficInstr);
@@ -831,6 +835,10 @@ int compte_nb_instructions(char* fichierInstr){
         }
         fclose(ficInstr);
         return(nb_instructions);
+    }
+    else{
+        printf("Problème d'ouverture du fichier.");
+        return(-1);
     }
 }
 
@@ -848,5 +856,15 @@ int compte_nb_lignes(char* fichierInstr){
         }
         fclose(ficInstr);
         return(nb_lignes + 1); 
-    } 
+    }
+    else{
+        printf("Problème d'ouverture du fichier test.");
+        return(-1);
+    }
+}
+
+void instr_to_hexa(int nb_instructions){
+    for(int i = 0; i < nb_instructions; i++){
+        
+    }
 }
