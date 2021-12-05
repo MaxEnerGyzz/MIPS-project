@@ -23,6 +23,7 @@ struct liste_instructions {
     int pos_instr_struct; /* Position de l'instruction dans le tableau de structures d'instruction */
     int nb_arg; /* Nombre d'arguments de l'instruction */
     int* arg; /* Arguments de l'instruction */
+    char* arg_en_str; /* Arguments de l'instruction en tableau de caractères (plus facile à manier) */
     char tab_bin[33]; /* Tableau en binaire associé */
 };
 struct liste_instructions tab_liste_instructions[50];
@@ -34,8 +35,10 @@ char* mettreEnMajuscule(char* str); /* Transforme les lettres d'une chaine de ca
 int comparerChaine(char *chaine1, char* chaine2); /* Renvoit 1 si les deux chaines sont identiques, 0 sinon */
 void copierChaine(const char* tab_tmp, char *tab_bin, int pos); /* Copie une chaine en partant de la droite */
 void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos); /* Copie une chaine en partant de la gauche */
+void copierChaineGaucheDroite(const char* tab_tmp, char *tab_bin, int posG, int posD); /* Copie une chaine à une position donnée dans un tableau */
 
 int valeurDecimale(char* str); /* Transforme un chiffre mis dans un tableau de char en entier */
+void intToStr(int nombre, char *chaine); /* Transforme un entier en tableau de caractères */
 void decToBin(char *strDec, char* strBin); /* Transforme un décimal en binaire */
 void binToHex(char *strBin, char *strHexa); /* Transforme un binaire en héxadécimal */
 
