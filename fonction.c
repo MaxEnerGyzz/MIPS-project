@@ -51,7 +51,6 @@ int valeurDecimale(char* str){
 void intToStr(int nombre, char *chaine){
     int index = 0;
 
-    int n = nombre < 0 ? -nombre : nombre;
     int neg = nombre < 0 ? 1 : 0;
 
     while (nombre != 0)
@@ -822,7 +821,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
 
         tab_liste_instructions[instruction_actuelle].arg_en_str[1] = 42;
         for(int k = 0; k < tab_liste_instructions[instruction_actuelle].nb_arg; k++){
-            printf("Ca marche ! %d\n", tab_liste_instructions[instruction_actuelle].arg_en_str );
+            printf("Ca marche ! %s\n", tab_liste_instructions[instruction_actuelle].arg_en_str );
         }
         
         
@@ -849,10 +848,12 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
 }
 
 
-
-void verifier_structure_instruction(){ 
-    printf("\n");
-    for(int i = 0; i < 5; i++){
+void verifier_structure_instruction(){
+    printf("Il y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(FICHIER_IN));
+    printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_instructions(FICHIER_IN));
+    
+    int nb_instructions = compte_nb_instructions(FICHIER_IN);
+    for(int i = 0; i < nb_instructions; i++){
         printf("Nom d'instruction: %s\n", tab_liste_instructions[i].instr);
         printf("Position de l'instruction: %d\n", tab_liste_instructions[i].pos_instr_struct);
         printf("Nombre d'arguments: %d\n", tab_liste_instructions[i].nb_arg);

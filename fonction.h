@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define FICHIER_TEST "./in/instr.txt"
+#define FICHIER_IN "./in/instr.txt"
 #define FICHIER_OUT "./out/result.txt"
 
 typedef struct instruction instruction;
