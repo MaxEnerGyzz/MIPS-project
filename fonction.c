@@ -50,6 +50,8 @@ int valeurDecimale(char* str){
 
 void intToStr(int nombre, char *chaine){
     int index = 0;
+
+    int n = nombre < 0 ? -nombre : nombre;
     int neg = nombre < 0 ? 1 : 0;
 
     while (nombre != 0)
@@ -601,6 +603,87 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[30]='1';
 }
 
+/*
+  if(comparerChaine(tab_instr, "ADD")){
+
+  }
+  else if(comparerChaine(tab_instr, "ADDI")){
+
+  }
+  else if(comparerChaine(tab_instr, "AND")){
+
+  }
+  else if(comparerChaine(tab_instr, "BEQ")){
+
+  }
+  else if(comparerChaine(tab_instr, "BGTZ")){
+
+  }
+  else if(comparerChaine(tab_instr, "BLEZ")){
+
+  }
+  else if(comparerChaine(tab_instr, "BNE")){
+
+  }
+  else if(comparerChaine(tab_instr, "DIV")){
+
+  }
+  else if(comparerChaine(tab_instr, "J")){
+
+  }
+  else if(comparerChaine(tab_instr, "JAL")){
+
+  }
+  else if(comparerChaine(tab_instr, "JR")){
+
+  }
+  else if(comparerChaine(tab_instr, "LUI")){
+
+  }
+  else if(comparerChaine(tab_instr, "LW")){
+
+  }
+  else if(comparerChaine(tab_instr, "MFHI")){
+
+  }
+  else if(comparerChaine(tab_instr, "MFLO")){
+
+  }
+  else if(comparerChaine(tab_instr, "MULT")){
+
+  }
+  else if(comparerChaine(tab_instr, "NOP")){
+
+  }
+  else if(comparerChaine(tab_instr, "OR")){
+
+  }
+  else if(comparerChaine(tab_instr, "ROTR")){
+
+  }
+  else if(comparerChaine(tab_instr, "SLL")){
+
+  }
+  else if(comparerChaine(tab_instr, "SLT")){
+
+  }
+  else if(comparerChaine(tab_instr, "SRL")){
+
+  }
+  else if(comparerChaine(tab_instr, "SUB")){
+
+  }
+  else if(comparerChaine(tab_instr, "SW")){
+
+  }
+  else if(comparerChaine(tab_instr, "SYSCALL")){
+
+  }
+  else if(comparerChaine(tab_instr, "XOR")){
+
+  }
+*/
+
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
     int i=0, result =0;
@@ -659,11 +742,14 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
             while(!(comparerChaine(tmp_bin, tab_instruction[i].instr))){
                 i++;
             }
+            printf("Instruction: %s\n", tab_instruction[i].instr);
             binToHex(tmp_bin, tmp_hexa);
             fprintf(ficHex,"%s\n", tmp_hexa);
             nb_instructions++;
         }
         remplir_liste_instructions(instruction, nb_instructions);
+        printf("Instruction: %s\n", instruction);
+        printf("Instruction: %s\n", tab_instruction[i].instr);
         binToHex(tmp_bin, tmp_hexa);
         fprintf(ficHex,"%s\n", tmp_hexa);
         fclose(ficInstr);
@@ -713,7 +799,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     tab_liste_instructions[instruction_actuelle].nb_arg = tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].nb_arg;
 
     tab_liste_instructions[instruction_actuelle].arg = malloc(sizeof(char)*tab_liste_instructions[instruction_actuelle].nb_arg);
-    tab_liste_instructions[instruction_actuelle].arg_en_str = malloc(sizeof(char)*tab_liste_instructions[instruction_actuelle].nb_arg);
+    tab_liste_instructions[instruction_actuelle].arg_en_str = malloc(sizeof(char)*(tab_liste_instructions[instruction_actuelle].nb_arg));
 
     char argument_char[10];
     int argument_int;
@@ -727,20 +813,42 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
             }
         argument_char[k] = '\0';
         i++;
-        /*printf("Char: %s\n", argument_char);
-        strcpy(tab_liste_instructions[instruction_actuelle].arg_en_str[j], argument_char);
-        myStrcpy(tab_liste_instructions[instruction_actuelle].arg_en_str[j], argument_char); */
+        printf("Char: %s\n", argument_char);
+        //intToStr(tab_liste_instructions[instruction_actuelle].arg_en_str[j], argument_int);
+        //strcpy(tab_liste_instructions[instruction_actuelle].arg_en_str[0], argument_char);
+        //myStrcpy(tab_liste_instructions[instruction_actuelle].arg_en_str[j], argument_char); 
         argument_int = valeurDecimale(argument_char);
         tab_liste_instructions[instruction_actuelle].arg[j] = argument_int;
 
+        tab_liste_instructions[instruction_actuelle].arg_en_str[1] = 42;
+        for(int k = 0; k < tab_liste_instructions[instruction_actuelle].nb_arg; k++){
+            printf("Ca marche ! %d\n", tab_liste_instructions[instruction_actuelle].arg_en_str );
+        }
         
         
         
         argument_char[0] = '\0';
         k = 0;
     }
+
     myStrcpy(tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].tab_bin); /* Récupère le tableau binaire associé */
+
+    int pos_instr; /* Transcrit l'instruction en binaire, puis en héxa */
+    char arg_en_str[32];
+    char arg_en_binaire[32];
+        pos_instr = tab_liste_instructions[instruction_actuelle].pos_instr_struct;
+        for(int j = 0; j < tab_liste_instructions[instruction_actuelle].nb_arg; j++){
+            printf("%d\n", tab_liste_instructions[instruction_actuelle].arg[j]); /* Toute cette partie est "inutile": j'ai rajouté un champ dans la structure pour els arguments en str */
+            intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
+            printf("%s\n", arg_en_str);
+            decToBin(arg_en_str, arg_en_binaire);
+            copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
+        }
+        printf("\n");
+        binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
 }
+
+
 
 void verifier_structure_instruction(){ 
     printf("\n");
@@ -752,13 +860,14 @@ void verifier_structure_instruction(){
             printf("Argument n°%d: %d\n", (j+1), tab_liste_instructions[i].arg[j]);
         }
         printf("Tableau binaire associé: %s\n", tab_liste_instructions[i].tab_bin);
+        printf("Tableau hexadecimal associé: %s\n", tab_liste_instructions[i].tab_hexa);
         printf("\n-----------------\n");
     }
 }
 
 int compte_nb_instructions(char* fichierInstr){
     FILE* ficInstr = fopen(fichierInstr, "r");
-    int nb_instructions = -1;
+    int nb_instructions = 0;
     int ligne_commentaire = 0;
     int nouvelle_ligne = 1;
     char carac = fgetc(ficInstr);
@@ -785,11 +894,12 @@ int compte_nb_instructions(char* fichierInstr){
             nb_instructions++;
         }
         fclose(ficInstr);
+        return(nb_instructions);
     }
     else{
         printf("Problème d'ouverture du fichier.");
+        return(-1);
     }
-    return nb_instructions;
 }
 
 int compte_nb_lignes(char* fichierInstr){
@@ -813,22 +923,3 @@ int compte_nb_lignes(char* fichierInstr){
     }
 }
 
-
-void instr_to_hexa(int nb_instructions){ /* Transcrit pour l'instant le code binaire associé: ca pourrait etre cool de mettre cette fonction dans la fonction "remplir_liste" 
-*/
-    int pos_instr;
-    char arg_en_str[32];
-    char arg_en_binaire[32];
-
-    for(int i = 0; i < nb_instructions; i++){
-        pos_instr = tab_liste_instructions[i].pos_instr_struct;
-        for(int j = 0; j < tab_liste_instructions[i].nb_arg; j++){
-            printf("%d\n", tab_liste_instructions[i].arg[j]); /* Toute cette partie est "inutile": j'ai rajouté un champ dans la structure pour els arguments en str */
-            intToStr(tab_liste_instructions[i].arg[j], arg_en_str);
-            printf("%s\n", arg_en_str);
-            decToBin(arg_en_str, arg_en_binaire);
-            copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[i].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
-        }
-        printf("\n");
-    }
-}

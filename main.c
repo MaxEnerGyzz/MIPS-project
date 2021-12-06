@@ -1,4 +1,5 @@
 //#include "fonction.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,8 +12,5 @@ int main(int argc, char* argv[]){
     lireInstruction("instr.txt","result.txt");
     remplir_struct();
     verifier_structure_instruction();
-    instr_to_hexa(4);
-    verifier_structure_instruction();
-
     return 0;
 }
