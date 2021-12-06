@@ -50,8 +50,6 @@ int valeurDecimale(char* str){
 
 void intToStr(int nombre, char *chaine){
     int index = 0;
-
-    int n = nombre < 0 ? -nombre : nombre;
     int neg = nombre < 0 ? 1 : 0;
 
     while (nombre != 0)
@@ -603,87 +601,6 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[30]='1';
 }
 
-/*
-  if(comparerChaine(tab_instr, "ADD")){
-
-  }
-  else if(comparerChaine(tab_instr, "ADDI")){
-
-  }
-  else if(comparerChaine(tab_instr, "AND")){
-
-  }
-  else if(comparerChaine(tab_instr, "BEQ")){
-
-  }
-  else if(comparerChaine(tab_instr, "BGTZ")){
-
-  }
-  else if(comparerChaine(tab_instr, "BLEZ")){
-
-  }
-  else if(comparerChaine(tab_instr, "BNE")){
-
-  }
-  else if(comparerChaine(tab_instr, "DIV")){
-
-  }
-  else if(comparerChaine(tab_instr, "J")){
-
-  }
-  else if(comparerChaine(tab_instr, "JAL")){
-
-  }
-  else if(comparerChaine(tab_instr, "JR")){
-
-  }
-  else if(comparerChaine(tab_instr, "LUI")){
-
-  }
-  else if(comparerChaine(tab_instr, "LW")){
-
-  }
-  else if(comparerChaine(tab_instr, "MFHI")){
-
-  }
-  else if(comparerChaine(tab_instr, "MFLO")){
-
-  }
-  else if(comparerChaine(tab_instr, "MULT")){
-
-  }
-  else if(comparerChaine(tab_instr, "NOP")){
-
-  }
-  else if(comparerChaine(tab_instr, "OR")){
-
-  }
-  else if(comparerChaine(tab_instr, "ROTR")){
-
-  }
-  else if(comparerChaine(tab_instr, "SLL")){
-
-  }
-  else if(comparerChaine(tab_instr, "SLT")){
-
-  }
-  else if(comparerChaine(tab_instr, "SRL")){
-
-  }
-  else if(comparerChaine(tab_instr, "SUB")){
-
-  }
-  else if(comparerChaine(tab_instr, "SW")){
-
-  }
-  else if(comparerChaine(tab_instr, "SYSCALL")){
-
-  }
-  else if(comparerChaine(tab_instr, "XOR")){
-
-  }
-*/
-
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
     int i=0, result =0;
@@ -742,14 +659,11 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
             while(!(comparerChaine(tmp_bin, tab_instruction[i].instr))){
                 i++;
             }
-            printf("Instruction: %s\n", tab_instruction[i].instr);
             binToHex(tmp_bin, tmp_hexa);
             fprintf(ficHex,"%s\n", tmp_hexa);
             nb_instructions++;
         }
         remplir_liste_instructions(instruction, nb_instructions);
-        printf("Instruction: %s\n", instruction);
-        printf("Instruction: %s\n", tab_instruction[i].instr);
         binToHex(tmp_bin, tmp_hexa);
         fprintf(ficHex,"%s\n", tmp_hexa);
         fclose(ficInstr);
@@ -844,7 +758,7 @@ void verifier_structure_instruction(){
 
 int compte_nb_instructions(char* fichierInstr){
     FILE* ficInstr = fopen(fichierInstr, "r");
-    int nb_instructions = 0;
+    int nb_instructions = -1;
     int ligne_commentaire = 0;
     int nouvelle_ligne = 1;
     char carac = fgetc(ficInstr);
@@ -871,12 +785,11 @@ int compte_nb_instructions(char* fichierInstr){
             nb_instructions++;
         }
         fclose(ficInstr);
-        return(nb_instructions);
     }
     else{
         printf("Problème d'ouverture du fichier.");
-        return(-1);
     }
+    return nb_instructions;
 }
 
 int compte_nb_lignes(char* fichierInstr){
