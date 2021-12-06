@@ -718,11 +718,10 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
     FILE* ficHex;
     char instruction[33];
     char tmp_bin[33];
-    char tmp_hexa[9];
+    //char tmp_hexa[9];
     int i = 0;
     ficInstr = fopen(fichierInstr, "r");
     ficHex = fopen(fichierHex, "w+");
-    remplir_struct();
     int nb_instructions = 0;
 
     if (ficInstr != NULL && ficHex != NULL){
@@ -733,7 +732,6 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
                 tmp_bin[i]= instruction[i];
                 i++;
             }
-            printf("Instruction: %s\n", instruction);
             remplir_liste_instructions(instruction, nb_instructions);
 
             tmp_bin[i]='\0';
@@ -741,16 +739,13 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
             while(!(comparerChaine(tmp_bin, tab_instruction[i].instr))){
                 i++;
             }
-            printf("Instruction: %s\n", tab_instruction[i].instr);
-            binToHex(tmp_bin, tmp_hexa);
-            fprintf(ficHex,"%s\n", tmp_hexa);
+            /*binToHex(tmp_bin, tmp_hexa);
+            fprintf(ficHex,"%s\n", tmp_hexa);*/
             nb_instructions++;
         }
         remplir_liste_instructions(instruction, nb_instructions);
-        printf("Instruction: %s\n", instruction);
-        printf("Instruction: %s\n", tab_instruction[i].instr);
-        binToHex(tmp_bin, tmp_hexa);
-        fprintf(ficHex,"%s\n", tmp_hexa);
+        /*binToHex(tmp_bin, tmp_hexa);
+        fprintf(ficHex,"%s\n", tmp_hexa);*/
         fclose(ficInstr);
         fclose(ficHex);
     }
@@ -812,20 +807,8 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
             }
         argument_char[k] = '\0';
         i++;
-        printf("Char: %s\n", argument_char);
-        //intToStr(tab_liste_instructions[instruction_actuelle].arg_en_str[j], argument_int);
-        //strcpy(tab_liste_instructions[instruction_actuelle].arg_en_str[0], argument_char);
-        //myStrcpy(tab_liste_instructions[instruction_actuelle].arg_en_str[j], argument_char); 
         argument_int = valeurDecimale(argument_char);
-        tab_liste_instructions[instruction_actuelle].arg[j] = argument_int;
-
-        tab_liste_instructions[instruction_actuelle].arg_en_str[1] = 42;
-        for(int k = 0; k < tab_liste_instructions[instruction_actuelle].nb_arg; k++){
-            printf("Ca marche ! %s\n", tab_liste_instructions[instruction_actuelle].arg_en_str );
-        }
-        
-        
-        
+        tab_liste_instructions[instruction_actuelle].arg[j] = argument_int;    
         argument_char[0] = '\0';
         k = 0;
     }
@@ -837,13 +820,10 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     char arg_en_binaire[32];
         pos_instr = tab_liste_instructions[instruction_actuelle].pos_instr_struct;
         for(int j = 0; j < tab_liste_instructions[instruction_actuelle].nb_arg; j++){
-            printf("%d\n", tab_liste_instructions[instruction_actuelle].arg[j]); /* Toute cette partie est "inutile": j'ai rajouté un champ dans la structure pour els arguments en str */
             intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
-            printf("%s\n", arg_en_str);
             decToBin(arg_en_str, arg_en_binaire);
             copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
         }
-        printf("\n");
         binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
 }
 
@@ -853,6 +833,8 @@ void verifier_structure_instruction(){
     printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_instructions(FICHIER_IN));
     
     int nb_instructions = compte_nb_instructions(FICHIER_IN);
+
+    printf("----------------------------------------------------------\n");
     for(int i = 0; i < nb_instructions; i++){
         printf("Nom d'instruction: %s\n", tab_liste_instructions[i].instr);
         printf("Position de l'instruction: %d\n", tab_liste_instructions[i].pos_instr_struct);
@@ -862,7 +844,7 @@ void verifier_structure_instruction(){
         }
         printf("Tableau binaire associé: %s\n", tab_liste_instructions[i].tab_bin);
         printf("Tableau hexadecimal associé: %s\n", tab_liste_instructions[i].tab_hexa);
-        printf("\n-----------------\n");
+        printf("----------------------------------------------------------\n");
     }
 }
 

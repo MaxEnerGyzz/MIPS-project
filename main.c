@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[]){
     remplir_struct();
-    lireInstruction("instr.txt","result.txt");
+    lireInstruction("./in/instr.txt","./out/result.txt");
     verifier_structure_instruction();
     return 0;
 }
