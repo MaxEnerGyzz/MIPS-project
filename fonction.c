@@ -713,18 +713,15 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
 }
 
 
-void lireInstruction(char* fichierInstr, char* fichierHex){
+void lireInstruction(char* fichierInstr){
     FILE* ficInstr;
-    FILE* ficHex;
     char instruction[33];
     char tmp_bin[33];
-    //char tmp_hexa[9];
     int i = 0;
     ficInstr = fopen(fichierInstr, "r");
-    ficHex = fopen(fichierHex, "w+");
     int nb_instructions = 0;
 
-    if (ficInstr != NULL && ficHex != NULL){
+    if (ficInstr != NULL){
         while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
             mettreEnMajuscule(instruction);
             i=0;
@@ -745,21 +742,11 @@ void lireInstruction(char* fichierInstr, char* fichierHex){
         }
         remplir_liste_instructions(instruction, nb_instructions);
         /*binToHex(tmp_bin, tmp_hexa);
-        fprintf(ficHex,"%s\n", tmp_hexa);*/
+        */
         fclose(ficInstr);
-        fclose(ficHex);
-    }
-
-    else if(ficHex == NULL && ficInstr != NULL){
-        printf("\nERREUR :  Impossible d'ouvrir le fichier %s\n", fichierHex);
-        fclose(ficInstr);
-    }
-    else if(ficHex != NULL && ficInstr == NULL){
-        printf("\nERREUR :  Impossible d'ouvrir le fichier %s\n", fichierInstr);
-        fclose(ficHex);
     }
     else{
-        printf("\nERREUR :  Impossible d'ouvrir les 2 fichiers\n");
+        printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");
     }
 }
 
@@ -826,7 +813,6 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
         }
         binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
 }
-
 
 void verifier_structure_instruction(){
     printf("Il y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(FICHIER_IN));
@@ -906,3 +892,14 @@ int compte_nb_lignes(char* fichierInstr){
     }
 }
 
+void ecrit_hexa(char* fichier_in, char* fichier_sortie){
+    FILE* ficHex;
+    ficHex = fopen(fichier_sortie, "w+");
+
+    char tmp_hexa[9];
+    int nb_instructions = compte_nb_instructions(fichier_in);
+
+    for(int i = 0; i < nb_instructions; i++){
+        fprintf(ficHex,"%s\n", tab_liste_instructions[i].tab_hexa);
+    }
+}

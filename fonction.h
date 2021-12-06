@@ -43,8 +43,9 @@ void intToStr(int nombre, char *chaine); /* Transforme un entier en tableau de c
 void decToBin(char *strDec, char* strBin); /* Transforme un décimal en binaire */
 void binToHex(char *strBin, char *strHexa); /* Transforme un binaire en héxadécimal */
 
-void lireInstruction(char* fichierInstr, char* fichierHex);
+void lireInstruction(char* fichierInstr);
 int recupereInstr(FILE* ficInstr, char* tmp);
+void ecrit_hexa(char* fichier_in, char* fichier_sortie); /* */
 
 void remplir_struct(); /* Remplit le tableau de structure des codes d'instructions */
 int recherche_instr_dans_structure(char* nom_instr); /* Renvoit la position dans le tableau de structures de l'instruction entrée */
