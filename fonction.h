@@ -52,6 +52,6 @@ void verifier_structure_instruction(); /* Affiche les instructions (d'entrée) s
 
 int compte_nb_instructions(char* fichierInstr); /* Compte le nombre d'instructions dans le fichier d'entrée --> je crois qu'elle sert à rien pour l'instant*/
 int compte_nb_lignes(char* fichierInstr); /* Compte le nombre de lignes dans le fichier d'entrée */
-
+void instr_to_hexa(int nb_instructions);
 #endif
 
