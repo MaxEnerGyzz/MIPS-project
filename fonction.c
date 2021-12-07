@@ -595,25 +595,19 @@ void lireInstruction(char* fichierInstr){
         while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
             mettreEnMajuscule(instruction);
             i=0;
-            while(instruction[i]!=' '){
+            while(instruction[i]!=' '){ /* On recup le nom de l'instruction */
                 tmp_bin[i]= instruction[i];
                 i++;
             }
+            tmp_bin[i]='\0';
+            
             remplir_liste_instructions(instruction, nb_instructions);
 
-            tmp_bin[i]='\0';
-            i=0;
-            while(!(comparerChaine(tmp_bin, tab_instruction[i].instr))){
-                i++;
-            }
-            /*binToHex(tmp_bin, tmp_hexa);
-            fprintf(ficHex,"%s\n", tmp_hexa);*/
             nb_instructions++;
         }
         remplir_liste_instructions(instruction, nb_instructions);
-        /*binToHex(tmp_bin, tmp_hexa);
-        */
         fclose(ficInstr);
+        ecrit_hexa("./in/instr.txt", "./out/result.txt");
     }
     else{
         printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");
@@ -706,12 +700,13 @@ void verifier_structure_instruction(){
 
 int compte_nb_instructions(char* fichierInstr){
     FILE* ficInstr = fopen(fichierInstr, "r");
-    int nb_instructions = 0;
+    int nb_instructions = -1;
     int ligne_commentaire = 0;
     int nouvelle_ligne = 1;
     char carac = fgetc(ficInstr);
 
     if (ficInstr != NULL){
+        nb_instructions=0;
         while(carac != EOF){
             if(carac == '\n' || carac == EOF){
                 if(ligne_commentaire == 0){
@@ -733,12 +728,11 @@ int compte_nb_instructions(char* fichierInstr){
             nb_instructions++;
         }
         fclose(ficInstr);
-        return(nb_instructions);
     }
     else{
         printf("Problème d'ouverture du fichier.");
-        return(-1);
     }
+    return(nb_instructions);
 }
 
 int compte_nb_lignes(char* fichierInstr){
@@ -764,12 +758,11 @@ int compte_nb_lignes(char* fichierInstr){
 
 void ecrit_hexa(char* fichier_in, char* fichier_sortie){
     FILE* ficHex;
-    ficHex = fopen(fichier_sortie, "w+");
-
-    char tmp_hexa[9];
     int nb_instructions = compte_nb_instructions(fichier_in);
+    ficHex = fopen(fichier_sortie, "w+");
 
     for(int i = 0; i < nb_instructions; i++){
         fprintf(ficHex,"%s\n", tab_liste_instructions[i].tab_hexa);
     }
+    fclose(ficHex);
 }
