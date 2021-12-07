@@ -589,6 +589,7 @@ void lireInstruction(char* fichierInstr){
     int i = 0;
     ficInstr = fopen(fichierInstr, "r");
     int nb_instructions = 0;
+    remplir_struct();
 
     if (ficInstr != NULL){
         while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
