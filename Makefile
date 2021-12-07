@@ -6,7 +6,6 @@ CFLAGS = -Wall -ansi -pedantic -std='c99'
 
 all : $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(BIN) -Wall -pedantic
-	$(RM) $(OBJECTS)
 
 fonction.o : fonction.c fonction.h
 	$(CC) -g -c fonction.c -o fonction.o $(CFLAGS)
