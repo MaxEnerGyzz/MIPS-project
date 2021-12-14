@@ -582,7 +582,7 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
 }
 
 
-void lireInstruction(char* fichierInstr){
+void lireInstruction(char* fichierInstr, char* fichierResult){
     FILE* ficInstr;
     char instruction[33];
     char tmp_bin[33];
@@ -607,7 +607,7 @@ void lireInstruction(char* fichierInstr){
         }
         remplir_liste_instructions(instruction, nb_instructions);
         fclose(ficInstr);
-        ecrit_hexa("./in/instr.txt", "./out/result.txt");
+        ecrit_hexa(fichierInstr, fichierResult);
     }
     else{
         printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");

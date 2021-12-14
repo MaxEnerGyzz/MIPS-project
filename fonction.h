@@ -27,7 +27,7 @@ struct liste_instructions {
 };
 struct liste_instructions tab_liste_instructions[50];
 
-void lireInstruction(char* fichierInstr);
+void lireInstruction(char* fichierInstr, char* fichierResult);
 int recupereInstr(FILE* ficInstr, char* tmp);
 void ecrit_hexa(char* fichier_in, char* fichier_sortie); /* */
 
