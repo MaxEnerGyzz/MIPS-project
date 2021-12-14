@@ -549,7 +549,7 @@ void remplir_struct(){
 
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
-    int i=0, result =0;
+    int i=0, fin =0;
     while(carac == ' '){ /* Cas ou la ligne commence par un espace */
         carac= fgetc(ficInstr);
     }
@@ -570,52 +570,19 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
         }
     }
     if(carac == EOF){  /*Pas de Else if car si on met un commentaire sur la derniere ligne ca va pas renvoyer 1*/
-        result = 1;
+        fin = 1;
     }
     tmp[i]='\0';
     if(i==0){  /* Si la ligne commence par un commentaire, on réappelle la fonction pour aller a la fin de la ligne et passer à la suivante */
-        result = recupereInstr(ficInstr, tmp);
+        fin = recupereInstr(ficInstr, tmp);
     }
-    return result;
-}
-
-
-void lireInstruction(char* fichierInstr, char* fichierResult){
-    FILE* ficInstr;
-    char instruction[33];
-    char tmp_bin[33];
-    int i = 0;
-    ficInstr = fopen(fichierInstr, "r");
-    int nb_instructions = 0;
-    remplir_struct();
-
-    if (ficInstr != NULL){
-        while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
-            mettreEnMajuscule(instruction);
-            i=0;
-            while(instruction[i]!=' '){ /* On recup le nom de l'instruction */
-                tmp_bin[i]= instruction[i];
-                i++;
-            }
-            tmp_bin[i]='\0';
-            
-            remplir_liste_instructions(instruction, nb_instructions);
-
-            nb_instructions++;
-        }
-        remplir_liste_instructions(instruction, nb_instructions);
-        fclose(ficInstr);
-        ecrit_hexa(fichierInstr, fichierResult);
-    }
-    else{
-        printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");
-    }
+    return fin;
 }
 
 int recherche_instr_dans_structure(char* nom_instr){
     int trouve = 0;
     int i = 0;
-    while(!trouve){
+    while(!trouve && i<26){
         if(!comparerChaine(tab_instruction[i].instr, nom_instr)){
             i++;
         }
@@ -638,7 +605,12 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
 
     tab_liste_instructions[instruction_actuelle].instr = malloc(sizeof(char)*myStrlen(nom_instr));
     myStrcpy(tab_liste_instructions[instruction_actuelle].instr,nom_instr);
-    tab_liste_instructions[instruction_actuelle].pos_instr_struct = recherche_instr_dans_structure(nom_instr);
+    if(recherche_instr_dans_structure(nom_instr)<26){
+        tab_liste_instructions[instruction_actuelle].pos_instr_struct = recherche_instr_dans_structure(nom_instr);
+    }
+    else{
+        printf("ERREUR dans l'instruction : %s\n", instruction);
+    }
     tab_liste_instructions[instruction_actuelle].nb_arg = tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].nb_arg;
 
     tab_liste_instructions[instruction_actuelle].arg = malloc(sizeof(char)*tab_liste_instructions[instruction_actuelle].nb_arg);
@@ -763,4 +735,39 @@ void ecrit_hexa(char* fichier_in, char* fichier_sortie){
         fprintf(ficHex,"%s\n", tab_liste_instructions[i].tab_hexa);
     }
     fclose(ficHex);
+}
+
+
+
+
+void lireInstruction(char* fichierInstr, char* fichierResult){
+    FILE* ficInstr;
+    char instruction[33];
+    char tmp_bin[33];
+    int i = 0;
+    ficInstr = fopen(fichierInstr, "r");
+    int nb_instructions = 0;
+    remplir_struct();
+
+    if (ficInstr != NULL){
+        while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
+            mettreEnMajuscule(instruction);
+            i=0;
+            while(instruction[i]!=' '){ /* On recup le nom de l'instruction */
+                tmp_bin[i]= instruction[i];
+                i++;
+            }
+            tmp_bin[i]='\0';
+            
+            remplir_liste_instructions(instruction, nb_instructions);
+
+            nb_instructions++;
+        }
+        remplir_liste_instructions(instruction, nb_instructions);
+        fclose(ficInstr);
+        ecrit_hexa(fichierInstr, fichierResult);
+    }
+    else{
+        printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");
+    }
 }
