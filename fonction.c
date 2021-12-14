@@ -558,7 +558,7 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
             carac= fgetc(ficInstr);
         }
     }
-    while(carac != 10 && carac != EOF && carac != '#'){ /* Le caractere ASCII 13 est le saut de ligne*/
+    while(carac != 10 && carac != EOF && carac != '#'){ /* Le caractere ASCII 10 est le saut de ligne*/
         
         tmp[i] = carac;
         i++;
@@ -578,6 +578,7 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
     }
     return fin;
 }
+
 
 int recherche_instr_dans_structure(char* nom_instr){
     int trouve = 0;
@@ -648,10 +649,10 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
             k++;
         }
         argument_char[k] = '\0';
+        
         while(instruction[i] == ',' || instruction[i] == ' '){
             i++;
         }
-        
         tab_liste_instructions[instruction_actuelle].arg[j] = valeurDecimale(argument_char);
         intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
         decToBin(arg_en_str, arg_en_binaire);

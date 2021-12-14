@@ -22,7 +22,6 @@ struct liste_instructions {
     int pos_instr_struct; /* Position de l'instruction dans le tableau de structures d'instruction */
     int nb_arg; /* Nombre d'arguments de l'instruction */
     int* arg; /* Arguments de l'instruction */
-    char* arg_en_str; /* Arguments de l'instruction en tableau de caractères (plus facile à manier) */
     char tab_bin[33]; /* Tableau en binaire associé */
     char tab_hexa[9]; /* Tableau en héxadécimal associé */
 };
