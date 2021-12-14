@@ -2,8 +2,10 @@
 #include "fonction_str.h"
 
 int main(int argc, char* argv[]){
-    lireInstruction("./in/instr.txt");
-    ecrit_hexa("./in/instr.txt", "./out/result.txt");
-    verifier_structure_instruction();
+    char *fic_instr = argv[1]; /* ./in/instr.txt */
+    char *fic_result = argv[2]; /* ./out/result.txt */
+    lireInstruction(fic_instr);
+    ecrit_hexa(fic_instr, fic_result);
+    verifier_structure_instruction(fic_instr);
     return 0;
 }

@@ -678,11 +678,11 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
         binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
 }
 
-void verifier_structure_instruction(){
-    printf("Il y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(FICHIER_IN));
-    printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_instructions(FICHIER_IN));
+void verifier_structure_instruction(char* fic_instr){
+    printf("Il y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fic_instr));
+    printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_instructions(fic_instr));
     
-    int nb_instructions = compte_nb_instructions(FICHIER_IN);
+    int nb_instructions = compte_nb_instructions(fic_instr);
 
     printf("----------------------------------------------------------\n");
     for(int i = 0; i < nb_instructions; i++){
