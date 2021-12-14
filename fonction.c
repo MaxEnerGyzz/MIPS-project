@@ -1,8 +1,6 @@
 #include "fonction.h"
 #include "fonction_str.h"
 
-
-
 void remplir_struct(){
     int i =0;
     int j=0;
@@ -11,6 +9,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "ADD");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -29,6 +31,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*5);
     myStrcpy(tab_instruction[j].instr, "ADDI");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 11;
     tab_instruction[j].pos_arg[1] = 15;
@@ -47,6 +53,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "AND");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -67,6 +77,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "BEQ");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 10;
@@ -86,6 +100,9 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*5);
     myStrcpy(tab_instruction[j].instr, "BGTZ");
     tab_instruction[j].nb_arg = 2;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 10;
@@ -105,6 +122,9 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*5);
     myStrcpy(tab_instruction[j].instr, "BLEZ");
     tab_instruction[j].nb_arg = 2;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 10;
@@ -122,6 +142,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "BNE");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 10;
@@ -141,6 +165,9 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "DIV");
     tab_instruction[j].nb_arg = 2;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 10;
@@ -159,6 +186,8 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*2);
     myStrcpy(tab_instruction[j].instr, "J");
     tab_instruction[j].nb_arg = 1;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 31;
@@ -173,6 +202,8 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "JAL");
     tab_instruction[j].nb_arg = 1;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 31;
@@ -189,6 +220,8 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*3);
     myStrcpy(tab_instruction[j].instr, "JR");
     tab_instruction[j].nb_arg = 1;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 10;
@@ -205,6 +238,9 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "LUI");
     tab_instruction[j].nb_arg = 2;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 11;
     tab_instruction[j].pos_arg[1] = 15;
@@ -225,6 +261,9 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*3);
     myStrcpy(tab_instruction[j].instr, "LW");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 11;
     tab_instruction[j].pos_arg[1] = 15;
@@ -246,6 +285,8 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*5);
     myStrcpy(tab_instruction[j].instr, "MFHI");
     tab_instruction[j].nb_arg = 1;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -261,6 +302,8 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*5);
     myStrcpy(tab_instruction[j].instr, "MFLO");
     tab_instruction[j].nb_arg = 1;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -277,6 +320,9 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*5);
     myStrcpy(tab_instruction[j].instr, "MULT");
     tab_instruction[j].nb_arg = 2;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 6;
     tab_instruction[j].pos_arg[1] = 10;
@@ -305,6 +351,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*3);
     myStrcpy(tab_instruction[j].instr, "OR");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -325,6 +375,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*5);
     myStrcpy(tab_instruction[j].instr, "ROTR");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -343,6 +397,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "SLL");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -361,6 +419,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "SLT");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -381,6 +443,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "SRL");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -399,6 +465,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "SUB");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;
@@ -419,6 +489,9 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*3);
     myStrcpy(tab_instruction[j].instr, "SW");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=0;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 11;
     tab_instruction[j].pos_arg[1] = 15;
@@ -439,10 +512,7 @@ void remplir_struct(){
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*8);
     myStrcpy(tab_instruction[j].instr, "SYSCALL");
-    tab_instruction[j].nb_arg = 1;
-    tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[25].nb_arg * 2));
-    tab_instruction[j].pos_arg[0] = 6;
-    tab_instruction[j].pos_arg[1] = 25;
+    tab_instruction[j].nb_arg = 0;
     for(i=0; i<32; i++){
         tab_instruction[j].tab_bin[i] = '0';
     }
@@ -455,6 +525,10 @@ void remplir_struct(){
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "XOR");
     tab_instruction[j].nb_arg = 3;
+    tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    tab_instruction[j].reg[0]=1;
+    tab_instruction[j].reg[1]=1;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 16;
     tab_instruction[j].pos_arg[1] = 20;

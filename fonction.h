@@ -12,7 +12,7 @@ struct instruction {
     int nb_arg; /* Nombre d'arguments */
     int* pos_arg; /* tableau qui indique le numero des bits de debut et de fin des arguments */
     char tab_bin[33]; /* Tableau en binaire associé */
-    int *reg; /* Tableau de la taille du nombre d'arguments. Le tab est à 2 si c'est un registre, 1 si c'est un immediate en hexadecimal, 0 si c'est un immediate en decimal  */
+    int *reg; /* Tableau de la taille du nombre d'arguments. Le tab est à 1 si c'est un registre, 0 si c'est un immediate*/
 };
 struct instruction tab_instruction[26];
 
