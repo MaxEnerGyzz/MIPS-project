@@ -595,14 +595,17 @@ int recherche_instr_dans_structure(char* nom_instr){
 
 void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     char nom_instr[8];
-    int i = 0;
+    int i = 0, j=0, k=0; /* i pointe vers le caractere en cours*/
+    char argument_char[10];
+    int pos_instr; /* Transcrit l'instruction en binaire, puis en héxa */
+    char arg_en_str[32];
+    char arg_en_binaire[32];
+    
     while(instruction[i]!=' '){ /* Récupère le nom de l'instruction */
-                nom_instr[i]= instruction[i];
-                i++;
-            }
+        nom_instr[i]= instruction[i];
+        i++;
+    }
     nom_instr[i] = '\0';
-    i++;
-
     tab_liste_instructions[instruction_actuelle].instr = malloc(sizeof(char)*myStrlen(nom_instr));
     myStrcpy(tab_liste_instructions[instruction_actuelle].instr,nom_instr);
     if(recherche_instr_dans_structure(nom_instr)<26){
@@ -611,41 +614,50 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     else{
         printf("ERREUR dans l'instruction : %s\n", instruction);
     }
-    tab_liste_instructions[instruction_actuelle].nb_arg = tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].nb_arg;
-
+    pos_instr = tab_liste_instructions[instruction_actuelle].pos_instr_struct;
+    tab_liste_instructions[instruction_actuelle].nb_arg = tab_instruction[pos_instr].nb_arg;
+    myStrcpy(tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].tab_bin); /* Récupère le tableau binaire associé */
+    
     tab_liste_instructions[instruction_actuelle].arg = malloc(sizeof(char)*tab_liste_instructions[instruction_actuelle].nb_arg);
-    tab_liste_instructions[instruction_actuelle].arg_en_str = malloc(sizeof(char)*(tab_liste_instructions[instruction_actuelle].nb_arg));
+    
+    
 
-    char argument_char[10];
-    int argument_int;
-    int k;
-    for(int j = 0; j < tab_liste_instructions[instruction_actuelle].nb_arg; j++){ /* Récupère les arguments */
-        k = 0;
-        while(instruction[i]!=' '){ 
-                argument_char[k] = instruction[i];
+    
+    i++; /* i pointe désormais vers le premier argument*/
+
+
+    for(j = 0; j < tab_liste_instructions[instruction_actuelle].nb_arg; j++){ /* Récupère les arguments */
+        if(tab_instruction[pos_instr].reg[j] == 1){
+            if(instruction[i] == '$'){
                 i++;
-                k++;
             }
-        argument_char[k] = '\0';
-        i++;
-        argument_int = valeurDecimale(argument_char);
-        tab_liste_instructions[instruction_actuelle].arg[j] = argument_int;    
-        argument_char[0] = '\0';
-        k = 0;
-    }
-
-    myStrcpy(tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].tab_bin); /* Récupère le tableau binaire associé */
-
-    int pos_instr; /* Transcrit l'instruction en binaire, puis en héxa */
-    char arg_en_str[32];
-    char arg_en_binaire[32];
-        pos_instr = tab_liste_instructions[instruction_actuelle].pos_instr_struct;
-        for(int j = 0; j < tab_liste_instructions[instruction_actuelle].nb_arg; j++){
-            intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
-            decToBin(arg_en_str, arg_en_binaire);
-            copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
+            else{
+                printf("L'argument %d doit etre un registre dans l'instruction %s \n", j+1, instruction);
+            }
         }
-        binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
+        else{
+            if(instruction[i] < '0' || instruction[i]>'9'){
+                printf("L'argument %d doit etre un immediate dans l'instruction %s \n", j+1, instruction);
+            }
+        }
+        
+        k=0;
+        while(instruction[i] != ',' && instruction[i] != ' ' && instruction[i] != '\0'){
+            argument_char[k] = instruction[i];
+            i++;
+            k++;
+        }
+        argument_char[k] = '\0';
+        while(instruction[i] == ',' || instruction[i] == ' '){
+            i++;
+        }
+        
+        tab_liste_instructions[instruction_actuelle].arg[j] = valeurDecimale(argument_char);
+        intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
+        decToBin(arg_en_str, arg_en_binaire);
+        copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
+    }
+    binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
 }
 
 void verifier_structure_instruction(char* fic_instr){
@@ -743,8 +755,6 @@ void ecrit_hexa(char* fichier_in, char* fichier_sortie){
 void lireInstruction(char* fichierInstr, char* fichierResult){
     FILE* ficInstr;
     char instruction[33];
-    char tmp_bin[33];
-    int i = 0;
     ficInstr = fopen(fichierInstr, "r");
     int nb_instructions = 0;
     remplir_struct();
@@ -752,15 +762,7 @@ void lireInstruction(char* fichierInstr, char* fichierResult){
     if (ficInstr != NULL){
         while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
             mettreEnMajuscule(instruction);
-            i=0;
-            while(instruction[i]!=' '){ /* On recup le nom de l'instruction */
-                tmp_bin[i]= instruction[i];
-                i++;
-            }
-            tmp_bin[i]='\0';
-            
             remplir_liste_instructions(instruction, nb_instructions);
-
             nb_instructions++;
         }
         remplir_liste_instructions(instruction, nb_instructions);

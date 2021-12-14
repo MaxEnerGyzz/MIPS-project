@@ -24,7 +24,7 @@ struct liste_instructions {
     int* arg; /* Arguments de l'instruction */
     char* arg_en_str; /* Arguments de l'instruction en tableau de caractères (plus facile à manier) */
     char tab_bin[33]; /* Tableau en binaire associé */
-    char tab_hexa[9]; /* Tableau en héxadécimak associé */
+    char tab_hexa[9]; /* Tableau en héxadécimal associé */
 };
 struct liste_instructions tab_liste_instructions[50];
 
