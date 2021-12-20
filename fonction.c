@@ -600,6 +600,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     char argument_char[10];
     int pos_instr; /* Transcrit l'instruction en binaire, puis en héxa */
     char arg_en_str[32];
+    int arg_en_int=0;
     char arg_en_binaire[32];
     
     while(instruction[i]!=' '){ /* Récupère le nom de l'instruction */
@@ -622,22 +623,20 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     tab_liste_instructions[instruction_actuelle].arg = malloc(sizeof(char)*tab_liste_instructions[instruction_actuelle].nb_arg);
     
     
-
-    
     i++; /* i pointe désormais vers le premier argument*/
 
 
     for(j = 0; j < tab_liste_instructions[instruction_actuelle].nb_arg; j++){ /* Récupère les arguments */
-        if(tab_instruction[pos_instr].reg[j] == 1){
-            if(instruction[i] == '$'){
+        if(tab_instruction[pos_instr].reg[j] == 1){ /* Dans le cas ou l'operande doit etrre un registre */
+            if(instruction[i] == '$'){ /* Si c'est un registre on lit sa valeur */
                 i++;
             }
-            else{
+            else{ /* si ce n'est pas un registre, on renvoit une erreur */
                 printf("L'argument %d doit etre un registre dans l'instruction %s \n", j+1, instruction);
             }
         }
-        else{
-            if(instruction[i] < '0' || instruction[i]>'9'){
+        else{ /* Dans le cas ou l'operande doit etre un immediat */
+            if(instruction[i] < '0' || instruction[i]>'9'){ /* si ce n'est pas un immediat (le caractere est compris entre 0 et 9), on renvoit une erreur */
                 printf("L'argument %d doit etre un immediate dans l'instruction %s \n", j+1, instruction);
             }
         }
@@ -653,7 +652,13 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
         while(instruction[i] == ',' || instruction[i] == ' '){
             i++;
         }
-        tab_liste_instructions[instruction_actuelle].arg[j] = valeurDecimale(argument_char);
+        if(tab_instruction[pos_instr].reg[j] == 1){
+            arg_en_int = estUnRegistre(argument_char);
+            tab_liste_instructions[instruction_actuelle].arg[j] = arg_en_int;
+        }
+        else{
+            tab_liste_instructions[instruction_actuelle].arg[j] = valeurDecimale(argument_char);
+        }
         intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
         decToBin(arg_en_str, arg_en_binaire);
         copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
@@ -751,7 +756,19 @@ void ecrit_hexa(char* fichier_in, char* fichier_sortie){
 }
 
 
-
+int estUnRegistre(char* operande){
+    int reg=-1, i=0;
+    char *tab_reg[32]= {"zero", "at", "v0", "v1", "a0", "a1", "a2", "a3", "t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7", "s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "t8", "t9", "k0", "k1", "gp", "sp", "fp", "ra"};
+    for(i=0; i<32;i++){
+        if(comparerChaine(tab_reg[i], operande)){
+            reg=i+1;
+        }
+    }
+    if (reg==-1){
+        printf("\nERREUR : %s n'est pas un registre\n", operande);
+    }
+    return reg;
+}
 
 void lireInstruction(char* fichierInstr, char* fichierResult){
     FILE* ficInstr;

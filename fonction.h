@@ -39,5 +39,7 @@ void verifier_structure_instruction(char* fic_instr); /* Affiche les instruction
 int compte_nb_instructions(char* fichierInstr); /* Compte le nombre d'instructions dans le fichier d'entrée --> je crois qu'elle sert à rien pour l'instant*/
 int compte_nb_lignes(char* fichierInstr); /* Compte le nombre de lignes dans le fichier d'entrée */
 
+int estUnRegistre(char* operande); /* Retourne -1 si l'operande n'est pas un registre. Retourne la valeur correspondante du registre si c'en est un */
+
 #endif
 
