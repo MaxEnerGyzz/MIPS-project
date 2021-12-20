@@ -758,7 +758,7 @@ void ecrit_hexa(char* fichier_in, char* fichier_sortie){
 
 int estUnRegistre(char* operande){
     int reg=-1, i=0;
-    char *tab_reg[32]= {"zero", "at", "v0", "v1", "a0", "a1", "a2", "a3", "t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7", "s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "t8", "t9", "k0", "k1", "gp", "sp", "fp", "ra"};
+    char *tab_reg[32]= {"ZERO", "AT", "V0", "V1", "A0", "A1", "A2", "A3", "T0", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "S0", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "T8", "T9", "K0", "K1", "GP", "SP", "FP", "RA"};
     for(i=0; i<32;i++){
         if(comparerChaine(tab_reg[i], operande)){
             reg=i+1;
@@ -779,7 +779,7 @@ void lireInstruction(char* fichierInstr, char* fichierResult){
 
     if (ficInstr != NULL){
         while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
-            mettreEnMajuscule(instruction);
+            mettreEnMajuscule(instruction); /* On rend la dénomination des registres insensible à la casse */
             remplir_liste_instructions(instruction, nb_instructions);
             nb_instructions++;
         }
