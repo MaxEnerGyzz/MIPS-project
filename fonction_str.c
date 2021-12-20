@@ -37,7 +37,7 @@ void retournerMot(char* mot){
         res[i] = mot[n-1-i];
     }
     res[i] = '\0';
-  copierChaine(mot, res, 0);
+    myStrcpy(res,mot);
 }
 
 int valeurDecimale(char* str){
@@ -111,19 +111,6 @@ int comparerChaine(char *chaine1, char* chaine2){
   }
   return result;
 
-}
-void copierChaine(const char* tab_tmp, char *tab_bin, int pos){
-  int index=0, taille = myStrlen(tab_tmp);
-  for (index=0; index<taille; index++){
-    tab_bin[index+pos] = tab_tmp[index];
-  }
-}
-void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos){
-  int index, taille = myStrlen(tab_tmp), index2 = 0;
-  for(index = pos ; index > pos- taille; index--){
-    tab_bin[index] = tab_tmp[index2];
-    index2++;
-  }
 }
 void copierChaineGaucheDroite(const char* tab_tmp, char *tab_bin, int posG, int posD){
     int index1 = posG, index2 = posD, taille = myStrlen(tab_tmp), index3 = 0;

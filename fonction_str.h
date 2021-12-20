@@ -12,8 +12,6 @@ int myStrlen(const char *str); /* Renvoit la taille de la chaine */
 void retournerMot(char* mot); /* Retourne une chaine de caractères */
 char* mettreEnMajuscule(char* str); /* Transforme les lettres d'une chaine de caractères en majuscule */
 int comparerChaine(char *chaine1, char* chaine2); /* Renvoit 1 si les deux chaines sont identiques, 0 sinon */
-void copierChaine(const char* tab_tmp, char *tab_bin, int pos); /* Copie une chaine en partant de la droite */
-void copierChaineGauche(const char* tab_tmp, char *tab_bin, int pos); /* Copie une chaine en partant de la gauche */
 void copierChaineGaucheDroite(const char* tab_tmp, char *tab_bin, int posG, int posD); /* Copie une chaine à une position donnée dans un tableau */
 
 int valeurDecimale(char* str); /* Transforme un chiffre mis dans un tableau de char en entier */
