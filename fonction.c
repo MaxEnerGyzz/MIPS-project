@@ -744,7 +744,7 @@ int compte_nb_lignes(char* fichierInstr){
     }
 }
 
-void ecrit_hexa(char* fichier_in, char* fichier_sortie){
+void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie){
     FILE* ficHex;
     int nb_instructions = compte_nb_instructions(fichier_in);
     ficHex = fopen(fichier_sortie, "w+");
@@ -783,9 +783,10 @@ void lireInstruction(char* fichierInstr, char* fichierResult){
             remplir_liste_instructions(instruction, nb_instructions);
             nb_instructions++;
         }
+        mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions);
         fclose(ficInstr);
-        ecrit_hexa(fichierInstr, fichierResult);
+        ecrit_instr_hexa(fichierInstr, fichierResult);
     }
     else{
         printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");
