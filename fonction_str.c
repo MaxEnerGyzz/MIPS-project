@@ -120,3 +120,14 @@ void copierChaineGaucheDroite(const char* tab_tmp, char *tab_bin, int posG, int 
         index3++;
     }
 }
+
+
+int estUnInt(char *str){
+    int result = 1, i=0, taille = myStrlen(str);
+    for(i=0; i<taille; i++){
+        if(str[i] < 48 || str[i] > 57){
+            result = 0;
+        }
+    }
+    return result;
+}

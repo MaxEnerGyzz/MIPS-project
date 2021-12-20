@@ -652,8 +652,13 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
         while(instruction[i] == ',' || instruction[i] == ' '){
             i++;
         }
-        if(tab_instruction[pos_instr].reg[j] == 1){
-            arg_en_int = estUnRegistre(argument_char);
+        if(tab_instruction[pos_instr].reg[j] == 1){ /* Si l'operande est un registre */
+            if (estUnInt(argument_char)){ /* S'il est appelé par son numéro. On recupere sa valeur */
+                arg_en_int = valeurDecimale(argument_char);
+            }
+            else{ /* S'il est appelé par son nom, on recupere son numero */
+                arg_en_int = estUnRegistre(argument_char);
+            }
             tab_liste_instructions[instruction_actuelle].arg[j] = arg_en_int;
         }
         else{
