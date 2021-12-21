@@ -1,0 +1,7 @@
+ADD $v0, $v1, $s0 #test
+ADDI $v0, $v1 ,100 #test2
+#test3
+   ADD $V0, $V1, $T0
+#test4
+#test 5
+ADD $T1 ,$t3,$t2
