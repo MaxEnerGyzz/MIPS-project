@@ -1,0 +1,7 @@
+ADDI $a0, $zero, 40
+ADDI $a1, $zero, 5
+ADDI $a2, $zero, 0
+SLL $a1, $a1, 1
+ADDI $a2, $a2, 1
+BNE $a0, $a1, 16 #Tant que a0 != a1, retourne à SLL
+NOP
