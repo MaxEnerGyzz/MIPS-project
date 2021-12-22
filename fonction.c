@@ -672,17 +672,18 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
 }
 
 void verifier_structure_instruction(char* fic_instr){
+    int nb_instructions = compte_nb_inst(fic_instr);
+    int i = 0, j=0;
     printf("Il y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fic_instr));
-    printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_instructions(fic_instr));
-    
-    int nb_instructions = compte_nb_instructions(fic_instr);
+    printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fic_instr));
+
 
     printf("----------------------------------------------------------\n");
-    for(int i = 0; i < nb_instructions; i++){
+    for(i = 0; i < nb_instructions; i++){
         printf("Nom d'instruction: %s\n", tab_liste_instructions[i].instr);
         printf("Position de l'instruction: %d\n", tab_liste_instructions[i].pos_instr_struct);
         printf("Nombre d'arguments: %d\n", tab_liste_instructions[i].nb_arg);
-        for(int j = 0; j < tab_liste_instructions[i].nb_arg; j++){
+        for(j = 0; j < tab_liste_instructions[i].nb_arg; j++){
             printf("Argument n°%d: %d\n", (j+1), tab_liste_instructions[i].arg[j]);
         }
         printf("Tableau binaire associé: %s\n", tab_liste_instructions[i].tab_bin);
@@ -691,41 +692,29 @@ void verifier_structure_instruction(char* fic_instr){
     }
 }
 
-int compte_nb_instructions(char* fichierInstr){
+
+
+
+int compte_nb_inst(char* fichierInstr){
     FILE* ficInstr = fopen(fichierInstr, "r");
-    int nb_instructions = -1;
-    int ligne_commentaire = 0;
-    int nouvelle_ligne = 1;
-    char carac = fgetc(ficInstr);
+    char instruction[32];
+    int nb_instructions=0;
+    instruction[0] = '\0';
 
     if (ficInstr != NULL){
         nb_instructions=0;
-        while(carac != EOF){
-            if(carac == '\n' || carac == EOF){
-                if(ligne_commentaire == 0){
-                    nb_instructions++;
-                }
-                ligne_commentaire = 0;
-                nouvelle_ligne = 1;
-            }
-            else if(nouvelle_ligne == 1 && carac == '#'){
-                ligne_commentaire = 1;
-                nouvelle_ligne = 0;
-            }
-            else if(nouvelle_ligne == 1 && carac != '#'){
-                nouvelle_ligne = 0;
-            }
-            carac = fgetc(ficInstr);
+        while(!(recupereInstr(ficInstr, instruction))){
+            nb_instructions++;
+            instruction[0] = '\0';
         }
-        if(!ligne_commentaire){
+        if(instruction[0] != '\0'){
             nb_instructions++;
         }
-        fclose(ficInstr);
     }
     else{
         printf("Problème d'ouverture du fichier.");
     }
-    return(nb_instructions);
+    return nb_instructions;
 }
 
 int compte_nb_lignes(char* fichierInstr){
@@ -751,7 +740,7 @@ int compte_nb_lignes(char* fichierInstr){
 
 void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie){
     FILE* ficHex;
-    int nb_instructions = compte_nb_instructions(fichier_in);
+    int nb_instructions = compte_nb_inst(fichier_in);
     ficHex = fopen(fichier_sortie, "w+");
 
     for(int i = 0; i < nb_instructions; i++){

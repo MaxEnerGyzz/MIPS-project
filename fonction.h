@@ -36,8 +36,8 @@ int recherche_instr_dans_structure(char* nom_instr); /* Renvoit la position dans
 void remplir_liste_instructions(char* instruction, int instruction_actuelle); /* Remplit le tableau de structures avec les instructions mises en entrée du programme */
 void verifier_structure_instruction(char* fic_instr); /* Affiche les instructions (d'entrée) stockées en mémoire dans le tableau de structure */
 
-int compte_nb_instructions(char* fichierInstr); /* Compte le nombre d'instructions dans le fichier d'entrée --> je crois qu'elle sert à rien pour l'instant*/
 int compte_nb_lignes(char* fichierInstr); /* Compte le nombre de lignes dans le fichier d'entrée */
+int compte_nb_inst(char* fichierInstr);  /* Compte le nombre d'instructions dans le fichier d'entrée --> je crois qu'elle sert à rien pour l'instant*/
 
 int estUnRegistre(char* operande); /* Retourne -1 si l'operande n'est pas un registre. Retourne la valeur correspondante du registre si c'en est un */
 

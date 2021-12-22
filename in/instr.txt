@@ -5,3 +5,5 @@ ADDI $v0, $v1 ,100 #test2
 #test4
 #test 5
 ADD $T1 ,$t3,$t2
+
+NOP
