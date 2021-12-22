@@ -712,7 +712,7 @@ int compte_nb_inst(char* fichierInstr){
         }
     }
     else{
-        printf("Problème d'ouverture du fichier.");
+        printf("ERREUR : Problème d'ouverture du fichier.");
     }
     return nb_instructions;
 }
@@ -733,7 +733,7 @@ int compte_nb_lignes(char* fichierInstr){
         return(nb_lignes + 1); 
     }
     else{
-        printf("Problème d'ouverture du fichier test.");
+        printf("ERREUR : Problème d'ouverture du fichier.");
         return(-1);
     }
 }
