@@ -559,7 +559,6 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
         }
     }
     while(carac != 10 && carac != EOF && carac != '#'){ /* Le caractere ASCII 10 est le saut de ligne*/
-        
         tmp[i] = carac;
         i++;
         carac= fgetc(ficInstr);

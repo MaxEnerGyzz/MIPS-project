@@ -29,7 +29,7 @@ struct liste_instructions tab_liste_instructions[50];
 
 void lireInstruction(char* fichierInstr, char* fichierResult);
 int recupereInstr(FILE* ficInstr, char* tmp);
-void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie); /* */
+void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie); /* ecrit l'integralite des fonctions traduite en hexadecimal dans le fichier de sortie */
 
 void remplir_struct(); /* Remplit le tableau de structure des codes d'instructions */
 int recherche_instr_dans_structure(char* nom_instr); /* Renvoit la position dans le tableau de structures de l'instruction entrée */
