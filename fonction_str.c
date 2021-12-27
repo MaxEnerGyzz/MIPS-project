@@ -131,3 +131,11 @@ int estUnInt(char *str){
     }
     return result;
 }
+
+int myPower2(int value){
+    int result = 1;
+    for(int i = 0; i < value; i++){
+        result = result * 2;
+    }
+    return result;
+}

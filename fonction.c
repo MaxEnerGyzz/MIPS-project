@@ -1,5 +1,6 @@
 #include "fonction.h"
 #include "fonction_str.h"
+#include <math.h>
 
 void remplir_struct(){
     int i =0;
@@ -546,7 +547,6 @@ void remplir_struct(){
 }
 
 
-
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
     int i=0, fin =0;
@@ -615,6 +615,9 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     char arg_en_str[32];
     int arg_en_int=0;
     char arg_en_binaire[32];
+    int erreur_longueur = 0; /* Indique si un argument est trop grand pour l'instruction */
+    int nb_bits_max;
+    double arg_base2;
     
     while(instruction[i]!=' '){ /* Récupère le nom de l'instruction */
         nom_instr[i]= instruction[i];
@@ -677,9 +680,19 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
         else{
             tab_liste_instructions[instruction_actuelle].arg[j] = valeurDecimale(argument_char);
         }
+        
         intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
         decToBin(arg_en_str, arg_en_binaire);
-        copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
+        
+        arg_base2 = (ceil(log2(tab_liste_instructions[instruction_actuelle].arg[j])));
+        nb_bits_max = tab_instruction[pos_instr].pos_arg[(2*j) + 1] - tab_instruction[pos_instr].pos_arg[2* j] + 1;  
+        if(arg_base2 > nb_bits_max){
+            printf("ERREUR: L'argument %d de l'instruction '%s' est trop grand. La valeur maximale d'entrée pour cette argument est: %d\n", tab_liste_instructions[instruction_actuelle].arg[j], nom_instr, myPower2(nb_bits_max) - 1);
+            erreur_longueur = 1;
+        }
+        if(!erreur_longueur){
+            copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
+        }
     }
     binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
 }
@@ -687,7 +700,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
 void verifier_structure_instruction(char* fic_instr){
     int nb_instructions = compte_nb_inst(fic_instr);
     int i = 0, j=0;
-    printf("Il y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fic_instr));
+    printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fic_instr));
     printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fic_instr));
 
 

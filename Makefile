@@ -2,10 +2,10 @@ BIN = main
 OBJECTS = fonction.o main.o fonction_str.o
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -ansi -pedantic -std='c99'
+CFLAGS = -Wall -ansi -pedantic -std='c99' -lm
 
 all : $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(BIN) -Wall -pedantic
+	$(CC) $(OBJECTS) -o $(BIN) -Wall -pedantic -lm
 
 fonction.o : fonction.c fonction.h
 	$(CC) -g -c fonction.c -o fonction.o $(CFLAGS)
