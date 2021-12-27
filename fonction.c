@@ -1,5 +1,5 @@
 #include "fonction.h"
-//#include "fonction_str.h"
+#include "fonction_str.h"
 
 void remplir_struct(){
     int i =0;

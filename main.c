@@ -1,5 +1,5 @@
-//#include "fonction.h"
-//#include "fonction_str.h"
+#include "fonction.h"
+#include "fonction_str.h"
 
 
 int main(int argc, char* argv[]){

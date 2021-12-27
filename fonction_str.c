@@ -1,5 +1,5 @@
 #include "fonction_str.h"
-//#include "fonction.h"
+#include "fonction.h"
 
 
 
