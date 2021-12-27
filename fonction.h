@@ -13,6 +13,7 @@ struct instruction {
     int* pos_arg; /* tableau qui indique le numero des bits de debut et de fin des arguments */
     char tab_bin[33]; /* Tableau en binaire associé */
     int *reg; /* Tableau de la taille du nombre d'arguments. Le tab est à 1 si c'est un registre, 0 si c'est un immediate*/
+    int *reg_protege; /* Tableau des arguments où il est possible d'écrire dans un registre: 1 si il est possible d'écrire dans un registre, 0 sinon */
 };
 struct instruction tab_instruction[26];
 
@@ -24,8 +25,9 @@ struct liste_instructions {
     int* arg; /* Arguments de l'instruction */
     char tab_bin[33]; /* Tableau en binaire associé */
     char tab_hexa[9]; /* Tableau en héxadécimal associé */
+    int instruction_valide; /* Indique si l'instruction est valide en fonction des arguments registre utilisés...*/
 };
-struct liste_instructions tab_liste_instructions[50];
+struct liste_instructions tab_liste_instructions[50]; 
 
 void lireInstruction(char* fichierInstr, char* fichierResult);
 int recupereInstr(FILE* ficInstr, char* tmp);

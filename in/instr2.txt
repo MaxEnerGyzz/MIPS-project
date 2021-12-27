@@ -1,4 +1,4 @@
-ADDI $a0, $zero, 4500000
+ADDI $a0, $zeroo, 4500000
 ADDI $a1, $zero, 5
 ADDI $a2, $zero, 0
 SLL $a1, $a1, 1

@@ -1,6 +1,5 @@
 #include "fonction.h"
 #include "fonction_str.h"
-#include <math.h>
 
 void remplir_struct(){
     int i =0;
@@ -26,6 +25,11 @@ void remplir_struct(){
     }
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[26]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
     
     /* ADDI */
     j++;
@@ -48,7 +52,12 @@ void remplir_struct(){
     }
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[2]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
+
     /* AND */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*4);
@@ -71,7 +80,12 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[26]='1';
     tab_instruction[j].tab_bin[29]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
+
     
     /* BEQ */
     j++;
@@ -94,6 +108,11 @@ void remplir_struct(){
     }
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[3]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    
     
     
     /* BGTZ */
@@ -116,7 +135,10 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[3]='1';
     tab_instruction[j].tab_bin[4]='1';
     tab_instruction[j].tab_bin[5]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
     
     /* BLEZ */
     j++;
@@ -137,7 +159,11 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[3]='1';
     tab_instruction[j].tab_bin[4]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+
     /* BNE */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*4);
@@ -160,7 +186,11 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[3]='1';
     tab_instruction[j].tab_bin[5]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+
     /* DIV */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*4);
@@ -181,7 +211,12 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[27]='1';
     tab_instruction[j].tab_bin[28]='1';
     tab_instruction[j].tab_bin[30]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+
+
     /* J */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*2);
@@ -197,7 +232,11 @@ void remplir_struct(){
     }
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[4]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+
     /* JAL */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*4);
@@ -214,7 +253,10 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[4]='1';
     tab_instruction[j].tab_bin[5]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
     
     /* JR */
     j++;
@@ -231,8 +273,11 @@ void remplir_struct(){
     }
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[28]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
     /* On laisse le bit 10 du hint à 0 car on ne gere pas le pipeline donc il n'y a pas de data hazard*/
-    
     
     /* LUI */
     j++;
@@ -255,7 +300,11 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[3]='1';
     tab_instruction[j].tab_bin[4]='1';
     tab_instruction[j].tab_bin[5]='1';
-    
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
     
     /* LW */
     j++;
@@ -279,6 +328,11 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[1]='1';
     tab_instruction[j].tab_bin[4]='1';
     tab_instruction[j].tab_bin[5]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
     
     
     /* MFHI */
@@ -296,6 +350,11 @@ void remplir_struct(){
     }
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[27]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
     
 
     /* MFLO */
@@ -315,6 +374,11 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[30]='1';
     tab_instruction[j].tab_bin[27]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
 
     /* MULT */
     j++;
@@ -335,6 +399,10 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[28]='1';
     tab_instruction[j].tab_bin[27]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
 
 
     /* NOP */
@@ -346,6 +414,10 @@ void remplir_struct(){
         tab_instruction[j].tab_bin[i] = '0';
     }
     tab_instruction[j].tab_bin[32]= '\0';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
 
     /* OR */
     j++;
@@ -370,6 +442,12 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[31]='1';
     tab_instruction[j].tab_bin[29]='1';
     tab_instruction[j].tab_bin[26]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
+
 
     /* ROTR */
     j++;
@@ -392,6 +470,11 @@ void remplir_struct(){
     }
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[30]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
 
     /* SLL */
     j++;
@@ -413,6 +496,11 @@ void remplir_struct(){
         tab_instruction[j].tab_bin[i] = '0';
     }
     tab_instruction[j].tab_bin[32]= '\0';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
 
 
     /* SLT */
@@ -438,6 +526,11 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[30]='1';
     tab_instruction[j].tab_bin[28]='1';
     tab_instruction[j].tab_bin[26]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
 
     /* SRL */
     j++;
@@ -460,6 +553,11 @@ void remplir_struct(){
     }
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[30]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
 
     /* SUB */
     j++;
@@ -483,6 +581,11 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[26]='1';
     tab_instruction[j].tab_bin[30]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
 
 
     /* SW */
@@ -508,6 +611,10 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[2]='1';
     tab_instruction[j].tab_bin[4]='1';
     tab_instruction[j].tab_bin[5]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
     
     /* SYSCALL */
     j++;
@@ -520,6 +627,10 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[32]= '\0';
     tab_instruction[j].tab_bin[28]='1';
     tab_instruction[j].tab_bin[29]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
     
     /* XOR */
     j++;
@@ -544,8 +655,12 @@ void remplir_struct(){
     tab_instruction[j].tab_bin[26]='1';
     tab_instruction[j].tab_bin[29]='1';
     tab_instruction[j].tab_bin[30]='1';
+    tab_instruction[j].reg_protege = malloc(sizeof(int)*tab_instruction[j].nb_arg);
+    for(i=0; i<tab_instruction[j].nb_arg; i++){
+        tab_instruction[j].reg_protege[i] = 0;
+    }
+    tab_instruction[j].reg_protege[0] = 1;
 }
-
 
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
@@ -619,6 +734,8 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     int nb_bits_max;
     double arg_base2;
     
+    tab_liste_instructions[instruction_actuelle].instruction_valide = 1;
+
     while(instruction[i]!=' '){ /* Récupère le nom de l'instruction */
         nom_instr[i]= instruction[i];
         i++;
@@ -631,7 +748,9 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     }
     else{
         printf("ERREUR dans l'instruction : %s\n", instruction);
+        tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
     }
+
     pos_instr = tab_liste_instructions[instruction_actuelle].pos_instr_struct;
     tab_liste_instructions[instruction_actuelle].nb_arg = tab_instruction[pos_instr].nb_arg;
     myStrcpy(tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].tab_bin); /* Récupère le tableau binaire associé */
@@ -643,17 +762,19 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
 
 
     for(j = 0; j < tab_liste_instructions[instruction_actuelle].nb_arg; j++){ /* Récupère les arguments */
-        if(tab_instruction[pos_instr].reg[j] == 1){ /* Dans le cas ou l'operande doit etrre un registre */
+        if(tab_instruction[pos_instr].reg[j] == 1){ /* Dans le cas ou l'operande doit etre un registre */
             if(instruction[i] == '$'){ /* Si c'est un registre on lit sa valeur */
                 i++;
             }
             else{ /* si ce n'est pas un registre, on renvoit une erreur */
                 printf("L'argument %d doit etre un registre dans l'instruction %s \n", j+1, instruction);
+                tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
             }
         }
         else{ /* Dans le cas ou l'operande doit etre un immediat */
             if(instruction[i] < '0' || instruction[i]>'9'){ /* si ce n'est pas un immediat (le caractere est compris entre 0 et 9), on renvoit une erreur */
                 printf("L'argument %d doit etre un immediate dans l'instruction %s \n", j+1, instruction);
+                tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
             }
         }
         
@@ -670,25 +791,32 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
         }
         if(tab_instruction[pos_instr].reg[j] == 1){ /* Si l'operande est un registre */
             if (estUnInt(argument_char)){ /* S'il est appelé par son numéro. On recupere sa valeur */
+
                 arg_en_int = valeurDecimale(argument_char);
+                printf("Test: %d\n", arg_en_int);
             }
             else{ /* S'il est appelé par son nom, on recupere son numero */
                 arg_en_int = estUnRegistre(argument_char);
+                if (arg_en_int == -1){
+                    tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
+                }
             }
             tab_liste_instructions[instruction_actuelle].arg[j] = arg_en_int;
         }
         else{
             tab_liste_instructions[instruction_actuelle].arg[j] = valeurDecimale(argument_char);
         }
-        
+
+
         intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
         decToBin(arg_en_str, arg_en_binaire);
         
-        arg_base2 = (ceil(log2(tab_liste_instructions[instruction_actuelle].arg[j])));
+        arg_base2 = (ceil(log2(tab_liste_instructions[instruction_actuelle].arg[j]))); /* Vérifie que l'argument n'est pas trop grand */
         nb_bits_max = tab_instruction[pos_instr].pos_arg[(2*j) + 1] - tab_instruction[pos_instr].pos_arg[2* j] + 1;  
         if(arg_base2 > nb_bits_max){
             printf("ERREUR: L'argument %d de l'instruction '%s' est trop grand. La valeur maximale d'entrée pour cette argument est: %d\n", tab_liste_instructions[instruction_actuelle].arg[j], nom_instr, myPower2(nb_bits_max) - 1);
             erreur_longueur = 1;
+            tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
         }
         if(!erreur_longueur){
             copierChaineGaucheDroite(arg_en_binaire, tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].pos_arg[2* j], tab_instruction[pos_instr].pos_arg[(2*j) + 1]);
@@ -714,6 +842,13 @@ void verifier_structure_instruction(char* fic_instr){
         }
         printf("Tableau binaire associé: %s\n", tab_liste_instructions[i].tab_bin);
         printf("Tableau hexadecimal associé: %s\n", tab_liste_instructions[i].tab_hexa);
+        printf("Instruction valide ? ");
+        if(tab_liste_instructions[i].instruction_valide == 1){
+            printf("OUI\n");
+        }
+        else{
+            printf("NON\n");
+        }
         printf("----------------------------------------------------------\n");
     }
 }
@@ -784,7 +919,7 @@ int estUnRegistre(char* operande){
             reg=i+1;
         }
     }
-    if (reg==-1){
+    if(reg == -1){
         printf("\nERREUR : %s n'est pas un registre\n", operande);
     }
     return reg;
