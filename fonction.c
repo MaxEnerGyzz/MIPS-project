@@ -1,5 +1,5 @@
 #include "fonction.h"
-#include "fonction_str.h"
+//#include "fonction_str.h"
 
 void remplir_struct(){
     int i =0;
@@ -791,9 +791,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
         }
         if(tab_instruction[pos_instr].reg[j] == 1){ /* Si l'operande est un registre */
             if (estUnInt(argument_char)){ /* S'il est appelé par son numéro. On recupere sa valeur */
-
                 arg_en_int = valeurDecimale(argument_char);
-                printf("Test: %d\n", arg_en_int);
             }
             else{ /* S'il est appelé par son nom, on recupere son numero */
                 arg_en_int = estUnRegistre(argument_char);
@@ -807,6 +805,10 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
             tab_liste_instructions[instruction_actuelle].arg[j] = valeurDecimale(argument_char);
         }
 
+        if(tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].reg_protege[j] == 1 && estUnRegistreProtege(argument_char)){
+            printf("ERREUR: Tentative d'écriture dans le registre %s protégé en écriture.\n", argument_char);
+            tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
+        }
 
         intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
         decToBin(arg_en_str, arg_en_binaire);
@@ -921,6 +923,17 @@ int estUnRegistre(char* operande){
     }
     if(reg == -1){
         printf("\nERREUR : %s n'est pas un registre\n", operande);
+    }
+    return reg;
+}
+
+int estUnRegistreProtege(char* operande){
+    int reg= 0, i = 0;
+    char *tab_reg[32]= {"ZERO", "AT", "K0", "K1", "GP", "FP", "0","1", "26", "27", "28","30"};
+    for(i=0; i<12;i++){
+        if(comparerChaine(tab_reg[i], operande)){
+            reg=1;
+        }
     }
     return reg;
 }
