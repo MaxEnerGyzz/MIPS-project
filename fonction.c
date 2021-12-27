@@ -550,6 +550,7 @@ void remplir_struct(){
 int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin du fichier, 0 sinon*/
     char carac = fgetc(ficInstr);
     int i=0, fin =0;
+    long int position_curseur = ftell(ficInstr);
     while(carac == ' '){ /* Cas ou la ligne commence par un espace */
         carac= fgetc(ficInstr);
     }
@@ -568,6 +569,19 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
             carac= fgetc(ficInstr);
         }
     }
+    position_curseur = ftell(ficInstr); /* On sauvegarde la position du curseur du fichier */
+    carac=fgetc(ficInstr);
+    if(carac == 10){ /* S'il y a un saut de ligne apres l'instruction */
+        while(carac == 10){ /* On passe a la ligne suivante jusqu'a retomber sur une instruction ou la fin du fichier */
+            position_curseur = ftell(ficInstr);
+            carac = fgetc(ficInstr);
+        }
+        fseek(ficInstr, position_curseur, SEEK_SET); /* On retourne au caractere précédent */
+    }
+    else{ /* S'il n'y a pas de saut de ligne, on replace le pointeur du fichier */
+        fseek(ficInstr, position_curseur, SEEK_SET);
+    }
+    
     if(carac == EOF){  /*Pas de Else if car si on met un commentaire sur la derniere ligne ca va pas renvoyer 1*/
         fin = 1;
     }
