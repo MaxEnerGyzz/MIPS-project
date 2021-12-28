@@ -33,7 +33,7 @@ void lireInstruction(char* fichierInstr, char* fichierResult);
 int recupereInstr(FILE* ficInstr, char* tmp);
 void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie); /* ecrit l'integralite des fonctions traduite en hexadecimal dans le fichier de sortie */
 
-void remplir_struct(); /* Remplit le tableau de structure des codes d'instructions */
+void remplir_struct_instruction(); /* Remplit le tableau de structure des codes d'instructions */
 int recherche_instr_dans_structure(char* nom_instr); /* Renvoit la position dans le tableau de structures de l'instruction entrée */
 void remplir_liste_instructions(char* instruction, int instruction_actuelle); /* Remplit le tableau de structures avec les instructions mises en entrée du programme */
 void verifier_structure_instruction(char* fic_instr); /* Affiche les instructions (d'entrée) stockées en mémoire dans le tableau de structure */
@@ -41,7 +41,6 @@ void verifier_structure_instruction(char* fic_instr); /* Affiche les instruction
 int compte_nb_lignes(char* fichierInstr); /* Compte le nombre de lignes dans le fichier d'entrée */
 int compte_nb_inst(char* fichierInstr);  /* Compte le nombre d'instructions dans le fichier d'entrée --> je crois qu'elle sert à rien pour l'instant*/
 
-int estUnRegistre(char* operande); /* Retourne -1 si l'operande n'est pas un registre. Retourne la valeur correspondante du registre si c'en est un */
 
 #endif
 

@@ -1,7 +1,8 @@
 #include "fonction.h"
 #include "fonction_str.h"
+#include "registre.h"
 
-void remplir_struct(){
+void remplir_struct_instruction(){
     int i =0;
     int j=0;
     /* ADD */
@@ -913,37 +914,15 @@ void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie){
 }
 
 
-int estUnRegistre(char* operande){
-    int reg=-1, i=0;
-    char *tab_reg[32]= {"ZERO", "AT", "V0", "V1", "A0", "A1", "A2", "A3", "T0", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "S0", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "T8", "T9", "K0", "K1", "GP", "SP", "FP", "RA"};
-    for(i=0; i<32;i++){
-        if(comparerChaine(tab_reg[i], operande)){
-            reg=i+1;
-        }
-    }
-    if(reg == -1){
-        printf("\nERREUR : %s n'est pas un registre\n", operande);
-    }
-    return reg;
-}
 
-int estUnRegistreProtege(char* operande){
-    int reg= 0, i = 0;
-    char *tab_reg[32]= {"ZERO", "AT", "K0", "K1", "GP", "FP", "0","1", "26", "27", "28","30"};
-    for(i=0; i<12;i++){
-        if(comparerChaine(tab_reg[i], operande)){
-            reg=1;
-        }
-    }
-    return reg;
-}
 
 void lireInstruction(char* fichierInstr, char* fichierResult){
     FILE* ficInstr;
     char instruction[33];
     ficInstr = fopen(fichierInstr, "r");
     int nb_instructions = 0;
-    remplir_struct();
+    remplir_struct_instruction();
+    remplir_struc_registre();
 
     if (ficInstr != NULL){
         while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
