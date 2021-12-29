@@ -10,7 +10,7 @@ struct registre {
     char tab_bin[33]; /* Valeur du registre */
     int reg_protege; /* Indique si le registre est protégé en écriture: 1 si protégé, 0 sinon */
 };
-struct registre tab_registre[NB_REGISTRES + 1];
+extern const struct registre tab_registre[NB_REGISTRES + 1];
 
 void remplir_struc_registre(); /* Remplit la structure contenant les différentes informations sur les registres */
 void verifier_structure_registre(); /* Affiche les informations actuelles des registres (nom, valeur, protégé ou non) */
