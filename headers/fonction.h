@@ -51,7 +51,9 @@ void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie, liste_instructions
 void remplir_struct_instruction(instructions* tab_instruction); /* Remplit le tableau de structure des codes d'instructions */
 int recherche_instr_dans_structure(char* nom_instr, instructions* tab_instruction); /* Renvoit la position dans le tableau de structures de l'instruction entrée */
 void remplir_liste_instructions(char* instruction, int instruction_actuelle, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre); /* Remplit le tableau de structures avec les instructions mises en entrée du programme */
-void verifier_structure_instruction(char* fic_instr, liste_instructions* tab_liste_instructions); /* Affiche les instructions (d'entrée) stockées en mémoire dans le tableau de structure */
+void verifier_structure_instruction(liste_instructions* tab_liste_instructions); /* Affiche les instructions (d'entrée) stockées en mémoire dans le tableau de structure */
+
+void remplir_liste_instructions_valide(liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val);
 
 int compte_nb_lignes(char* fichierInstr); /* Compte le nombre de lignes dans le fichier d'entrée */
 int compte_nb_inst(char* fichierInstr);  /* Compte le nombre d'instructions dans le fichier d'entrée*/

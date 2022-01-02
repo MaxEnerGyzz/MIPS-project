@@ -828,12 +828,10 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
     binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
 }    
 
-void verifier_structure_instruction(char* fic_instr, liste_instructions* tab_liste_instructions){
-    int nb_instructions = compte_nb_inst(fic_instr);
+void verifier_structure_instruction(liste_instructions* tab_liste_instructions){
+    int nb_instructions = sizeof((tab_liste_instructions[0]))/sizeof(tab_liste_instructions);
     int i = 0, j=0;
-    printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fic_instr));
-    printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fic_instr));
-
+    printf("Il y a %d \n", nb_instructions);
 
     printf("----------------------------------------------------------\n");
     for(i = 0; i < nb_instructions; i++){
@@ -915,6 +913,9 @@ void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie, liste_instructions
 
 
 void initialiserEmulateur(char* fichierInstr, char* fichierResult, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions){
+    printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fichierInstr));
+    printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fichierInstr));
+
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
     lireInstruction(fichierInstr, fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
@@ -940,5 +941,30 @@ void lireInstruction(char* fichierInstr, char* fichierResult, liste_instructions
     }
     else{
         printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");
+    }
+}
+
+void remplir_liste_instructions_valide(liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
+    int i, j;
+    int nb_instructions = sizeof(tab_liste_instructions)/sizeof((tab_liste_instructions)[0]); /* Permet de déterminer le nombre d'elements dans la structure */
+    printf("Nb instr: %d", nb_instructions); 
+
+    for(i = 0; i < nb_instructions; i++){
+        if(tab_liste_instructions[i].instruction_valide == 1){ // Si instruction valide
+            tab_liste_instructions_val[i].instr = malloc(sizeof(char)*(sizeof(tab_liste_instructions[i].instr)/sizeof(tab_liste_instructions[i].instr[0])));
+            myStrcpy(tab_liste_instructions_val[i].instr, tab_liste_instructions[i].instr);
+
+            tab_liste_instructions_val[i].pos_instr_struct = tab_liste_instructions[i].pos_instr_struct;
+            tab_liste_instructions_val[i].nb_arg = tab_liste_instructions[i].nb_arg;
+
+
+            tab_liste_instructions_val[i].instr = malloc(sizeof(char)*(sizeof(tab_liste_instructions[i].instr)/sizeof(tab_liste_instructions[i].instr[0])));
+            for(j = 0; j < tab_liste_instructions[i].nb_arg; j++){
+                tab_liste_instructions_val[i].arg[j] = tab_liste_instructions[i].arg[j];
+            }
+
+            myStrcpy(tab_liste_instructions_val[i].tab_bin, tab_liste_instructions[i].tab_bin);
+            myStrcpy(tab_liste_instructions_val[i].tab_hexa, tab_liste_instructions[i].tab_hexa);
+        }
     }
 }

@@ -14,8 +14,13 @@ int main(int argc, char* argv[]){
     struct liste_instructions tab_liste_instructions_val[nb_instructions_entree]; 
 
     initialiserEmulateur(fic_instr, fic_result, &tab_registre, &tab_instruction, &tab_liste_instructions);
-    verifier_structure_instruction(fic_instr, tab_liste_instructions);
+    verifier_structure_instruction(tab_liste_instructions);
     verifier_structure_registre(tab_registre);
+
+    remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val);
+    verifier_structure_instruction(tab_liste_instructions_val);
+
+    printf("Longueur structure 1: %d", sizeof(tab_instruction)/sizeof((tab_instruction)[0]));
 
     return 0;
 }
