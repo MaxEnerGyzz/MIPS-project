@@ -1,6 +1,10 @@
-#include "registre.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-void remplir_struc_registre(){
+#include "../headers/registre.h"
+#include "../headers/fonction_str.h"
+
+void remplir_struc_registre(registre* tab_registre){
 	int i = 0, j = 0;
 
 	/* ZERO */
@@ -322,7 +326,7 @@ void remplir_struc_registre(){
 	}
 	tab_registre[j].reg_protege = 0;
 
-	/* PC --> Program Counter (Adresse de l'instruction actuelle)*/
+	/* PC -. Program Counter (Adresse de l'instruction actuelle)*/
 	j++;
 	tab_registre[j].nom = malloc(sizeof(char)*3);
 	myStrcpy(tab_registre[j].nom, "PC");
@@ -332,7 +336,7 @@ void remplir_struc_registre(){
 	}
 	tab_registre[j].reg_protege = 1;
 
-	/* HI --> Stocke le résultat de la multiplication / division*/
+	/* HI -. Stocke le résultat de la multiplication / division*/
 	j++;
 	tab_registre[j].nom = malloc(sizeof(char)*3);
 	myStrcpy(tab_registre[j].nom, "HI");
@@ -342,7 +346,7 @@ void remplir_struc_registre(){
 	}
 	tab_registre[j].reg_protege = 1;
 
-	/* LO --> Stocke le résultat de la multiplication / division*/
+	/* LO -. Stocke le résultat de la multiplication / division*/
 	j++;
 	tab_registre[j].nom = malloc(sizeof(char)*3);
 	myStrcpy(tab_registre[j].nom, "LO");
@@ -353,7 +357,7 @@ void remplir_struc_registre(){
 	tab_registre[j].reg_protege = 1;
 }
 
-void verifier_structure_registre(){
+void verifier_structure_registre(registre* tab_registre){
 	int i = 0, j = 0;
 	printf("----------------------------------------------------------\n");
 	for(i = 0; i < NB_REGISTRES + 1; i++){
@@ -373,7 +377,7 @@ void verifier_structure_registre(){
 	}
 }
 
-int estUnRegistre(char* operande){
+int estUnRegistre(char* operande, registre* tab_registre){
     int reg=-1, i=0;
     for(i=0; i< NB_REGISTRES ;i++){
         if(comparerChaine(tab_registre[i].nom, operande)){
@@ -386,7 +390,7 @@ int estUnRegistre(char* operande){
     return reg;
 }
 
-int estUnRegistreProtege(char* operande){
+int estUnRegistreProtege(char* operande, registre* tab_registre){
     int reg = 0, i = 0;
     for(i=0; i<NB_REGISTRES ;i++){
         if(comparerChaine(tab_registre[i].nom, operande) && tab_registre[i].reg_protege == 1){

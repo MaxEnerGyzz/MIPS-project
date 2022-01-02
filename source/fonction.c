@@ -1,8 +1,8 @@
-#include "fonction.h"
-#include "fonction_str.h"
-#include "registre.h"
+#include "../headers/fonction.h"
+#include "../headers/fonction_str.h"
+#include "../headers/registre.h"
 
-void remplir_struct_instruction(){
+void remplir_struct_instruction(instructions* tab_instruction){
     int i =0;
     int j=0;
     /* ADD */
@@ -709,7 +709,7 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
 }
 
 
-int recherche_instr_dans_structure(char* nom_instr){
+int recherche_instr_dans_structure(char* nom_instr, instructions* tab_instruction){
     int trouve = 0;
     int i = 0;
     while(!trouve && i<26){
@@ -723,7 +723,7 @@ int recherche_instr_dans_structure(char* nom_instr){
     return i;
 }
 
-void remplir_liste_instructions(char* instruction, int instruction_actuelle){
+void remplir_liste_instructions(char* instruction, int instruction_actuelle, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
     char nom_instr[8];
     int i = 0, j=0, k=0; /* i pointe vers le caractere en cours*/
     char argument_char[10];
@@ -744,8 +744,8 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
     nom_instr[i] = '\0';
     tab_liste_instructions[instruction_actuelle].instr = malloc(sizeof(char)*myStrlen(nom_instr));
     myStrcpy(tab_liste_instructions[instruction_actuelle].instr,nom_instr);
-    if(recherche_instr_dans_structure(nom_instr)<26){
-        tab_liste_instructions[instruction_actuelle].pos_instr_struct = recherche_instr_dans_structure(nom_instr);
+    if(recherche_instr_dans_structure(nom_instr, tab_instruction)<26){
+        tab_liste_instructions[instruction_actuelle].pos_instr_struct = recherche_instr_dans_structure(nom_instr, tab_instruction);
     }
     else{
         printf("ERREUR dans l'instruction : %s\n", instruction);
@@ -795,7 +795,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
                 arg_en_int = valeurDecimale(argument_char);
             }
             else{ /* S'il est appelé par son nom, on recupere son numero */
-                arg_en_int = estUnRegistre(argument_char);
+                arg_en_int = estUnRegistre(argument_char, tab_registre);
                 if (arg_en_int == -1){
                     tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
                 }
@@ -806,7 +806,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
             tab_liste_instructions[instruction_actuelle].arg[j] = valeurDecimale(argument_char);
         }
 
-        if(tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].reg_protege[j] == 1 && estUnRegistreProtege(argument_char)){
+        if(tab_instruction[tab_liste_instructions[instruction_actuelle].pos_instr_struct].reg_protege[j] == 1 && estUnRegistreProtege(argument_char, tab_registre)){
             printf("ERREUR: Tentative d'écriture dans le registre %s protégé en écriture.\n", argument_char);
             tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
         }
@@ -826,9 +826,9 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle){
         }
     }
     binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
-}
+}    
 
-void verifier_structure_instruction(char* fic_instr){
+void verifier_structure_instruction(char* fic_instr, liste_instructions* tab_liste_instructions){
     int nb_instructions = compte_nb_inst(fic_instr);
     int i = 0, j=0;
     printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fic_instr));
@@ -902,7 +902,7 @@ int compte_nb_lignes(char* fichierInstr){
     }
 }
 
-void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie){
+void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie, liste_instructions* tab_liste_instructions){
     FILE* ficHex;
     int nb_instructions = compte_nb_inst(fichier_in);
     ficHex = fopen(fichier_sortie, "w+");
@@ -914,26 +914,29 @@ void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie){
 }
 
 
+void initialiserEmulateur(char* fichierInstr, char* fichierResult, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions){
+    remplir_struct_instruction(tab_instruction);
+    remplir_struc_registre(tab_registre);
+    lireInstruction(fichierInstr, fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
+}
 
-
-void lireInstruction(char* fichierInstr, char* fichierResult){
+void lireInstruction(char* fichierInstr, char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
     FILE* ficInstr;
-    char instruction[33];
     ficInstr = fopen(fichierInstr, "r");
+    char instruction[33];
     int nb_instructions = 0;
-    remplir_struct_instruction();
-    remplir_struc_registre();
+
 
     if (ficInstr != NULL){
         while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
             mettreEnMajuscule(instruction); /* On rend la dénomination des registres insensible à la casse */
-            remplir_liste_instructions(instruction, nb_instructions);
+            remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
             nb_instructions++;
         }
         mettreEnMajuscule(instruction);
-        remplir_liste_instructions(instruction, nb_instructions);
+        remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
         fclose(ficInstr);
-        ecrit_instr_hexa(fichierInstr, fichierResult);
+        ecrit_instr_hexa(fichierInstr, fichierResult, tab_liste_instructions);
     }
     else{
         printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");

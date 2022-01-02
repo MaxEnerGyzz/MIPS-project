@@ -1,24 +1,30 @@
-BIN = main
+BIN = emul-mips
+
+OBJECTS = fonction.o fonction_str.o registre.o main.o
 OBJECTS_LOCATION = ./objects/
-OBJECTS = ./objects/*.o
+OBJECTS_O = ./objects/*.o
+
+SOURCE_LOCATION = ./source/
+
 CC = gcc
 RM = rm -f
 CFLAGS = -Wall -ansi -pedantic -std='c99' -lm
 
-all : 
-	$(CC) $(OBJECTS) -o $(BIN) -Wall -pedantic -lm
+all : $(OBJECTS)
+	$(CC) $(OBJECTS_O) -o $(BIN) -Wall -pedantic -lm
 
-fonction.o : fonction.c fonction.h
-	$(CC) -g -c fonction.c -o $(OBJECTS_LOCATION)fonction.o $(CFLAGS)
+fonction_str.o : source/fonction_str.c headers/fonction_str.h
+	$(CC) -g -c $(SOURCE_LOCATION)fonction_str.c -o $(OBJECTS_LOCATION)fonction_str.o $(CFLAGS)
 
-registre.o : registre.c registre.h
-	$(CC) -g -c registre.c -o $(OBJECTS_LOCATION)registre.o $(CFLAGS)
+fonction.o : source/fonction.c headers/fonction.h
+	$(CC) -g -c $(SOURCE_LOCATION)fonction.c -o $(OBJECTS_LOCATION)fonction.o $(CFLAGS)
 
-fonction_str.o : fonction_str.c fonction_str.h
-	$(CC) -g -c fonction_str.c -o $(OBJECTS_LOCATION)fonction_str.o $(CFLAGS)
+registre.o : source/registre.c headers/registre.h
+	$(CC) -g -c $(SOURCE_LOCATION)registre.c -o $(OBJECTS_LOCATION)registre.o $(CFLAGS)
 
-main.o : main.c fonction.h fonction_str.h registre.h
-	$(CC) -g -c main.c -o $(OBJECTS_LOCATION)main.o $(CFLAGS)
+
+main.o : source/main.c headers/fonction.h headers/fonction_str.h headers/registre.h
+	$(CC) -g -c $(SOURCE_LOCATION)main.c -o $(OBJECTS_LOCATION)main.o $(CFLAGS)
 
 clean :
 	$(RM) $(OBJECTS) $(BIN)

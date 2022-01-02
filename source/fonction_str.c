@@ -1,6 +1,5 @@
-#include "fonction_str.h"
-#include "fonction.h"
-
+#include "../headers/fonction_str.h"
+#include "../headers/fonction.h"
 
 
 int myStrlen(const char *str){
@@ -139,3 +138,4 @@ int myPower2(int value){
     }
     return result;
 }
+
