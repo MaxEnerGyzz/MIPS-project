@@ -9,8 +9,8 @@
 
 #define NB_INSTRUCTIONS_MIPS 26
 
-typedef struct liste_instructions liste_instructions;
-struct liste_instructions {
+
+typedef struct liste_instructions {
     char *instr; /* NOM de l'instruction */
     int pos_instr_struct; /* Position de l'instruction dans le tableau de structures d'instruction */
     int nb_arg; /* Nombre d'arguments de l'instruction */
@@ -18,19 +18,18 @@ struct liste_instructions {
     char tab_bin[33]; /* Tableau en binaire associé */
     char tab_hexa[9]; /* Tableau en héxadécimal associé */
     int instruction_valide; /* Indique si l'instruction est valide en fonction des arguments registre utilisés...*/
-};
+}liste_instructions;
    
 
 
-typedef struct liste_instructions liste_instructions_valide;
-struct liste_instructions_valide {
+typedef struct liste_instructions_valide {
     char *instr; /* NOM de l'instruction */
     int pos_instr_struct; /* Position de l'instruction dans le tableau de structures d'instruction */
     int nb_arg; /* Nombre d'arguments de l'instruction */
     int* arg; /* Arguments de l'instruction */
     char tab_bin[33]; /* Tableau en binaire associé */
     char tab_hexa[9]; /* Tableau en héxadécimal associé */
-};
+}liste_instructions_valide;
    
 
 typedef struct instructions {

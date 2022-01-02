@@ -326,7 +326,7 @@ void remplir_struc_registre(registre* tab_registre){
 	}
 	tab_registre[j].reg_protege = 0;
 
-	/* PC -. Program Counter (Adresse de l'instruction actuelle)*/
+	/* PC --> Program Counter (Adresse de l'instruction actuelle)*/
 	j++;
 	tab_registre[j].nom = malloc(sizeof(char)*3);
 	myStrcpy(tab_registre[j].nom, "PC");
@@ -336,7 +336,7 @@ void remplir_struc_registre(registre* tab_registre){
 	}
 	tab_registre[j].reg_protege = 1;
 
-	/* HI -. Stocke le résultat de la multiplication / division*/
+	/* HI --> Stocke le résultat de la multiplication / division*/
 	j++;
 	tab_registre[j].nom = malloc(sizeof(char)*3);
 	myStrcpy(tab_registre[j].nom, "HI");
@@ -346,7 +346,7 @@ void remplir_struc_registre(registre* tab_registre){
 	}
 	tab_registre[j].reg_protege = 1;
 
-	/* LO -. Stocke le résultat de la multiplication / division*/
+	/* LO --> Stocke le résultat de la multiplication / division*/
 	j++;
 	tab_registre[j].nom = malloc(sizeof(char)*3);
 	myStrcpy(tab_registre[j].nom, "LO");
@@ -385,7 +385,7 @@ int estUnRegistre(char* operande, registre* tab_registre){
         }
     }
     if(reg == -1){
-        printf("\nERREUR : %s n'est pas un registre\n", operande);
+        printf("\nERREUR : %s n'est pas un registre.\n", operande);
     }
     return reg;
 }
