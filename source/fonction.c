@@ -828,10 +828,8 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
     binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
 }    
 
-void verifier_structure_instruction(liste_instructions* tab_liste_instructions){
-    int nb_instructions = sizeof((tab_liste_instructions[0]))/sizeof(tab_liste_instructions);
+void verifier_structure_instruction(int nb_instructions, liste_instructions* tab_liste_instructions ){
     int i = 0, j=0;
-    printf("Il y a %d \n", nb_instructions);
 
     printf("----------------------------------------------------------\n");
     for(i = 0; i < nb_instructions; i++){
@@ -896,8 +894,20 @@ int compte_nb_lignes(char* fichierInstr){
     }
     else{
         printf("ERREUR : Problème d'ouverture du fichier.");
+        fclose(ficInstr);
         return(-1);
     }
+}
+
+int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions){
+    int nb_instr_val = 0;
+
+    for(int i = 0; i < nb_instr; i++){
+        if(tab_liste_instructions[i].instruction_valide == 1){
+            nb_instr_val++;
+        }
+    }
+    return(nb_instr_val);
 }
 
 void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie, liste_instructions* tab_liste_instructions){
@@ -944,27 +954,30 @@ void lireInstruction(char* fichierInstr, char* fichierResult, liste_instructions
     }
 }
 
-void remplir_liste_instructions_valide(liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
+void remplir_liste_instructions_valide(liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, int nb_instructions_entree){
     int i, j;
-    int nb_instructions = sizeof(tab_liste_instructions)/sizeof((tab_liste_instructions)[0]); /* Permet de déterminer le nombre d'elements dans la structure */
-    printf("Nb instr: %d", nb_instructions); 
+    int nb_instructions_val_entrees = 0;
 
-    for(i = 0; i < nb_instructions; i++){
+    for(i = 0; i < nb_instructions_entree; i++){
         if(tab_liste_instructions[i].instruction_valide == 1){ // Si instruction valide
-            tab_liste_instructions_val[i].instr = malloc(sizeof(char)*(sizeof(tab_liste_instructions[i].instr)/sizeof(tab_liste_instructions[i].instr[0])));
-            myStrcpy(tab_liste_instructions_val[i].instr, tab_liste_instructions[i].instr);
+            tab_liste_instructions_val[nb_instructions_val_entrees].instr = malloc(sizeof(char)*myStrlen(tab_liste_instructions[i].instr));
+            myStrcpy(tab_liste_instructions_val[nb_instructions_val_entrees].instr, tab_liste_instructions[i].instr);
 
-            tab_liste_instructions_val[i].pos_instr_struct = tab_liste_instructions[i].pos_instr_struct;
-            tab_liste_instructions_val[i].nb_arg = tab_liste_instructions[i].nb_arg;
+            tab_liste_instructions_val[nb_instructions_val_entrees].pos_instr_struct = tab_liste_instructions[i].pos_instr_struct;
+            tab_liste_instructions_val[nb_instructions_val_entrees].nb_arg = tab_liste_instructions[i].nb_arg;
 
 
-            tab_liste_instructions_val[i].instr = malloc(sizeof(char)*(sizeof(tab_liste_instructions[i].instr)/sizeof(tab_liste_instructions[i].instr[0])));
-            for(j = 0; j < tab_liste_instructions[i].nb_arg; j++){
-                tab_liste_instructions_val[i].arg[j] = tab_liste_instructions[i].arg[j];
+            tab_liste_instructions_val[nb_instructions_val_entrees].arg = malloc(sizeof(int)*(tab_liste_instructions[i].nb_arg));
+            for(j = 0; j < tab_liste_instructions[nb_instructions_val_entrees].nb_arg; j++){
+                tab_liste_instructions_val[nb_instructions_val_entrees].arg[j] = tab_liste_instructions[i].arg[j];
             }
+    
+            
+            myStrcpy(tab_liste_instructions_val[nb_instructions_val_entrees].tab_bin, tab_liste_instructions[i].tab_bin);
+            myStrcpy(tab_liste_instructions_val[nb_instructions_val_entrees].tab_hexa, tab_liste_instructions[i].tab_hexa);
 
-            myStrcpy(tab_liste_instructions_val[i].tab_bin, tab_liste_instructions[i].tab_bin);
-            myStrcpy(tab_liste_instructions_val[i].tab_hexa, tab_liste_instructions[i].tab_hexa);
+            tab_liste_instructions_val[nb_instructions_val_entrees].instruction_valide = 1;
+            nb_instructions_val_entrees++;
         }
     }
 }

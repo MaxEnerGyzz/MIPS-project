@@ -29,6 +29,7 @@ typedef struct liste_instructions_valide {
     int* arg; /* Arguments de l'instruction */
     char tab_bin[33]; /* Tableau en binaire associé */
     char tab_hexa[9]; /* Tableau en héxadécimal associé */
+    int instruction_valide; /* Indique si l'instruction est valide en fonction des arguments registre utilisés...*/
 }liste_instructions_valide;
    
 
@@ -51,12 +52,13 @@ void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie, liste_instructions
 void remplir_struct_instruction(instructions* tab_instruction); /* Remplit le tableau de structure des codes d'instructions */
 int recherche_instr_dans_structure(char* nom_instr, instructions* tab_instruction); /* Renvoit la position dans le tableau de structures de l'instruction entrée */
 void remplir_liste_instructions(char* instruction, int instruction_actuelle, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre); /* Remplit le tableau de structures avec les instructions mises en entrée du programme */
-void verifier_structure_instruction(liste_instructions* tab_liste_instructions); /* Affiche les instructions (d'entrée) stockées en mémoire dans le tableau de structure */
+void verifier_structure_instruction(int nb_instructions, liste_instructions* tab_liste_instructions); /* Affiche les instructions (d'entrée) stockées en mémoire dans le tableau de structure */
 
-void remplir_liste_instructions_valide(liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val);
+void remplir_liste_instructions_valide(liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, int nb_instructions_entree); /* Remplit le tableau de structures des instructions valides */
 
 int compte_nb_lignes(char* fichierInstr); /* Compte le nombre de lignes dans le fichier d'entrée */
 int compte_nb_inst(char* fichierInstr);  /* Compte le nombre d'instructions dans le fichier d'entrée*/
+int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions); /* Compte le nombre d'instructions valides dans la structure */
 
 
 #endif
