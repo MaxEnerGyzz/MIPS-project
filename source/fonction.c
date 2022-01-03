@@ -922,13 +922,15 @@ void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie, liste_instructions
 }
 
 
-void initialiserEmulateur(char* fichierInstr, char* fichierResult, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions){
+void initialiserEmulateur(char* fichierInstr, char* fichierResult, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
     printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fichierInstr));
     printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fichierInstr));
 
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
     lireInstruction(fichierInstr, fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
+
+    remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val, nb_instructions_entree);
 }
 
 void lireInstruction(char* fichierInstr, char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){

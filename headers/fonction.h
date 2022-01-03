@@ -42,7 +42,7 @@ typedef struct instructions {
     int *reg_protege; /* Tableau des arguments où il est possible d'écrire dans un registre: 1 si il est possible d'écrire dans un registre, 0 sinon */
 }instructions; 
 
-void initialiserEmulateur(char* fichierInstr, char* fichierResult, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions); /* Initialise le simulateur
+void initialiserEmulateur(char* fichierInstr, char* fichierResult, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val); /* Initialise le simulateur
 en initialisant les valeurs des structures d'instructions et de registre. Execute egalement lireInstruction() qui permet d'enregistrer le fichier d'entree dans une structure. */
 
 void lireInstruction(char* fichierInstr, char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre);

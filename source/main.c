@@ -13,11 +13,10 @@ int main(int argc, char* argv[]){
     struct liste_instructions tab_liste_instructions[nb_instructions_entree]; 
     struct liste_instructions tab_liste_instructions_val[nb_instructions_entree]; 
 
-    initialiserEmulateur(fic_instr, fic_result, &tab_registre, &tab_instruction, &tab_liste_instructions);
+    initialiserEmulateur(fic_instr, fic_result, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val);
+    
     verifier_structure_instruction(nb_instructions_entree, tab_liste_instructions);
     verifier_structure_registre(tab_registre);
-
-    remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val, nb_instructions_entree);
     verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);
 
 
