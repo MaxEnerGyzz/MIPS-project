@@ -101,25 +101,18 @@ void binToHex(char *strBin, char *strHexa){
   strHexa[8]='\0';
 }
 
-int binToDec(char *strBin){
-    int dec, decimal_val = 0, base = 1, rem;  
-    int num = valeurDecimale(strBin);
-    //printf("%s Bin en dec: %d\n", strBin, bin);
-        while (num > 0)
-
+int binToDec(int binarynum){
+    int decimalnum = 0, temp = 0, remainder;
+    while (binarynum!=0)
     {
-
-        rem = num % 10;
-
-        decimal_val = decimal_val + rem * base;
-
-        num = num / 10 ;
-
-        base = base * 2;
-
+        remainder = binarynum % 10;
+        binarynum = binarynum / 10;
+        decimalnum = decimalnum + remainder*pow(2,temp);
+        temp++;
     }
-  return num;
+    return decimalnum;
 }
+
 
 int comparerChaine(char *chaine1, char* chaine2){
 

@@ -794,7 +794,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
                 arg_en_int = valeurDecimale(argument_char);
             }
             else{ /* S'il est appelé par son nom, on recupere son numero */
-                arg_en_int = estUnRegistre(argument_char, tab_registre);
+                arg_en_int = estUnRegistre(argument_char, tab_registre) - 1;
                 if (arg_en_int == -1){
                     tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
                 }
