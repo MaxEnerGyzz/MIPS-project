@@ -376,9 +376,9 @@ void verifier_structure_registre(registre* tab_registre){
 
 int estUnRegistre(char* operande, registre* tab_registre){
     int reg=-1, i=0;
-    for(i=0; i< NB_REGISTRES ;i++){
+    for(i=0; i< NB_REGISTRES + 1 ;i++){
         if(comparerChaine(tab_registre[i].nom, operande)){
-            reg=i+1;
+            reg=i + 1;
         }
     }
     if(reg == -1){
@@ -398,7 +398,7 @@ int estUnRegistreProtege(char* operande, registre* tab_registre){
 }
 
 void modifieRegistreParValeur(int valeur, char* registre_nom, registre *tab_registre){
-	int numRegistre = estUnRegistre(registre_nom, tab_registre);
+	int numRegistre = estUnRegistre(registre_nom, tab_registre) - 1;
 	char valeurStr[30];
 	intToStr(valeur, valeurStr);
 	char valeurBin[33];

@@ -20,18 +20,17 @@ void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registr
 
 int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, int i){
 	int PC_modif = 0;
-	printf("%d\n", tab_liste_instructions_val[instruction_actuelle].pos_instr_struct);
 	switch(tab_liste_instructions_val[instruction_actuelle].pos_instr_struct){
 			case 0:
-				instruction_ADD(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_ADD(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			case 1:
-				instruction_ADDI(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_ADDI(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			case 2:
-				instruction_AND(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_AND(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			case 3:
@@ -55,7 +54,7 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				PC_modif = 1;
 				break;
 			case 7:
-				instruction_DIV(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1]);
+				instruction_DIV(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_registre);
 				i++;
 				break;
 			case 8:
@@ -74,7 +73,7 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				PC_modif = 1;
 				break;
 			case 11:
-				instruction_LUI(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1]);
+				instruction_LUI(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_registre);
 				i++;
 				break;
 			case 12:
@@ -139,17 +138,34 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 		return PC_modif;
 }
 
-void instruction_ADD(int rd, int rs, int rt){
-	int rs_val = binToDec("101");
-	printf("Val: %d", rs_val);
+void instruction_ADD(int rd, int rs, int rt, registre* tab_registre){
+	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
+	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
+
+	if(rs_val + rt_val > 4294967296){
+		printf("SignalException(IntegerOverflow)");
+	}
+	else{
+		modifieRegistreParValeur(rs_val + rt_val, tab_registre[rd].nom, tab_registre);
+	}
 }
 
-void instruction_ADDI(int rd, int rs, int imm){
+void instruction_ADDI(int rd, int rs, int imm, registre* tab_registre){
+	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
 
+	if(rs_val + imm > 4294967296){
+		printf("SignalException(IntegerOverflow)");
+	}
+	else{
+		modifieRegistreParValeur(rs_val + imm, tab_registre[rd].nom, tab_registre);
+	}
 }
 
-void instruction_AND(int rd, int rs, int rt){
+void instruction_AND(int rd, int rs, int rt, registre* tab_registre){
+	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
+	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
 
+	modifieRegistreParValeur(rs_val & rt_val, tab_registre[rd].nom, tab_registre);
 }
 
 void instruction_BEQ(int rs, int rt, int offset){
@@ -168,8 +184,12 @@ void instruction_BNE(int rs, int rt, int offset){
 
 }
 
-void instruction_DIV(int rs, int rt){
+void instruction_DIV(int rs, int rt, registre* tab_registre){
+	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
+	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
 
+	modifieRegistreParValeur(rs_val / rt_val, "HI", tab_registre);
+	modifieRegistreParValeur(rs_val % rt_val, "LO", tab_registre);
 }
 
 void instruction_J(int target){
@@ -184,8 +204,9 @@ void instruction_JR(int rs){
 
 }
 
-void instruction_LUI(int rd, int imm){
-
+void instruction_LUI(int rd, int imm, registre* tab_registre){
+	//printf("%d", decToBin((imm << 16) & 65535));
+	modifieRegistreParValeur((imm << 16) & 65535, tab_registre[rd].nom, tab_registre);
 }
 
 void instruction_LW(int rt, int offset, int base){
