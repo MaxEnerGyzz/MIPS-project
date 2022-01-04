@@ -921,18 +921,49 @@ void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie, liste_instructions
 }
 
 
-void initialiserEmulateur(char* fichierInstr, char* fichierResult, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
-    printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fichierInstr));
-    printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fichierInstr));
-
+void initialiserEmulateur(int mode, char* fichierInstr, char* fichierResult, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
+    
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
-    lireInstruction(fichierInstr, fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
-
-    remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val, nb_instructions_entree);
+    
+    if(mode == 0 || mode == 1){
+        printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fichierInstr));
+        printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fichierInstr));
+        lireInstruction(mode, fichierInstr, fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
+        remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val, nb_instructions_entree);
+    }
+    else{
+        ecrireInstructionInteractif(fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
+    }
 }
 
-void lireInstruction(char* fichierInstr, char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
+
+void ecrireInstructionInteractif(char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
+    
+}/*
+    char instruction[33];
+    int nb_instructions = 0;
+    printf("Entrez une instruction");
+    scanf("%s\n", &instruction);
+    mettreEnMajuscule(instruction);
+    while(comparerChaine(instruction,"EXIT")){
+        
+        while(!(recupereInstr(ficInstr, instruction))){
+            mettreEnMajuscule(instruction);
+            remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
+            nb_instructions++;
+        }
+        mettreEnMajuscule(instruction);
+        remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
+        ecrit_instr_hexa(fichierInstr, fichierResult, tab_liste_instructions);
+        printf("Entrez une instruction");
+        scanf("%s\n", &instruction);
+        mettreEnMajuscule(instruction);
+    }
+}*/
+
+
+void lireInstruction(int mode, char* fichierInstr, char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
     FILE* ficInstr;
     ficInstr = fopen(fichierInstr, "r");
     char instruction[33];
@@ -944,9 +975,20 @@ void lireInstruction(char* fichierInstr, char* fichierResult, liste_instructions
             mettreEnMajuscule(instruction); /* On rend la dénomination des registres insensible à la casse */
             remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
             nb_instructions++;
+            if(mode == 1){
+                printf("\nInstruction : %s\n", instruction);
+                printf("\nAppuie sur une touche pour aller à l'instruction suivante\n");
+                getchar();
+            }
         }
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
+        if(mode == 1){
+            printf("\nInstruction : %s\n", instruction);
+            printf("\nAppuie sur une touche pour terminer\n");
+            getchar();
+        }
+
         fclose(ficInstr);
         ecrit_instr_hexa(fichierInstr, fichierResult, tab_liste_instructions);
     }
@@ -981,4 +1023,28 @@ void remplir_liste_instructions_valide(liste_instructions* tab_liste_instruction
             nb_instructions_val_entrees++;
         }
     }
+}
+
+
+
+
+int choix_mode(char* argv_1, char* argv_2, int arg_c){
+    int mode;
+    if(arg_c == 2){ /* Mode non-interactif */
+        printf("Mode non interactif : \nFichier d'entrée : %s", argv_1);
+        mode = 0;
+    }
+    else if(arg_c == 3 && comparerChaine(argv_2, "-pas")){ /* Mode non-interactif pas a pas */
+        printf("Mode pas a pas : \nFichier d'entrée : %s", argv_1);
+        mode = 1;
+    }
+    else if(arg_c == 1){ /* Mode interactif*/
+        printf("Mode interactif : \n");
+        mode = 2;
+    }
+    else{
+        mode = 4;
+        printf("Les arguments d'Emul-MIPS ne correspondent à aucun mode (interactif , pas a pas, non-interactif).\nReferez vous au README.\n");
+    }
+    return mode;
 }

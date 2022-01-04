@@ -8,10 +8,10 @@ SOURCE_LOCATION = ./source/
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -ansi -pedantic -std='c99' -lm
+CFLAGS = -Wall -ansi -pedantic -std='c99'
 
 all : $(OBJECTS)
-	$(CC) $(OBJECTS_O) -o $(BIN) -Wall -pedantic -lm
+	$(CC) $(OBJECTS_O) -o $(BIN) -Wall -pedantic 
 
 fonction_str.o : source/fonction_str.c headers/fonction_str.h
 	$(CC) -g -c $(SOURCE_LOCATION)fonction_str.c -o $(OBJECTS_LOCATION)fonction_str.o $(CFLAGS)
