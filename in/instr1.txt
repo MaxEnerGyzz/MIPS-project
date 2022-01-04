@@ -1,5 +1,5 @@
 ADD $v0, $v1, $s0 #test
-ADDI $v0, $v1 ,100 #test2
+ADDI $2, $3 ,200 #test2
 #test3
    ADD $V0, $V1, $T0
 #test4

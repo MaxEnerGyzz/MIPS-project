@@ -9,7 +9,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "ZERO");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 
@@ -19,7 +19,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "AT");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 
@@ -29,7 +29,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "V0");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -39,7 +39,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "V1");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -49,7 +49,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "A0");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -59,7 +59,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "A1");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -69,7 +69,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "A2");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -79,7 +79,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "A3");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -89,7 +89,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T0");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -99,7 +99,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T1");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -109,7 +109,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T2");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -119,7 +119,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T3");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -129,7 +129,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T4");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -139,7 +139,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T5");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -149,7 +149,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T6");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -159,7 +159,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T7");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -169,7 +169,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "S0");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -179,7 +179,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "S1");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -189,7 +189,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "S2");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -199,7 +199,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "S3");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -209,7 +209,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "S4");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -219,7 +219,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "S5");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -229,7 +229,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "S6");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -239,7 +239,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "S7");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -249,7 +249,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T8");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -259,7 +259,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "T9");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -269,7 +269,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "K0");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 
@@ -279,7 +279,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "K1");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 
@@ -289,7 +289,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "GP");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 
@@ -299,7 +299,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "SP");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -309,7 +309,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "FP");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 
@@ -319,7 +319,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "RA");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 0;
 
@@ -329,7 +329,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "PC");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 
@@ -339,7 +339,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "HI");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 
@@ -349,7 +349,7 @@ void remplir_struc_registre(registre* tab_registre){
 	myStrcpy(tab_registre[j].nom, "LO");
 	tab_registre[j].id = j;
 	for(i = 0; i < 33; i++){
-		tab_registre[j].tab_bin[i] = 0;
+		tab_registre[j].tab_bin[i] = '0';
 	}
 	tab_registre[j].reg_protege = 1;
 }
@@ -361,7 +361,7 @@ void verifier_structure_registre(registre* tab_registre){
 		printf("Registre: %s\n", tab_registre[i].nom);
 		printf("Valeur actuelle du registre: ");
 		for(j = 0; j < 33; j++){
-			printf("%d", tab_registre[i].tab_bin[j]);
+			printf("%c", tab_registre[i].tab_bin[j]);
 		}
 		printf("\nRegistre protege ? ");
 		if(tab_registre[i].reg_protege == 1){
@@ -395,4 +395,13 @@ int estUnRegistreProtege(char* operande, registre* tab_registre){
         }
     }
     return reg;
+}
+
+void modifieRegistreParValeur(int valeur, char* registre_nom, registre *tab_registre){
+	int numRegistre = estUnRegistre(registre_nom, tab_registre);
+	char valeurStr[30];
+	intToStr(valeur, valeurStr);
+	char valeurBin[33];
+	decToBin(valeurStr, valeurBin);
+	copierChaineDroite(valeurBin, tab_registre[numRegistre].tab_bin);
 }

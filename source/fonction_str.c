@@ -30,13 +30,15 @@ char* mettreEnMajuscule(char* str){
 }
 void retournerMot(char* mot){
     int i, n;
+    char *res;
     n = myStrlen(mot);
-  char res[n + 1];
+    res=malloc(sizeof(char)*(n+1));
+  
     for (i=0; i<n; i++){
         res[i] = mot[n-1-i];
     }
     res[i] = '\0';
-    myStrcpy(res,mot);
+    myStrcpy(mot,res);
 }
 
 int valeurDecimale(char* str){
@@ -78,7 +80,7 @@ void decToBin(char *strDec, char* strBin){
     i++;
   }
   strBin[i]='\0';
-  retournerMot(strBin);
+  //retournerMot(strBin);
 }
 void binToHex(char *strBin, char *strHexa){
   int i =0, i2=0, unit=0;
@@ -97,6 +99,26 @@ void binToHex(char *strBin, char *strHexa){
     }
   }
   strHexa[8]='\0';
+}
+
+int binToDec(char *strBin){
+    int dec, decimal_val = 0, base = 1, rem;  
+    int num = valeurDecimale(strBin);
+    //printf("%s Bin en dec: %d\n", strBin, bin);
+        while (num > 0)
+
+    {
+
+        rem = num % 10;
+
+        decimal_val = decimal_val + rem * base;
+
+        num = num / 10 ;
+
+        base = base * 2;
+
+    }
+  return num;
 }
 
 int comparerChaine(char *chaine1, char* chaine2){
@@ -120,6 +142,14 @@ void copierChaineGaucheDroite(const char* tab_tmp, char *tab_bin, int posG, int 
     }
 }
 
+void copierChaineDroite(const char* tab_tmp, char *tab_bin){
+    int taille = myStrlen(tab_tmp);
+    int j = 0;
+    for(int i = 32; i > 32 - taille; i--){
+        tab_bin[i] = tab_tmp[j];
+        j++;
+    }
+}
 
 int estUnInt(char *str){
     int result = 1, i=0, taille = myStrlen(str);
