@@ -909,17 +909,6 @@ int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions
     return(nb_instr_val);
 }
 
-void ecrit_instr_hexa(char* fichier_in, char* fichier_sortie, liste_instructions* tab_liste_instructions){
-    FILE* ficHex;
-    int nb_instructions = compte_nb_inst(fichier_in);
-    ficHex = fopen(fichier_sortie, "w+");
-
-    for(int i = 0; i < nb_instructions; i++){
-        fprintf(ficHex,"%s\n", tab_liste_instructions[i].tab_hexa);
-    }
-    fclose(ficHex);
-}
-
 
 void initialiserEmulateur(int mode, char* fichierInstr, char* fichierResult, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
     
@@ -930,37 +919,46 @@ void initialiserEmulateur(int mode, char* fichierInstr, char* fichierResult, int
         printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fichierInstr));
         printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fichierInstr));
         lireInstruction(mode, fichierInstr, fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
-        remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val, nb_instructions_entree);
     }
     else{
-        ecrireInstructionInteractif(fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
+        nb_instructions_entree = ecrireInstructionInteractif(fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
     }
+    remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val, nb_instructions_entree);
 }
 
 
-void ecrireInstructionInteractif(char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
-    
-}/*
+int ecrireInstructionInteractif(char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
     char instruction[33];
     int nb_instructions = 0;
-    printf("Entrez une instruction");
-    scanf("%s\n", &instruction);
+    printf("Entrez une instruction \n");
+    fgets(instruction, 33, stdin);
+    instruction[myStrlen(instruction)-1]='\0';
     mettreEnMajuscule(instruction);
-    while(comparerChaine(instruction,"EXIT")){
-        
-        while(!(recupereInstr(ficInstr, instruction))){
-            mettreEnMajuscule(instruction);
-            remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
-            nb_instructions++;
-        }
+    printf("Instruction : %s\n",instruction );
+    while(!(comparerChaine(instruction,"EXIT"))){
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
-        ecrit_instr_hexa(fichierInstr, fichierResult, tab_liste_instructions);
-        printf("Entrez une instruction");
-        scanf("%s\n", &instruction);
+        
+        printf("Entrez une instruction\n");
+        fgets(instruction, 33, stdin);
+        instruction[myStrlen(instruction)-1]='\0';
         mettreEnMajuscule(instruction);
+        printf("Instruction : %s\n",instruction );
+        nb_instructions++;
     }
-}*/
+    ecrit_instr_hexa(nb_instructions, fichierResult, tab_liste_instructions);
+    return nb_instructions;
+}
+
+
+void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructions* tab_liste_instructions){
+    FILE* ficHex;
+    ficHex = fopen(fichier_sortie, "w+");
+    for(int i = 0; i < nb_instructions; i++){
+        fprintf(ficHex,"%s\n", tab_liste_instructions[i].tab_hexa);
+    }
+    fclose(ficHex);
+}
 
 
 void lireInstruction(int mode, char* fichierInstr, char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
@@ -990,7 +988,7 @@ void lireInstruction(int mode, char* fichierInstr, char* fichierResult, liste_in
         }
 
         fclose(ficInstr);
-        ecrit_instr_hexa(fichierInstr, fichierResult, tab_liste_instructions);
+        ecrit_instr_hexa(nb_instructions, fichierResult, tab_liste_instructions);
     }
     else{
         printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");
@@ -1031,11 +1029,11 @@ void remplir_liste_instructions_valide(liste_instructions* tab_liste_instruction
 int choix_mode(char* argv_1, char* argv_2, int arg_c){
     int mode;
     if(arg_c == 2){ /* Mode non-interactif */
-        printf("Mode non interactif : \nFichier d'entrée : %s", argv_1);
+        printf("Mode non interactif : \nFichier d'entrée : %s\n", argv_1);
         mode = 0;
     }
     else if(arg_c == 3 && comparerChaine(argv_2, "-pas")){ /* Mode non-interactif pas a pas */
-        printf("Mode pas a pas : \nFichier d'entrée : %s", argv_1);
+        printf("Mode pas a pas : \nFichier d'entrée : %s\n", argv_1);
         mode = 1;
     }
     else if(arg_c == 1){ /* Mode interactif*/
