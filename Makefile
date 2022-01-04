@@ -1,6 +1,6 @@
 BIN = emul-mips
 
-OBJECTS = fonction.o fonction_str.o registre.o main.o
+OBJECTS = fonction.o fonction_str.o registre.o main.o instructions.o
 OBJECTS_LOCATION = ./objects/
 OBJECTS_O = ./objects/*.o
 
@@ -21,6 +21,9 @@ fonction.o : source/fonction.c headers/fonction.h
 
 registre.o : source/registre.c headers/registre.h
 	$(CC) -g -c $(SOURCE_LOCATION)registre.c -o $(OBJECTS_LOCATION)registre.o $(CFLAGS)
+
+instructions.o: source/instructions.c headers/instructions.h
+	$(CC) -g -c $(SOURCE_LOCATION)instructions.c -o $(OBJECTS_LOCATION)instructions.o $(CFLAGS)
 
 
 main.o : source/main.c headers/fonction.h headers/fonction_str.h headers/registre.h

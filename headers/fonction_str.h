@@ -6,7 +6,6 @@
 #include <math.h>
 
 
-
 void myStrcpy(char *str, char* str2); /* str = chaine à coller, str2 = chaine à copier */
 int myStrlen(const char *str); /* Renvoit la taille de la chaine */
 void retournerMot(char* mot); /* Retourne une chaine de caractères */
