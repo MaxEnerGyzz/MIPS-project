@@ -17,10 +17,13 @@ typedef struct registre {
 }registre;
     
 
+
 void remplir_struc_registre(registre* tab_registre); /* Remplit la structure contenant les différentes informations sur les registres */
 void verifier_structure_registre(registre* tab_registre); /* Affiche les informations actuelles des registres (nom, valeur, protégé ou non) */
 
 int estUnRegistre(char* operande, registre* tab_registre); /* Retourne -1 si l'operande n'est pas un registre. Retourne la valeur correspondante du registre si c'en est un */
 int estUnRegistreProtege(char* operande, registre* tab_registre); /* Retourne 1 si l'operande est un registre protege. Retourne 0 sinon */
+
+void modifieRegistreParValeur(int valeur, char* registre_nom, registre *tab_registre); /* Modifie un registre par une valeur entree en entier */
 
 #endif
