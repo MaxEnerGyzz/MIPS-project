@@ -24,3 +24,5 @@ int estUnRegistre(char* operande, registre* tab_registre); /* Retourne -1 si l'o
 int estUnRegistreProtege(char* operande, registre* tab_registre); /* Retourne 1 si l'operande est un registre protege. Retourne 0 sinon */
 
 #endif
+
+/* test */
