@@ -1,17 +1,20 @@
 #ifndef __REGISTRE_H__
 #define __REGISTRE_H__
 
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "fonction_str.h"
 
 #define NB_REGISTRES 34
 
 
-typedef struct registre registre;
-struct registre {
+typedef struct registre {
     char *nom; /* NOM du registre */
     int id; /* Identifiant associé au registre */
     char tab_bin[33]; /* Valeur du registre */
     int reg_protege; /* Indique si le registre est protégé en écriture: 1 si protégé, 0 sinon */
-};
+}registre;
     
 
 void remplir_struc_registre(registre* tab_registre); /* Remplit la structure contenant les différentes informations sur les registres */

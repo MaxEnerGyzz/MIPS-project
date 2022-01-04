@@ -6,6 +6,7 @@
 #include <math.h>
 
 #include "registre.h"
+#include "../headers/fonction_str.h"
 
 #define NB_INSTRUCTIONS_MIPS 26
 

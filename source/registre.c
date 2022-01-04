@@ -1,8 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
-
 #include "../headers/registre.h"
-#include "../headers/fonction_str.h"
+
 
 void remplir_struc_registre(registre* tab_registre){
 	int i = 0, j = 0;
@@ -326,7 +323,7 @@ void remplir_struc_registre(registre* tab_registre){
 	}
 	tab_registre[j].reg_protege = 0;
 
-	/* PC --> Program Counter (Adresse de l'instruction actuelle)*/
+	/* PC --> Program Counter (Adresse de la prochaine instruction)*/
 	j++;
 	tab_registre[j].nom = malloc(sizeof(char)*3);
 	myStrcpy(tab_registre[j].nom, "PC");

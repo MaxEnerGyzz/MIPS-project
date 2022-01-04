@@ -1,6 +1,5 @@
 #include "../headers/fonction.h"
-#include "../headers/fonction_str.h"
-#include "../headers/registre.h"
+
 
 void remplir_struct_instruction(instructions* tab_instruction){
     int i =0;
