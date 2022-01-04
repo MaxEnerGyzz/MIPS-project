@@ -15,7 +15,7 @@ typedef struct registre {
     char tab_bin[33]; /* Valeur du registre */
     int reg_protege; /* Indique si le registre est protégé en écriture: 1 si protégé, 0 sinon */
 }registre;
-    
+
 
 
 void remplir_struc_registre(registre* tab_registre); /* Remplit la structure contenant les différentes informations sur les registres */
