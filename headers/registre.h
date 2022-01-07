@@ -25,5 +25,6 @@ int estUnRegistre(char* operande, registre* tab_registre); /* Retourne -1 si l'o
 int estUnRegistreProtege(char* operande, registre* tab_registre); /* Retourne 1 si l'operande est un registre protege. Retourne 0 sinon */
 
 void modifieRegistreParValeur(int valeur, char* registre_nom, registre *tab_registre); /* Modifie un registre par une valeur entree en entier */
+void resetRegistre(char* registre_nom, registre *tab_registre); /* Remet le registre à 0 */
 
 #endif

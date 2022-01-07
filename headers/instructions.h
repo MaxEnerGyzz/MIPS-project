@@ -27,21 +27,30 @@ void instruction_J(int target);
 void instruction_JAL(int target);
 void instruction_JR(int rs);
 
-void instruction_LUI(int rd, int imm, registre* tab_registre);
+void instruction_LUI(int rd, int imm, registre* tab_registre); 
+
 void instruction_LW(int rt, int offset, int base);
-void instruction_MFHI(int rd);
-void instruction_MFLO(int rd);
-void instruction_MULT(int rs, int rt);
+
+void instruction_MFHI(int rd, registre* tab_registre);
+void instruction_MFLO(int rd, registre* tab_registre);
+void instruction_MULT(int rs, int rt, registre* tab_registre); 
 void instruction_NOP();
-void instruction_OR(int rd, int rs, int rt);
-void instruction_ROTR(int rd, int rs, int rt);
-void instruction_SLL(int rd, int rs, int sa);
+void instruction_OR(int rd, int rs, int rt, registre* tab_registre);
+
+void instruction_ROTR(int rd, int rs, int rt, registre* tab_registre); // A realiser 
+
+void instruction_SLL(int rd, int rt, int sa, registre* tab_registre);
+
 void instruction_SLT(int rd, int rs, int rt);
-void instruction_SRL(int rd, int rt, int sa);
-void instruction_SUB(int rd, int rs, int st);
+
+void instruction_SRL(int rd, int rt, int sa, registre* tab_registre);
+void instruction_SUB(int rd, int rs, int rt, registre* tab_registre);
+
 void instruction_SW(int rt, int offset, int base);
+
 void instruction_SYSCALL();
-void instruction_XOR(int rd, int rs, int rt);
+
+void instruction_XOR(int rd, int rs, int rt, registre* tab_registre);
 
 #endif
 

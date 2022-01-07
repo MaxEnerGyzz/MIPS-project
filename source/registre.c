@@ -405,3 +405,8 @@ void modifieRegistreParValeur(int valeur, char* registre_nom, registre *tab_regi
 	decToBin(valeurStr, valeurBin);
 	copierChaineDroite(valeurBin, tab_registre[numRegistre].tab_bin);
 }
+
+void resetRegistre(char* registre_nom, registre *tab_registre){
+	int numRegistre = estUnRegistre(registre_nom, tab_registre) - 1;
+	myStrcpy(tab_registre[numRegistre].tab_bin, "00000000000000000000000000000000");
+}

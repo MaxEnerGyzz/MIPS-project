@@ -81,15 +81,15 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				i++;
 				break;
 			case 13:
-				instruction_MFHI(tab_liste_instructions_val[instruction_actuelle].arg[0]);
+				instruction_MFHI(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_registre);
 				i++;
 				break;
 			case 14:
-				instruction_MFLO(tab_liste_instructions_val[instruction_actuelle].arg[0]);
+				instruction_MFLO(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_registre);
 				i++;
 				break;
 			case 15:
-				instruction_MULT(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1]);
+				instruction_MULT(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_registre);
 				i++;
 				break;
 			case 16:
@@ -97,15 +97,15 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				i++;
 				break;
 			case 17:
-				instruction_OR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_OR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			case 18:
-				instruction_ROTR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_ROTR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			case 19:
-				instruction_SLL(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_SLL(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			case 20:
@@ -113,11 +113,11 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				i++;
 				break;
 			case 21:
-				instruction_SRL(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_SRL(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			case 22:
-				instruction_SUB(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_SUB(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			case 23:
@@ -129,7 +129,7 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				i++;
 				break;
 			case 25:
-				instruction_XOR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
+				instruction_XOR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				i++;
 				break;
 			default:
@@ -205,52 +205,82 @@ void instruction_JR(int rs){
 }
 
 void instruction_LUI(int rd, int imm, registre* tab_registre){
-	//printf("%d", decToBin((imm << 16) & 65535));
-	modifieRegistreParValeur((imm << 16) & 65535, tab_registre[rd].nom, tab_registre);
+	modifieRegistreParValeur(imm * 65536, tab_registre[rd].nom, tab_registre);
 }
 
 void instruction_LW(int rt, int offset, int base){
 	
 }
 
-void instruction_MFHI(int rd){
-	
+void instruction_MFHI(int rd, registre* tab_registre){
+	modifieRegistreParValeur(binToDec(valeurDecimale(tab_registre[33].tab_bin)), tab_registre[rd].nom, tab_registre);
 }
 
-void instruction_MFLO(int rd){
-	
+void instruction_MFLO(int rd, registre* tab_registre){
+	modifieRegistreParValeur(binToDec(valeurDecimale(tab_registre[34].tab_bin)), tab_registre[rd].nom, tab_registre);
 }
 
-void instruction_MULT(int rs, int rt){
-	
+void instruction_MULT(int rs, int rt, registre* tab_registre){
+	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
+	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
+	int mul = rs_val * rt_val;
+	int mul_haut = mul & 18446744069414584320;
+	int mul_bas = mul & 4294967295;
+
+
+	modifieRegistreParValeur(mul_haut, "HI", tab_registre);
+	modifieRegistreParValeur(mul_bas, "LO", tab_registre);
 }
 
 void instruction_NOP(){
 	
 }
 
-void instruction_OR(int rd, int rs, int rt){
+void instruction_OR(int rd, int rs, int rt, registre* tab_registre){
+	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
+	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
 
+	modifieRegistreParValeur(rs_val | rt_val, tab_registre[rd].nom, tab_registre);
 }
 
-void instruction_ROTR(int rd, int rs, int rt){
+void instruction_ROTR(int rd, int rt, int sa, registre* tab_registre){
+	int rt_gauche[16]; 
+	int rt_droite[16]; 
+	int result;
 
+	copierChaineGaucheDroite(tab_registre[rt].tab_bin, rt_gauche, 0, 31 - sa);
+	copierChaineGaucheDroite(tab_registre[rt].tab_bin, rt_gauche, 31 - sa + 1, 31);
+	result = binToDec(valeurDecimale(rt_gauche)) & binToDec(valeurDecimale(rt_droite));
+
+	modifieRegistreParValeur(result, tab_registre[rd].nom, tab_registre);
 }
 
-void instruction_SLL(int rd, int rs, int sa){
-
+void instruction_SLL(int rd, int rt, int sa, registre* tab_registre){
+	int temp = binToDec(valeurDecimale(tab_registre[rt].tab_bin)) * myPower2(sa);
+	modifieRegistreParValeur(0, tab_registre[rd].nom, tab_registre);
+	modifieRegistreParValeur(temp, tab_registre[rd].nom, tab_registre);
 }
 
 void instruction_SLT(int rd, int rs, int rt){
 
 }
 
-void instruction_SRL(int rd, int rt, int sa){
-
+void instruction_SRL(int rd, int rt, int sa, registre* tab_registre){
+	int temp = binToDec(valeurDecimale(tab_registre[rt].tab_bin)) / myPower2(sa);
+	resetRegistre(tab_registre[rd].nom, tab_registre);
+	modifieRegistreParValeur(temp, tab_registre[rd].nom, tab_registre);
 }
 
-void instruction_SUB(int rd, int rs, int st){
-
+void instruction_SUB(int rd, int rs, int rt, registre* tab_registre){
+	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
+	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
+	if(rs_val >= rt_val){
+		modifieRegistreParValeur(rs_val - rt_val, tab_registre[rd].nom, tab_registre);
+	}
+	else{
+		printf("Les entiers signes ne sont pas encore pris en compte;");
+	}
+	
 }
 
 void instruction_SW(int rt, int offset, int base){
@@ -258,10 +288,13 @@ void instruction_SW(int rt, int offset, int base){
 }
 
 void instruction_SYSCALL(){
-	
+	printf("SignalException(SystemCall)");
 }
 
-void instruction_XOR(int rd, int rs, int rt){
+void instruction_XOR(int rd, int rs, int rt, registre* tab_registre){
+	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
+	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
 
+	modifieRegistreParValeur(rs_val ^ rt_val, tab_registre[rd].nom, tab_registre);
 }
 

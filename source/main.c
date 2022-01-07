@@ -20,6 +20,8 @@ int main(int argc, char* argv[]){
             struct liste_instructions tab_liste_instructions_val[nb_instructions_entree];
             initialiserEmulateur(mode, fic_instr, fic_result, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val);
             mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions));
+            verifier_structure_registre(tab_registre);
+            //verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);
 
         }
         if(mode == 2){
