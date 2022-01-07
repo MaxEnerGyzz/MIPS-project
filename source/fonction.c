@@ -669,7 +669,7 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
     while(carac == ' '){ /* Cas ou la ligne commence par un espace */
         carac= fgetc(ficInstr);
     }
-    if(carac == '#'){ /* Cas où une ligne commence par un commentaire*/
+    while(carac == '#'){ /* Cas où une ligne commence par un commentaire*/
         while(carac != 10 && carac != EOF){
             carac= fgetc(ficInstr);
         }
@@ -686,12 +686,20 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
     }
     position_curseur = ftell(ficInstr); /* On sauvegarde la position du curseur du fichier */
     carac=fgetc(ficInstr);
-    if(carac == 10){ /* S'il y a un saut de ligne apres l'instruction */
-        while(carac == 10){ /* On passe a la ligne suivante jusqu'a retomber sur une instruction ou la fin du fichier */
-            position_curseur = ftell(ficInstr);
-            carac = fgetc(ficInstr);
+    if(carac == 10 || carac == '#'){ /* S'il y a un saut de ligne apres l'instruction ou un commentaire */
+        while(carac == 10 || carac == '#'){
+            while(carac == 10){ /* On passe a la ligne suivante jusqu'a retomber sur une instruction ou la fin du fichier */
+                position_curseur = ftell(ficInstr);
+                carac = fgetc(ficInstr);
+            }
+            fseek(ficInstr, position_curseur, SEEK_SET); /* On retourne au caractere précédent */
+            while(carac =='#'){
+                while(carac != 10){
+                    carac = fgetc(ficInstr);
+                }
+                carac = fgetc(ficInstr);
+            }
         }
-        fseek(ficInstr, position_curseur, SEEK_SET); /* On retourne au caractere précédent */
     }
     else{ /* S'il n'y a pas de saut de ligne, on replace le pointeur du fichier */
         fseek(ficInstr, position_curseur, SEEK_SET);

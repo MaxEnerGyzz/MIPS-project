@@ -22,5 +22,5 @@ int binToDec(int binarynum); /* Transforme un binaire en décimal */
 int estUnInt(char *str); /* Retourne 1 si tous les membres du tableau sont des nombres*/
 
 int myPower2(int value); /* Renvoie la puissance de 2 de value */
-
+void complementADeux(char* bin); /* change bin en son complement a deux */
 #endif

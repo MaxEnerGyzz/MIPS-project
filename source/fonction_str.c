@@ -162,3 +162,20 @@ int myPower2(int value){
     return result;
 }
 
+
+void complementADeux(char* bin){
+    int size = myStrlen(bin);
+    while(bin[size] != '1' && size>=0){
+      size--;
+    }
+    size--;
+    while(size>=0){
+      if(bin[size] == '1'){
+        bin[size]='0';
+      }
+      else{
+        bin[size]='1';
+      }
+      size--;
+    }
+  }
