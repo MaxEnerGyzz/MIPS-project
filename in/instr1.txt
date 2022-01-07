@@ -1,7 +1,7 @@
 ADDI $v0, $zero, 249 #test
 ADDI $3, $zero , 5 #test2
 #test3
-   LUI $v0, 5
+   ROTR $v0, $v0, $3
 #test4
 #test 5
 ADD $T1 ,$t3,$t2
