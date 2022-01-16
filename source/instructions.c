@@ -209,7 +209,7 @@ void instruction_LUI(int rd, int imm, registre* tab_registre){
 }
 
 void instruction_LW(int rt, int offset, int base){
-	
+
 }
 
 void instruction_MFHI(int rd, registre* tab_registre){
@@ -224,7 +224,7 @@ void instruction_MULT(int rs, int rt, registre* tab_registre){
 	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
 	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
 	int mul = rs_val * rt_val;
-	int mul_haut = mul & 18446744069414584320;
+ 	int mul_haut = mul & 18446744069414584320lu;
 	int mul_bas = mul & 4294967295;
 
 
@@ -233,7 +233,7 @@ void instruction_MULT(int rs, int rt, registre* tab_registre){
 }
 
 void instruction_NOP(){
-	
+
 }
 
 void instruction_OR(int rd, int rs, int rt, registre* tab_registre){
@@ -244,8 +244,8 @@ void instruction_OR(int rd, int rs, int rt, registre* tab_registre){
 }
 
 void instruction_ROTR(int rd, int rt, int sa, registre* tab_registre){
-	int rt_gauche[16]; 
-	int rt_droite[16]; 
+	char rt_gauche[16];
+	char rt_droite[16];
 	int result;
 
 	copierChaineGaucheDroite(tab_registre[rt].tab_bin, rt_gauche, 0, 31 - sa);
@@ -280,7 +280,7 @@ void instruction_SUB(int rd, int rs, int rt, registre* tab_registre){
 	else{
 		printf("Les entiers signes ne sont pas encore pris en compte;");
 	}
-	
+
 }
 
 void instruction_SW(int rt, int offset, int base){
@@ -297,4 +297,3 @@ void instruction_XOR(int rd, int rs, int rt, registre* tab_registre){
 
 	modifieRegistreParValeur(rs_val ^ rt_val, tab_registre[rd].nom, tab_registre);
 }
-

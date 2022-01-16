@@ -33,7 +33,7 @@ void retournerMot(char* mot){
     char *res;
     n = myStrlen(mot);
     res=malloc(sizeof(char)*(n+1));
-  
+
     for (i=0; i<n; i++){
         res[i] = mot[n-1-i];
     }

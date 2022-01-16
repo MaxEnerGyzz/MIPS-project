@@ -410,3 +410,297 @@ void resetRegistre(char* registre_nom, registre *tab_registre){
 	int numRegistre = estUnRegistre(registre_nom, tab_registre) - 1;
 	myStrcpy(tab_registre[numRegistre].tab_bin, "00000000000000000000000000000000");
 }
+
+
+void afficher_registres(registre* tab_registre){
+	char valeur_hex[9];
+	int i = 0;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$zero: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$at: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$v0: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$v1: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$a0: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$a1: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$a2: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$a3: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t0: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t1: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t2: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t3: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t4: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t5: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t6: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t7: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$s0: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$s1: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$s2: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$s3: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$s4: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$s5: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$s6: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$s7: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t8: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$t9: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$k0: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$k1: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$gp: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$sp: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$fp: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$ra: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$pc: %s   \n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$hi: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	printf("$l0: %s   \n", valeur_hex);
+	i++;
+
+}
+
+void ecrire_registres_fichier(registre* tab_registre, char* nom_fichier){
+	char valeur_hex[9];
+	FILE* fichier = fopen(nom_fichier, "w+");
+	int i = 0;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$zero: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$at: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$v0: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$v1: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$a0: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$a1: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$a2: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$a3: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t0: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t1: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t2: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t3: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t4: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t5: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t6: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t7: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$s0: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$s1: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$s2: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$s3: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$s4: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$s5: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$s6: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$s7: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t8: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$t9: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$k0: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$k1: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$gp: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$sp: %s\n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$fp: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$ra: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$pc: %s   \n", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$hi: %s   ", valeur_hex);
+	i++;
+
+	binToHex(tab_registre[i].tab_bin, valeur_hex);
+	fprintf(fichier, "$l0: %s   \n", valeur_hex);
+	i++;
+
+}

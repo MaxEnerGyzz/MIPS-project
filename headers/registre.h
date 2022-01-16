@@ -27,4 +27,7 @@ int estUnRegistreProtege(char* operande, registre* tab_registre); /* Retourne 1 
 void modifieRegistreParValeur(int valeur, char* registre_nom, registre *tab_registre); /* Modifie un registre par une valeur entree en entier */
 void resetRegistre(char* registre_nom, registre *tab_registre); /* Remet le registre à 0 */
 
+void afficher_registres(registre* tab_registre); /* Affiche les registres en hexadecimal */
+void ecrire_registres_fichier(registre* tab_registre, char* nom_fichier); /* Ecrit les registres en hexadecimal dans un fichier */
+
 #endif
