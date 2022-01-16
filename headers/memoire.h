@@ -8,12 +8,13 @@
 #include "fonction.h"
 #include "fonction_str.h"
 
-#define TAILLE_MEM_INSTRUCTIONS 500 /* 500 * 4 octets = tableau de 2ko */
-#define TAILLE_MEM_VAR 100
+#define TAILLE_MEMOIRE_INSTR 500 /* 500 * 4 octets = Tableau de 2Ko*/
+#define TAILLE_MEMOIRE 2500 /* 2500 * 4 octets = Tableau de 10Ko donc mémoire de 12Ko*/
 
-void initialiserMemoire(long* memoire);
-void modifierElmtMem(long* memoire, long valeur, int position);
-long recupererElmtMem(long* memoire, int position);
-void remplirMemProg(long* memoire, liste_instructions* tab_liste_instructions_val);
+long* initialiserMemoire(); /* Initialise la memoire en mettant tous les blocs à 0, le nombre d'instructions à 0 et le nombre de blocs utilises à 0 */
+void remplirMemProg(long* memoire, liste_instructions* tab_liste_instructions_val, int nb_instr); /* Remplis la mémoire avec les instructions d'entrée (mode non-interactif)*/
+void remplirMemProg_une_instruction(long* memoire, char* instruction_hexa); /* Remplis la mémoire avec une instruction entree (mode pas-a-pas et interactif)*/
+void modifierElmtMem(long* memoire, long valeur, int position); /* Modifie la memoire selon une valeur et a une position donnee */
+long recupererElmtMem(long* memoire, int position); /* Recupere la valeur associe a une position de la memoire */
 
 #endif

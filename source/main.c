@@ -2,6 +2,7 @@
 #include "../headers/fonction_str.h"
 #include "../headers/registre.h"
 #include "../headers/instructions.h"
+#include "../headers/memoire.h"
 
 int main(int argc, char* argv[]){
     char *fic_instr;
@@ -23,6 +24,10 @@ int main(int argc, char* argv[]){
             verifier_structure_registre(tab_registre);
             afficher_registres(tab_registre);
             ecrire_registres_fichier( tab_registre,"./out/test.txt");
+            printf("Taille : %ld\n", sizeof(tab_liste_instructions_val)/ sizeof(liste_instructions));
+
+            long* memoire = initialiserMemoire();
+            remplirMemProg(memoire, tab_liste_instructions_val, 5);
             //verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);
 
         }
@@ -41,6 +46,8 @@ int main(int argc, char* argv[]){
         //verifier_structure_registre(tab_registre);
         /*verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);*/
     }
+
+
 
     return 0;
 }
