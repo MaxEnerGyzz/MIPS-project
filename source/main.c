@@ -10,9 +10,10 @@ int main(int argc, char* argv[]){
     int nb_instructions_entree;
     struct registre tab_registre[NB_REGISTRES + 1];
     struct instructions tab_instruction[NB_INSTRUCTIONS_MIPS];
-    long* memoire_instr = initialiserMemoire();
-    
-    
+    long* memoire = initialiserMemoire();
+    long* memoire_instr = initialiserMemoire_instr();
+
+
     if(mode != 4){
         if(mode == 0 || mode == 1){ /* Mode non-interactif ou pas-a-pas */
             fic_instr = malloc(sizeof(char)*(myStrlen(argv[1])+1));
@@ -21,18 +22,21 @@ int main(int argc, char* argv[]){
             struct liste_instructions tab_liste_instructions[nb_instructions_entree];
             struct liste_instructions tab_liste_instructions_val[nb_instructions_entree];
             initialiserEmulateur(mode, fic_instr, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val, memoire_instr);
-            mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions));
-            verifier_structure_registre(tab_registre);
-            afficher_registres(tab_registre);
-            
-            if (mode == 0){
+
+            if (mode == 0){ /* Mode non-interactif */
+                mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), memoire);
                 ecrire_registres_fichier( tab_registre,argv[3]);
                 ecrit_instr_hexa(nb_instructions_entree, argv[2], tab_liste_instructions);
             }
+            else{ /* Mode pas-a-pas */
+
+            }
+            /* verifier_structure_registre(tab_registre);
+              afficher_registres(tab_registre); */
             //verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);
 
         }
-        
+
         else if(mode == 2){ /* Mode interactif */
             fic_instr = "stdin";
             nb_instructions_entree = NB_INSTRUCTIONS_MAX;
