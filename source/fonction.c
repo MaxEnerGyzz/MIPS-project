@@ -1076,7 +1076,7 @@ void testMemoire(unsigned char *memoire_instr, unsigned char* memoire){
     printf("\nPARTIE MEMOIRE\n");
     for(i=0; i<TAILLE_MEMOIRE; i++){
         if(memoire[i]!=0){
-            printf("Valeur de la memoire à la case %d : %d\n",i, memoire[i]);
+            printf("Valeur de la memoire à la case %d : %c\n",i, memoire[i]);
         }
     }
 }
