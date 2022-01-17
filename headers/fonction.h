@@ -49,11 +49,8 @@ en initialisant les valeurs des structures d'instructions et de registre. Execut
 
 void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr);
 
-<<<<<<< HEAD
 int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr);
-=======
-int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre);
->>>>>>> parent of 1b4ed5a (Added "steb-by-step" and "interactif" mode)
+
 
 int recupereInstr(FILE* ficInstr, char* tmp);
 void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructions* tab_liste_instructions); /* ecrit l'integralite des fonctions traduite en hexadecimal dans le fichier de sortie */

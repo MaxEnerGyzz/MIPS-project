@@ -25,14 +25,7 @@ int main(int argc, char* argv[]){
                 mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), memoire);
                 ecrire_registres_fichier( tab_registre,argv[3]);
                 ecrit_instr_hexa(nb_instructions_entree, argv[2], tab_liste_instructions);
-<<<<<<< HEAD
-                
                 testMemoire(memoire_instr, memoire);
-                
-=======
->>>>>>> parent of 1b4ed5a (Added "steb-by-step" and "interactif" mode)
-            }
-            else{ /* Mode pas-a-pas */
 
             }
             /* verifier_structure_registre(tab_registre);
