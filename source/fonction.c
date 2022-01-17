@@ -1,11 +1,12 @@
 #include "../headers/fonction.h"
 #include "../headers/memoire.h"
+#include "../headers/instructions.h"
 
 void remplir_struct_instruction(instructions* tab_instruction){
     int i =0;
     int j=0;
     /* ADD */
-    
+
     tab_instruction[j].instr = malloc(sizeof(char)*4);
     myStrcpy(tab_instruction[j].instr, "ADD");
     tab_instruction[j].nb_arg = 3;
@@ -30,7 +31,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
         tab_instruction[j].reg_protege[i] = 0;
     }
     tab_instruction[j].reg_protege[0] = 1;
-    
+
     /* ADDI */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*5);
@@ -86,7 +87,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
     }
     tab_instruction[j].reg_protege[0] = 1;
 
-    
+
     /* BEQ */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*4);
@@ -112,9 +113,9 @@ void remplir_struct_instruction(instructions* tab_instruction){
     for(i=0; i<tab_instruction[j].nb_arg; i++){
         tab_instruction[j].reg_protege[i] = 0;
     }
-    
-    
-    
+
+
+
     /* BGTZ */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*5);
@@ -139,7 +140,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
     for(i=0; i<tab_instruction[j].nb_arg; i++){
         tab_instruction[j].reg_protege[i] = 0;
     }
-    
+
     /* BLEZ */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*5);
@@ -257,7 +258,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
     for(i=0; i<tab_instruction[j].nb_arg; i++){
         tab_instruction[j].reg_protege[i] = 0;
     }
-    
+
     /* JR */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*3);
@@ -278,7 +279,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
         tab_instruction[j].reg_protege[i] = 0;
     }
     /* On laisse le bit 10 du hint à 0 car on ne gere pas le pipeline donc il n'y a pas de data hazard*/
-    
+
     /* LUI */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*4);
@@ -305,7 +306,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
         tab_instruction[j].reg_protege[i] = 0;
     }
     tab_instruction[j].reg_protege[0] = 1;
-    
+
     /* LW */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*3);
@@ -333,8 +334,8 @@ void remplir_struct_instruction(instructions* tab_instruction){
         tab_instruction[j].reg_protege[i] = 0;
     }
     tab_instruction[j].reg_protege[0] = 1;
-    
-    
+
+
     /* MFHI */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*5);
@@ -355,7 +356,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
         tab_instruction[j].reg_protege[i] = 0;
     }
     tab_instruction[j].reg_protege[0] = 1;
-    
+
 
     /* MFLO */
     j++;
@@ -615,7 +616,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
     for(i=0; i<tab_instruction[j].nb_arg; i++){
         tab_instruction[j].reg_protege[i] = 0;
     }
-    
+
     /* SYSCALL */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*8);
@@ -631,7 +632,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
     for(i=0; i<tab_instruction[j].nb_arg; i++){
         tab_instruction[j].reg_protege[i] = 0;
     }
-    
+
     /* XOR */
     j++;
     tab_instruction[j].instr = malloc(sizeof(char)*4);
@@ -704,7 +705,7 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
     else{ /* S'il n'y a pas de saut de ligne, on replace le pointeur du fichier */
         fseek(ficInstr, position_curseur, SEEK_SET);
     }
-    
+
     if(carac == EOF){  /*Pas de Else if car si on met un commentaire sur la derniere ligne ca va pas renvoyer 1*/
         fin = 1;
     }
@@ -741,7 +742,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
     int erreur_longueur = 0; /* Indique si un argument est trop grand pour l'instruction */
     int nb_bits_max;
     double arg_base2;
-    
+
     tab_liste_instructions[instruction_actuelle].instruction_valide = 1;
 
     while(instruction[i]!=' '){ /* Récupère le nom de l'instruction */
@@ -762,10 +763,10 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
     pos_instr = tab_liste_instructions[instruction_actuelle].pos_instr_struct;
     tab_liste_instructions[instruction_actuelle].nb_arg = tab_instruction[pos_instr].nb_arg;
     myStrcpy(tab_liste_instructions[instruction_actuelle].tab_bin, tab_instruction[pos_instr].tab_bin); /* Récupère le tableau binaire associé */
-    
+
     tab_liste_instructions[instruction_actuelle].arg = malloc(sizeof(char)*tab_liste_instructions[instruction_actuelle].nb_arg);
-    
-    
+
+
     i++; /* i pointe désormais vers le premier argument*/
 
 
@@ -785,7 +786,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
                 tab_liste_instructions[instruction_actuelle].instruction_valide = 0;
             }
         }
-        
+
         k=0;
         while(instruction[i] != ',' && instruction[i] != ' ' && instruction[i] != '\0'){
             argument_char[k] = instruction[i];
@@ -793,7 +794,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
             k++;
         }
         argument_char[k] = '\0';
-        
+
         while(instruction[i] == ',' || instruction[i] == ' '){
             i++;
         }
@@ -820,9 +821,9 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
 
         intToStr(tab_liste_instructions[instruction_actuelle].arg[j], arg_en_str);
         decToBin(arg_en_str, arg_en_binaire);
-        
+
         arg_base2 = (ceil(log2(tab_liste_instructions[instruction_actuelle].arg[j]))); /* Vérifie que l'argument n'est pas trop grand */
-        nb_bits_max = tab_instruction[pos_instr].pos_arg[(2*j) + 1] - tab_instruction[pos_instr].pos_arg[2* j] + 1;  
+        nb_bits_max = tab_instruction[pos_instr].pos_arg[(2*j) + 1] - tab_instruction[pos_instr].pos_arg[2* j] + 1;
         if(arg_base2 > nb_bits_max){
             printf("ERREUR: L'argument %d de l'instruction '%s' est trop grand. La valeur maximale d'entrée pour cette argument est: %d\n", tab_liste_instructions[instruction_actuelle].arg[j], nom_instr, myPower2(nb_bits_max) - 1);
             erreur_longueur = 1;
@@ -833,7 +834,7 @@ void remplir_liste_instructions(char* instruction, int instruction_actuelle, lis
         }
     }
     binToHex(tab_liste_instructions[instruction_actuelle].tab_bin, tab_liste_instructions[instruction_actuelle].tab_hexa);
-}    
+}
 
 void verifier_structure_instruction(int nb_instructions, liste_instructions* tab_liste_instructions ){
     int i = 0, j=0;
@@ -897,7 +898,7 @@ int compte_nb_lignes(char* fichierInstr){
             carac = fgetc(ficInstr);
         }
         fclose(ficInstr);
-        return(nb_lignes + 1); 
+        return(nb_lignes + 1);
     }
     else{
         printf("ERREUR : Problème d'ouverture du fichier.");
@@ -919,23 +920,23 @@ int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions
 
 
 void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, long* memoire_instr){
-    
+
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
-    
+
     if(mode == 0 || mode == 1){
         printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fichierInstr));
         printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fichierInstr));
         lireInstruction(mode, fichierInstr, tab_liste_instructions, tab_instruction, tab_registre, memoire_instr);
     }
     else{
-        nb_instructions_entree = ecrireInstructionInteractif(tab_liste_instructions, tab_instruction, tab_registre);
+        nb_instructions_entree = ecrireInstructionInteractif(tab_liste_instructions, tab_instruction, tab_registre, memoire_instr);
     }
     remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val, nb_instructions_entree);
 }
 
 
-int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
+int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr){
     char instruction[33];
     int nb_instructions = 0;
     printf("Entrez une instruction \n");
@@ -944,15 +945,17 @@ int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, inst
     mettreEnMajuscule(instruction);
     printf("Instruction : %s\n",instruction );
     while(!(comparerChaine(instruction,"EXIT"))){
+        nb_instructions++;
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
-        
+        execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
+
         printf("Entrez une instruction\n");
         fgets(instruction, 33, stdin);
         instruction[myStrlen(instruction)-1]='\0';
         mettreEnMajuscule(instruction);
         printf("Instruction : %s\n",instruction );
-        nb_instructions++;
+
     }
     return nb_instructions;
 }
@@ -980,16 +983,22 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
             mettreEnMajuscule(instruction); /* On rend la dénomination des registres insensible à la casse */
             remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
             remplirMemProg(memoire_instr, tab_liste_instructions[nb_instructions].tab_hexa, nb_instructions);
-            nb_instructions++;
+
             if(mode == 1){
+                printf("Nom de l'instr: %s\n\n", tab_liste_instructions[nb_instructions].instr);
+                execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
+                afficher_registres(tab_registre);
                 printf("\nInstruction : %s\n", instruction);
                 printf("\nAppuie sur une touche pour aller à l'instruction suivante\n");
                 getchar();
             }
+            nb_instructions++;
         }
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
         if(mode == 1){
+            execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
+            afficher_registres(tab_registre);
             printf("\nInstruction : %s\n", instruction);
             printf("\nAppuie sur une touche pour terminer\n");
             getchar();
@@ -1019,8 +1028,8 @@ void remplir_liste_instructions_valide(liste_instructions* tab_liste_instruction
             for(j = 0; j < tab_liste_instructions[nb_instructions_val_entrees].nb_arg; j++){
                 tab_liste_instructions_val[nb_instructions_val_entrees].arg[j] = tab_liste_instructions[i].arg[j];
             }
-    
-            
+
+
             myStrcpy(tab_liste_instructions_val[nb_instructions_val_entrees].tab_bin, tab_liste_instructions[i].tab_bin);
             myStrcpy(tab_liste_instructions_val[nb_instructions_val_entrees].tab_hexa, tab_liste_instructions[i].tab_hexa);
 

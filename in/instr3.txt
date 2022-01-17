@@ -1,4 +1,4 @@
 ADDI $s0, $zero, 42
 ADD $s1, $zero, $s0
-SRL $s1, $s1, 1 #Divise s1 par 2
+SRL $s1, $s1, 1 Divise s1 par 2
 AND $s3, $s1, $s0
