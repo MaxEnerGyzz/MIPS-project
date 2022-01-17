@@ -22,7 +22,7 @@ void instruction_J(int target);
 void instruction_JAL(int target);
 void instruction_JR(int rs);
 void instruction_LUI(int rd, int imm, registre* tab_registre);
-void instruction_LW(int rt, int offset, int base);
+void instruction_LW(int rt, int offset, int base, registre* tab_registre, long* memoire);
 void instruction_MFHI(int rd, registre* tab_registre);
 void instruction_MFLO(int rd, registre* tab_registre);
 void instruction_MULT(int rs, int rt, registre* tab_registre);
