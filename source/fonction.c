@@ -1,5 +1,6 @@
 #include "../headers/fonction.h"
 #include "../headers/memoire.h"
+#include "../headers/instructions.h"
 
 void remplir_struct_instruction(instructions* tab_instruction){
     int i =0;
@@ -596,7 +597,6 @@ void remplir_struct_instruction(instructions* tab_instruction){
     tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
     tab_instruction[j].reg[0]=1;
     tab_instruction[j].reg[1]=0;
-    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 11;
     tab_instruction[j].pos_arg[1] = 15;
@@ -698,6 +698,7 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
                 while(carac != 10){
                     carac = fgetc(ficInstr);
                 }
+                carac = fgetc(ficInstr);
             }
         }
     }
@@ -918,7 +919,7 @@ int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions
 }
 
 
-void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, unsigned char* memoire_instr){
+void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, long* memoire_instr){
 
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
@@ -935,7 +936,7 @@ void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entr
 }
 
 
-int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr){
+int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr){
     char instruction[33];
     int nb_instructions = 0;
     printf("Entrez une instruction \n");
@@ -944,15 +945,18 @@ int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, inst
     mettreEnMajuscule(instruction);
     printf("Instruction : %s\n",instruction );
     while(!(comparerChaine(instruction,"EXIT"))){
+        nb_instructions++;
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
+        execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
 
+        afficher_registres(tab_registre);
         printf("Entrez une instruction\n");
         fgets(instruction, 33, stdin);
         instruction[myStrlen(instruction)-1]='\0';
         mettreEnMajuscule(instruction);
         printf("Instruction : %s\n",instruction );
-        nb_instructions++;
+
     }
     return nb_instructions;
 }
@@ -968,7 +972,7 @@ void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructi
 }
 
 
-void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr){
+void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr){
     FILE* ficInstr;
     ficInstr = fopen(fichierInstr, "r");
     char instruction[33];
@@ -980,16 +984,22 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
             mettreEnMajuscule(instruction); /* On rend la dénomination des registres insensible à la casse */
             remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
             remplirMemProg(memoire_instr, tab_liste_instructions[nb_instructions].tab_hexa, nb_instructions);
-            nb_instructions++;
+
             if(mode == 1){
+                printf("Nom de l'instr: %s\n\n", tab_liste_instructions[nb_instructions].instr);
+                execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
+                afficher_registres(tab_registre);
                 printf("\nInstruction : %s\n", instruction);
                 printf("\nAppuie sur une touche pour aller à l'instruction suivante\n");
                 getchar();
             }
+            nb_instructions++;
         }
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
         if(mode == 1){
+            execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
+            afficher_registres(tab_registre);
             printf("\nInstruction : %s\n", instruction);
             printf("\nAppuie sur une touche pour terminer\n");
             getchar();
@@ -1053,7 +1063,6 @@ int choix_mode(char* argv_1, char* argv_2, int arg_c){
     }
     return mode;
 }
-
 
 
 void testMemoire(unsigned char *memoire_instr, unsigned char* memoire){

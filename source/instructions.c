@@ -5,7 +5,7 @@ void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registr
 	int i = 0;
 	int instruction_actuelle = 0;
 	int PC_modif = 0; /* 1 si l'instruction executee modifie le PC, 0 sinon */
-    
+
 	while(instruction_actuelle < nb_instructions_val_entrees){
         printf("%d\n",tab_liste_instructions_val[instruction_actuelle].pos_instr_struct);
 		PC_modif = execute_instruction(tab_liste_instructions_val, tab_registre, instruction_actuelle, i, memoire);
@@ -189,8 +189,14 @@ void instruction_DIV(int rs, int rt, registre* tab_registre){
 	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
 	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
 
-	modifieRegistreParValeur(rs_val / rt_val, "HI", tab_registre);
-	modifieRegistreParValeur(rs_val % rt_val, "LO", tab_registre);
+	if(rt_val == 0){
+		printf("DIVISION PAR ZERO: INSTRUCTION ANNULEE !!!\n");
+	}
+	else{
+		modifieRegistreParValeur(rs_val / rt_val, "HI", tab_registre);
+		modifieRegistreParValeur(rs_val % rt_val, "LO", tab_registre);
+	}
+
 }
 
 void instruction_J(int target){

@@ -8,10 +8,10 @@ SOURCE_LOCATION = ./source/
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -ansi -pedantic -std='c99'
+CFLAGS = -Wall -ansi -pedantic -std='c99' -lm
 
 all : $(OBJECTS)
-	$(CC) $(OBJECTS_O) -o $(BIN) -Wall -pedantic 
+	$(CC) $(OBJECTS_O) -o $(BIN) -Wall -pedantic -lm
 
 fonction_str.o : source/fonction_str.c headers/fonction_str.h
 	$(CC) -g -c $(SOURCE_LOCATION)fonction_str.c -o $(OBJECTS_LOCATION)fonction_str.o $(CFLAGS)
@@ -21,7 +21,7 @@ fonction.o : source/fonction.c headers/fonction.h
 
 registre.o : source/registre.c headers/registre.h
 	$(CC) -g -c $(SOURCE_LOCATION)registre.c -o $(OBJECTS_LOCATION)registre.o $(CFLAGS)
-	
+
 memoire.o : source/memoire.c headers/memoire.h
 	$(CC) -g -c $(SOURCE_LOCATION)memoire.c -o $(OBJECTS_LOCATION)memoire.o $(CFLAGS)
 
