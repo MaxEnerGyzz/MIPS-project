@@ -1,12 +1,13 @@
 #include "../headers/instructions.h"
+#include "../headers/memoire.h"
 
-void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees){
+void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees, long* memoire){
 	int i = 0;
 	int instruction_actuelle = 0;
 	int PC_modif = 0; /* 1 si l'instruction executee modifie le PC, 0 sinon */
 
 	while(instruction_actuelle < nb_instructions_val_entrees){
-		PC_modif = execute_instruction(tab_liste_instructions_val, tab_registre, instruction_actuelle, i);
+		PC_modif = execute_instruction(tab_liste_instructions_val, tab_registre, instruction_actuelle, i, memoire);
 
 		if(PC_modif){
 			/* On verra comment on implémente le changement de PC */
@@ -18,7 +19,7 @@ void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registr
 	}
 }
 
-int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, int i){
+int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, int i, long *memoire){
 	int PC_modif = 0;
 	switch(tab_liste_instructions_val[instruction_actuelle].pos_instr_struct){
 			case 0:
@@ -121,7 +122,7 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				i++;
 				break;
 			case 23:
-				instruction_SW(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]); /* Arguments bizarres */
+				instruction_SW(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre, memoire); /* Arguments bizarres */
 				i++;
 				break;
 			case 24:
@@ -283,8 +284,10 @@ void instruction_SUB(int rd, int rs, int rt, registre* tab_registre){
 
 }
 
-void instruction_SW(int rt, int offset, int base){
-
+void instruction_SW(int rt, int offset, int base, registre* tab_registre, long* memoire){
+		long valeur = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
+		int position = base + offset;
+		modifierElmtMem(memoire, valeur, position);
 }
 
 void instruction_SYSCALL(){

@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
             initialiserEmulateur(mode, fic_instr, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val, memoire_instr);
 
             if (mode == 0){ /* Mode non-interactif */
-                mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions));
+                mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), memoire);
                 ecrire_registres_fichier( tab_registre,argv[3]);
                 ecrit_instr_hexa(nb_instructions_entree, argv[2], tab_liste_instructions);
             }
