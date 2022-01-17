@@ -1,5 +1,5 @@
 #include "../headers/fonction.h"
-
+#include "../headers/memoire.h"
 
 void remplir_struct_instruction(instructions* tab_instruction){
     int i =0;
@@ -918,7 +918,7 @@ int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions
 }
 
 
-void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
+void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, long* memoire_instr){
     
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
@@ -926,7 +926,7 @@ void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entr
     if(mode == 0 || mode == 1){
         printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fichierInstr));
         printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fichierInstr));
-        lireInstruction(mode, fichierInstr, tab_liste_instructions, tab_instruction, tab_registre);
+        lireInstruction(mode, fichierInstr, tab_liste_instructions, tab_instruction, tab_registre, memoire_instr);
     }
     else{
         nb_instructions_entree = ecrireInstructionInteractif(tab_liste_instructions, tab_instruction, tab_registre);
@@ -968,7 +968,7 @@ void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructi
 }
 
 
-void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
+void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr){
     FILE* ficInstr;
     ficInstr = fopen(fichierInstr, "r");
     char instruction[33];
@@ -979,6 +979,7 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
         while(!(recupereInstr(ficInstr, instruction))){ /* On lit chaque ligne une par une jusqu'à la fin du fichier */
             mettreEnMajuscule(instruction); /* On rend la dénomination des registres insensible à la casse */
             remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
+            remplirMemProg(memoire_instr, tab_liste_instructions[nb_instructions].tab_hexa, nb_instructions);
             nb_instructions++;
             if(mode == 1){
                 printf("\nInstruction : %s\n", instruction);
