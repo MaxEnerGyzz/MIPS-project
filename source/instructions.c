@@ -5,10 +5,10 @@ void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registr
 	int i = 0;
 	int instruction_actuelle = 0;
 	int PC_modif = 0; /* 1 si l'instruction executee modifie le PC, 0 sinon */
-
+    
 	while(instruction_actuelle < nb_instructions_val_entrees){
+        printf("%d\n",tab_liste_instructions_val[instruction_actuelle].pos_instr_struct);
 		PC_modif = execute_instruction(tab_liste_instructions_val, tab_registre, instruction_actuelle, i, memoire);
-
 		if(PC_modif){
 			/* On verra comment on implémente le changement de PC */
 		}
@@ -247,10 +247,10 @@ void instruction_OR(int rd, int rs, int rt, registre* tab_registre){
 }
 
 void instruction_ROTR(int rd, int rt, int sa, registre* tab_registre){
+    printf("test");
 	char rt_gauche[16];
 	char rt_droite[16];
 	int result;
-
 	copierChaineGaucheDroite(tab_registre[rt].tab_bin, rt_gauche, 0, 31 - sa);
 	copierChaineGaucheDroite(tab_registre[rt].tab_bin, rt_gauche, 31 - sa + 1, 31);
 	result = binToDec(valeurDecimale(rt_gauche)) & binToDec(valeurDecimale(rt_droite));
