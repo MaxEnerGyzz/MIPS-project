@@ -1,6 +1,5 @@
 #include "../headers/fonction.h"
 #include "../headers/memoire.h"
-#include "../headers/instructions.h"
 
 void remplir_struct_instruction(instructions* tab_instruction){
     int i =0;
@@ -945,17 +944,15 @@ int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, inst
     mettreEnMajuscule(instruction);
     printf("Instruction : %s\n",instruction );
     while(!(comparerChaine(instruction,"EXIT"))){
-        nb_instructions++;
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
-        execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
 
         printf("Entrez une instruction\n");
         fgets(instruction, 33, stdin);
         instruction[myStrlen(instruction)-1]='\0';
         mettreEnMajuscule(instruction);
         printf("Instruction : %s\n",instruction );
-
+        nb_instructions++;
     }
     return nb_instructions;
 }
@@ -983,22 +980,16 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
             mettreEnMajuscule(instruction); /* On rend la dénomination des registres insensible à la casse */
             remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
             remplirMemProg(memoire_instr, tab_liste_instructions[nb_instructions].tab_hexa, nb_instructions);
-
+            nb_instructions++;
             if(mode == 1){
-                printf("Nom de l'instr: %s\n\n", tab_liste_instructions[nb_instructions].instr);
-                execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
-                afficher_registres(tab_registre);
                 printf("\nInstruction : %s\n", instruction);
                 printf("\nAppuie sur une touche pour aller à l'instruction suivante\n");
                 getchar();
             }
-            nb_instructions++;
         }
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
         if(mode == 1){
-            execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
-            afficher_registres(tab_registre);
             printf("\nInstruction : %s\n", instruction);
             printf("\nAppuie sur une touche pour terminer\n");
             getchar();

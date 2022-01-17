@@ -51,6 +51,7 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
 
 int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr);
 
+
 int recupereInstr(FILE* ficInstr, char* tmp);
 void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructions* tab_liste_instructions); /* ecrit l'integralite des fonctions traduite en hexadecimal dans le fichier de sortie */
 
