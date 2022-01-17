@@ -16,13 +16,7 @@ long* initialiserMemoire_instrs(){
   return memoire_instr;
 }
 
-void remplirMemProg(long* memoire_instr, liste_instructions* tab_liste_instructions_val, int nb_instr){
-  for(int i = 1; i < nb_instr; i++){
-    memoire_instr[i] = valeurDecimale(tab_liste_instructions_val[i].tab_hexa);
-  }
-}
-
-void remplirMemProg_une_instruction(long* memoire_instr, char* instruction_hex, int nb_instr_actuelle){
+void remplirMemProg(long* memoire_instr, char* instruction_hex, int nb_instr_actuelle){
   memoire_instr[nb_instr_actuelle] = valeurDecimale(instruction_hex);
 }
 
