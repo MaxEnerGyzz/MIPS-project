@@ -698,7 +698,6 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
                 while(carac != 10){
                     carac = fgetc(ficInstr);
                 }
-                carac = fgetc(ficInstr);
             }
         }
     }
