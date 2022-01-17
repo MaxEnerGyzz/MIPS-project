@@ -118,9 +118,6 @@ int charbinToDec(char* binarynum){
     for(i=0; i<taille;i++){
         decimal = (2 * decimal + (binarynum[i]-'0'));
     }
-    if(binarynum[0]=='0'){
-        decimal = - decimal;
-    }
     return decimal;
 }
 

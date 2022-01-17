@@ -5,5 +5,6 @@ ADDI $v0, $zero, 249 #test
 #test4
 #test 5
 ADD $T1 ,$t3,$t2
-SW $v0, 2, $zero
+SW $v0, 2, $3
+LW $v1 ,2, $3
 NOP

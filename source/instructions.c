@@ -141,24 +141,24 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 void instruction_ADD(int rd, int rs, int rt, registre* tab_registre){
 	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
 	int rt_val = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
-
+    /*
 	if(rs_val + rt_val > 4294967296){
 		printf("SignalException(IntegerOverflow)");
 	}
-	else{
+	else{*/
 		modifieRegistreParValeur(rs_val + rt_val, tab_registre[rd].nom, tab_registre);
-	}
+	/*}*/
 }
 
 void instruction_ADDI(int rd, int rs, int imm, registre* tab_registre){
 	int rs_val = binToDec(valeurDecimale(tab_registre[rs].tab_bin));
-
-	if(rs_val + imm > 4294967296){
-		printf("SignalException(IntegerOverflow)");
-	}
-	else{
-		modifieRegistreParValeur(rs_val + imm, tab_registre[rd].nom, tab_registre);
-	}
+    /*
+    if(rs_val + rt_val > 4294967296){
+        printf("SignalException(IntegerOverflow)");
+    }
+    else{*/
+        modifieRegistreParValeur(rs_val + imm, tab_registre[rd].nom, tab_registre);
+    /*}*/
 }
 
 void instruction_AND(int rd, int rs, int rt, registre* tab_registre){
@@ -215,9 +215,25 @@ void instruction_LUI(int rd, int imm, registre* tab_registre){
 }
 
 void instruction_LW(int rt, int offset, int base, registre* tab_registre, unsigned char* memoire){
-	/*char valeur_bin[33];
-	decToBin(valeurDecimale(memoire[offset + base]), valeur_bin);
-	myStrcpy(tab_registre[rt].tab_bin, valeur_bin);*/
+    int i=0, j=0,unit=0, position = (charbinToDec(tab_registre[base].tab_bin))*4 + offset;
+    unsigned char tmp[4];
+    char bin[9];
+    for(i=0; i<=3; i++){
+        tmp[i] = memoire[position+i];
+        for(j=0;j<8;j++){
+            bin[j]='0';
+        }
+        j=0;
+        while(tmp[i]!=0){
+          unit = tmp[i]%2;
+          tmp[i] = (tmp[i]-unit)/2;
+          bin[7-j] = unit+48;
+          j++;
+        }
+        bin[8]='\0';
+        myStrcpy(&tab_registre[rt].tab_bin[i*8], bin);
+    }
+    tab_registre[rt].tab_bin[32]='\0';   
 }
 
 void instruction_MFHI(int rd, registre* tab_registre){
@@ -292,7 +308,7 @@ void instruction_SUB(int rd, int rs, int rt, registre* tab_registre){
 
 void instruction_SW(int rt, int offset, int base, registre* tab_registre, unsigned char* memoire){
     unsigned char valeur =0;
-    int i=0, j=0, position = base*4 + offset;
+    int i=0, j=0, position = (charbinToDec(tab_registre[base].tab_bin))*4 + offset;
     for(i=0; i<=3; i++){
         valeur = 0;
         for(j=0;j<=7;j++){

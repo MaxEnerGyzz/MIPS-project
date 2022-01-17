@@ -315,13 +315,14 @@ void remplir_struct_instruction(instructions* tab_instruction){
     tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
     tab_instruction[j].reg[0]=1;
     tab_instruction[j].reg[1]=0;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*tab_instruction[j].nb_arg*2);
     tab_instruction[j].pos_arg[0] = 11;
     tab_instruction[j].pos_arg[1] = 15;
     tab_instruction[j].pos_arg[2] = 16;
     tab_instruction[j].pos_arg[3] = 31;
-    tab_instruction[j].pos_arg[2] = 6;
-    tab_instruction[j].pos_arg[3] = 10;
+    tab_instruction[j].pos_arg[4] = 6;
+    tab_instruction[j].pos_arg[5] = 10;
     for(i=0; i<32; i++){
         tab_instruction[j].tab_bin[i] = '0';
     }
@@ -597,6 +598,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
     tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
     tab_instruction[j].reg[0]=1;
     tab_instruction[j].reg[1]=0;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 11;
     tab_instruction[j].pos_arg[1] = 15;
@@ -918,7 +920,7 @@ int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions
 }
 
 
-void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, long* memoire_instr){
+void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, unsigned char* memoire_instr){
 
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
@@ -935,7 +937,7 @@ void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entr
 }
 
 
-int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr){
+int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr){
     char instruction[33];
     int nb_instructions = 0;
     printf("Entrez une instruction \n");
@@ -971,7 +973,7 @@ void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructi
 }
 
 
-void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr){
+void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr){
     FILE* ficInstr;
     ficInstr = fopen(fichierInstr, "r");
     char instruction[33];
@@ -1075,7 +1077,7 @@ void testMemoire(unsigned char *memoire_instr, unsigned char* memoire){
     printf("\nPARTIE MEMOIRE\n");
     for(i=0; i<TAILLE_MEMOIRE; i++){
         if(memoire[i]!=0){
-            printf("Valeur de la memoire à la case %d : %c\n",i, memoire[i]);
+            printf("Valeur de la memoire à la case %d : %d\n",i, memoire[i]);
         }
     }
 }
