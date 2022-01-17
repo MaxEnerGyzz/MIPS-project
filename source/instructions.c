@@ -78,7 +78,7 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				i++;
 				break;
 			case 12:
-				instruction_LW(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]); /* Arguments bizarres*/
+				instruction_LW(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre, memoire); /* Arguments bizarres*/
 				i++;
 				break;
 			case 13:
@@ -209,8 +209,10 @@ void instruction_LUI(int rd, int imm, registre* tab_registre){
 	modifieRegistreParValeur(imm * 65536, tab_registre[rd].nom, tab_registre);
 }
 
-void instruction_LW(int rt, int offset, int base){
-
+void instruction_LW(int rt, int offset, int base, registre* tab_registre, long* memoire){
+	/*char valeur_bin[33];
+	decToBin(valeurDecimale(memoire[offset + base]), valeur_bin);
+	myStrcpy(tab_registre[rt].tab_bin, valeur_bin);*/
 }
 
 void instruction_MFHI(int rd, registre* tab_registre){
