@@ -149,7 +149,7 @@ void copierChaineGaucheDroite(const char* tab_tmp, char *tab_bin, int posG, int 
 void copierChaineDroite(const char* tab_tmp, char *tab_bin){
     int taille = myStrlen(tab_tmp);
     int j = 0;
-    for(int i = 32; i > 32 - taille; i--){
+    for(int i = 31; i > 31 - taille; i--){
         tab_bin[i] = tab_tmp[j];
         j++;
     }

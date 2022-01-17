@@ -7,7 +7,6 @@ void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registr
 	int PC_modif = 0; /* 1 si l'instruction executee modifie le PC, 0 sinon */
 
 	while(instruction_actuelle < nb_instructions_val_entrees){
-        printf("%d\n",tab_liste_instructions_val[instruction_actuelle].pos_instr_struct);
 		PC_modif = execute_instruction(tab_liste_instructions_val, tab_registre, instruction_actuelle, i, memoire);
 		if(PC_modif){
 			/* On verra comment on implémente le changement de PC */
@@ -253,7 +252,6 @@ void instruction_OR(int rd, int rs, int rt, registre* tab_registre){
 }
 
 void instruction_ROTR(int rd, int rt, int sa, registre* tab_registre){
-    printf("test");
 	char rt_gauche[16];
 	char rt_droite[16];
 	int result;
@@ -295,9 +293,9 @@ void instruction_SUB(int rd, int rs, int rt, registre* tab_registre){
 void instruction_SW(int rt, int offset, int base, registre* tab_registre, unsigned char* memoire){
     unsigned char valeur =0;
     int i=0, j=0, position = base*4 + offset;
-    for(i=0; i<3; i++){
+    for(i=0; i<=3; i++){
         valeur = 0;
-        for(j=0;j<7;j++){
+        for(j=0;j<=7;j++){
             valeur = (2 * valeur + (tab_registre[rt].tab_bin[i*8+j]-'0'));
         }
         memoire[position+i]=valeur;

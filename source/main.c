@@ -23,9 +23,7 @@ int main(int argc, char* argv[]){
             
            
             if (mode == 0){ /* Mode non-interactif */
-                printf("TEST\n");
                 mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), memoire);
-                printf("TEST\n");
                 ecrire_registres_fichier( tab_registre,argv[3]);
                 ecrit_instr_hexa(nb_instructions_entree, argv[2], tab_liste_instructions);
                 testMemoire(memoire_instr, memoire);
