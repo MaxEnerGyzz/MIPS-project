@@ -44,10 +44,10 @@ typedef struct instructions {
 }instructions;
 
 
-void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val); /* Initialise le simulateur
+void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, long* memoire_instr); /* Initialise le simulateur
 en initialisant les valeurs des structures d'instructions et de registre. Execute egalement lireInstruction() qui permet d'enregistrer le fichier d'entree dans une structure. */
 
-void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre);
+void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr);
 
 int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre);
 

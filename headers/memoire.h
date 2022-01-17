@@ -13,8 +13,7 @@
 
 long* initialiserMemoire(); /* Initialise la memoire en mettant tous les blocs à 0 */
 long* initialiserMemoire_instrs(); /* Initialise la memoire contenant les instructions en mettant tous les blocs à 0 */
-void remplirMemProg(long* memoire_instr, liste_instructions* tab_liste_instructions_val, int nb_instr); /* Remplis la mémoire avec les instructions d'entrée (mode non-interactif)*/
-void remplirMemProg_une_instruction(long* memoire_instr, char* instruction_hexa, int nb_instr_actuelle); /* Remplis la mémoire avec une instruction entree (mode pas-a-pas et interactif)*/
+void remplirMemProg(long* memoire_instr, char* instruction_hexa, int nb_instr_actuelle); /* Remplis la mémoire avec une instruction entree (mode pas-a-pas et interactif)*/
 void modifierElmtMem(long* memoire, long valeur, int position); /* Modifie la memoire selon une valeur et a une position donnee */
 long recupererElmtMem(long* memoire, int position); /* Recupere la valeur associe a une position de la memoire */
 
