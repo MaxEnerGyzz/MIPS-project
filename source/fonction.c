@@ -919,7 +919,7 @@ int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions
 }
 
 
-void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, long* memoire_instr){
+void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val, unsigned char* memoire_instr){
 
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
@@ -936,7 +936,7 @@ void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entr
 }
 
 
-int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr){
+int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr){
     char instruction[33];
     int nb_instructions = 0;
     printf("Entrez une instruction \n");
@@ -971,7 +971,7 @@ void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructi
 }
 
 
-void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, long* memoire_instr){
+void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr){
     FILE* ficInstr;
     ficInstr = fopen(fichierInstr, "r");
     char instruction[33];

@@ -1,7 +1,7 @@
 #include "../headers/instructions.h"
 #include "../headers/memoire.h"
 
-void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees, long* memoire){
+void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees, unsigned char* memoire){
 	int i = 0;
 	int instruction_actuelle = 0;
 	int PC_modif = 0; /* 1 si l'instruction executee modifie le PC, 0 sinon */
@@ -19,7 +19,7 @@ void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registr
 	}
 }
 
-int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, int i, long *memoire){
+int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, int i, unsigned char *memoire){
 	int PC_modif = 0;
 	switch(tab_liste_instructions_val[instruction_actuelle].pos_instr_struct){
 			case 0:
@@ -209,7 +209,7 @@ void instruction_LUI(int rd, int imm, registre* tab_registre){
 	modifieRegistreParValeur(imm * 65536, tab_registre[rd].nom, tab_registre);
 }
 
-void instruction_LW(int rt, int offset, int base, registre* tab_registre, long* memoire){
+void instruction_LW(int rt, int offset, int base, registre* tab_registre, unsigned char* memoire){
 	/*char valeur_bin[33];
 	decToBin(valeurDecimale(memoire[offset + base]), valeur_bin);
 	myStrcpy(tab_registre[rt].tab_bin, valeur_bin);*/
@@ -286,10 +286,16 @@ void instruction_SUB(int rd, int rs, int rt, registre* tab_registre){
 
 }
 
-void instruction_SW(int rt, int offset, int base, registre* tab_registre, long* memoire){
-		/*long valeur = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
-		int position = base + offset;
-		modifierElmtMem(memoire, valeur, position);*/
+void instruction_SW(int rt, int offset, int base, registre* tab_registre, unsigned char* memoire){
+    unsigned char valeur =0;
+    int i=0, j=0, position = base*4 + offset;
+    for(i=0; i<3; i++){
+        valeur = 0;
+        for(j=0;j<7;j++){
+            valeur = (2 * valeur + (tab_registre[rt].tab_bin[i*8+j]-'0'));
+        }
+        memoire[position+i]=valeur;
+    }
 }
 
 void instruction_SYSCALL(){

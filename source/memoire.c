@@ -16,7 +16,7 @@ unsigned char* initialiserMemoire_instr(){
   return memoire_instr;
 }
 
-void remplirMemProg(unsigned char* memoire_instr, unsigned char* instruction_hex, int nb_instr_actuelle){
+void remplirMemProg(unsigned char* memoire_instr, char* instruction_hex, int nb_instr_actuelle){
     int i=0;
     for(i=nb_instr_actuelle*8; i<=(nb_instr_actuelle*8+8); i++){
         memoire_instr[i]=instruction_hex[i-nb_instr_actuelle*8];
