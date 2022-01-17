@@ -8,7 +8,7 @@ long* initialiserMemoire(){
   return memoire;
 }
 
-long* initialiserMemoire_instrs(){
+long* initialiserMemoire_instr(){
   long* memoire_instr = malloc(sizeof(long) * (TAILLE_MEMOIRE_INSTR));
   for(int i = 0; i < TAILLE_MEMOIRE_INSTR; i++){
     memoire_instr[i] = 0;
