@@ -19,6 +19,7 @@ void intToStr(int nombre, char *chaine); /* Transforme un entier en tableau de c
 void decToBin(char *strDec, char* strBin); /* Transforme un décimal en binaire */
 void binToHex(char *strBin, char *strHexa); /* Transforme un binaire en héxadécimal */
 int binToDec(int binarynum); /* Transforme un binaire en décimal */
+int charbinToDec(char* binarynum); /* Transforme un binaire en décimal */
 int estUnInt(char *str); /* Retourne 1 si tous les membres du tableau sont des nombres*/
 
 int myPower2(int value); /* Renvoie la puissance de 2 de value */

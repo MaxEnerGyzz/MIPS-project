@@ -12,8 +12,6 @@ int main(int argc, char* argv[]){
     struct instructions tab_instruction[NB_INSTRUCTIONS_MIPS];
     long* memoire = initialiserMemoire();
     long* memoire_instr = initialiserMemoire_instr();
-
-
     if(mode != 4){
         if(mode == 0 || mode == 1){ /* Mode non-interactif ou pas-a-pas */
             fic_instr = malloc(sizeof(char)*(myStrlen(argv[1])+1));
@@ -44,7 +42,6 @@ int main(int argc, char* argv[]){
             struct liste_instructions tab_liste_instructions_val[nb_instructions_entree];
             initialiserEmulateur(mode, fic_instr, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val, memoire_instr);
             /*mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions));*/
-
         }
 
         /*

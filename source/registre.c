@@ -331,7 +331,7 @@ void remplir_struc_registre(registre* tab_registre){
 	for(i = 0; i < 33; i++){
 		tab_registre[j].tab_bin[i] = '0';
 	}
-	tab_registre[j].reg_protege = 1;
+	tab_registre[j].reg_protege = 0;
 
 	/* HI --> Stocke le résultat de la multiplication / division*/
 	j++;

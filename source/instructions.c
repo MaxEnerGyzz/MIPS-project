@@ -14,7 +14,7 @@ void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registr
 		}
 		else{
 			instruction_actuelle++;
-			modifieRegistreParValeur(instruction_actuelle * 32, "PC", tab_registre); /* Incrémente le PC de 4 octets, soit 32 bits */
+			modifieRegistreParValeur((charbinToDec(tab_registre[32].tab_bin) + 1) * 32, "PC", tab_registre); /* Incrémente le PC de 4 octets, soit 32 bits */
 		}
 	}
 }

@@ -113,6 +113,17 @@ int binToDec(int binarynum){
     return decimalnum;
 }
 
+int charbinToDec(char* binarynum){
+    int decimal=0, i=0, taille = myStrlen(binarynum);
+    for(i=0; i<taille;i++){
+        decimal = (2 * decimal + (binarynum[i]-'0'));
+    }
+    if(binarynum[0]=='0'){
+        decimal = - decimal;
+    }
+    return decimal;
+}
+
 
 int comparerChaine(char *chaine1, char* chaine2){
 
