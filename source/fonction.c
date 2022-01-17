@@ -918,7 +918,7 @@ int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions
 }
 
 
-void initialiserEmulateur(int mode, char* fichierInstr, char* fichierResult, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
+void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val){
     
     remplir_struct_instruction(tab_instruction);
     remplir_struc_registre(tab_registre);
@@ -926,16 +926,16 @@ void initialiserEmulateur(int mode, char* fichierInstr, char* fichierResult, int
     if(mode == 0 || mode == 1){
         printf("\n\nIl y a %d lignes dans le fichier d'entrée.\n", compte_nb_lignes(fichierInstr));
         printf("Il y a %d instructions dans le fichier d'entrée.\n\n", compte_nb_inst(fichierInstr));
-        lireInstruction(mode, fichierInstr, fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
+        lireInstruction(mode, fichierInstr, tab_liste_instructions, tab_instruction, tab_registre);
     }
     else{
-        nb_instructions_entree = ecrireInstructionInteractif(fichierResult, tab_liste_instructions, tab_instruction, tab_registre);
+        nb_instructions_entree = ecrireInstructionInteractif(tab_liste_instructions, tab_instruction, tab_registre);
     }
     remplir_liste_instructions_valide(tab_liste_instructions, tab_liste_instructions_val, nb_instructions_entree);
 }
 
 
-int ecrireInstructionInteractif(char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
+int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
     char instruction[33];
     int nb_instructions = 0;
     printf("Entrez une instruction \n");
@@ -954,7 +954,6 @@ int ecrireInstructionInteractif(char* fichierResult, liste_instructions* tab_lis
         printf("Instruction : %s\n",instruction );
         nb_instructions++;
     }
-    ecrit_instr_hexa(nb_instructions, fichierResult, tab_liste_instructions);
     return nb_instructions;
 }
 
@@ -969,7 +968,7 @@ void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructi
 }
 
 
-void lireInstruction(int mode, char* fichierInstr, char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
+void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre){
     FILE* ficInstr;
     ficInstr = fopen(fichierInstr, "r");
     char instruction[33];
@@ -996,7 +995,6 @@ void lireInstruction(int mode, char* fichierInstr, char* fichierResult, liste_in
         }
 
         fclose(ficInstr);
-        ecrit_instr_hexa(nb_instructions, fichierResult, tab_liste_instructions);
     }
     else{
         printf("\nERREUR :  Impossible d'ouvrir le fichier d'entrée.\n");
@@ -1036,15 +1034,15 @@ void remplir_liste_instructions_valide(liste_instructions* tab_liste_instruction
 
 int choix_mode(char* argv_1, char* argv_2, int arg_c){
     int mode;
-    if(arg_c == 2){ /* Mode non-interactif */
-        printf("Mode non interactif : \nFichier d'entrée : %s\n", argv_1);
-        mode = 0;
-    }
-    else if(arg_c == 3 && comparerChaine(argv_2, "-pas")){ /* Mode non-interactif pas a pas */
+    if(arg_c == 3 && comparerChaine(argv_2, "-pas")){ /* Mode non-interactif pas a pas*/
         printf("Mode pas a pas : \nFichier d'entrée : %s\n", argv_1);
         mode = 1;
     }
-    else if(arg_c == 1){ /* Mode interactif*/
+    else if(arg_c == 4){ /* Mode non-interactif avec deux fichiers de sorties */
+        printf("Mode non interactif : \nFichier d'entrée : %s\n", argv_1);
+        mode = 0;
+    }
+    else if(arg_c == 1){ /*Mode interactif*/
         printf("Mode interactif : \n");
         mode = 2;
     }

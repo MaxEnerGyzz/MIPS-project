@@ -44,12 +44,12 @@ typedef struct instructions {
 }instructions;
 
 
-void initialiserEmulateur(int mode, char* fichierInstr, char* fichierResult, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val); /* Initialise le simulateur
+void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entree, registre* tab_registre, instructions* tab_instruction, liste_instructions* tab_liste_instructions, liste_instructions* tab_liste_instructions_val); /* Initialise le simulateur
 en initialisant les valeurs des structures d'instructions et de registre. Execute egalement lireInstruction() qui permet d'enregistrer le fichier d'entree dans une structure. */
 
-void lireInstruction(int mode, char* fichierInstr, char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre);
+void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre);
 
-int ecrireInstructionInteractif(char* fichierResult, liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre);
+int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre);
 
 int recupereInstr(FILE* ficInstr, char* tmp);
 void ecrit_instr_hexa(int nb_instructions, char* fichier_sortie, liste_instructions* tab_liste_instructions); /* ecrit l'integralite des fonctions traduite en hexadecimal dans le fichier de sortie */
@@ -65,6 +65,6 @@ int compte_nb_lignes(char* fichierInstr); /* Compte le nombre de lignes dans le 
 int compte_nb_inst(char* fichierInstr);  /* Compte le nombre d'instructions dans le fichier d'entrée*/
 int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions); /* Compte le nombre d'instructions valides dans la structure */
 
-int choix_mode(char* argv_1, char* argv_2, int arg_c); /* Renvoie 1 si le mode interactif sansest selectionne, 0 si c'est le mode non interactif*/
+int choix_mode(char* argv_1, char* argv_2, int arg_c); /* Renvoie 1 si le mode interactif pas a pas selectionne, 0 si c'est le mode non interactif, 2 si c'est le mode pas a pas */
 
 #endif
