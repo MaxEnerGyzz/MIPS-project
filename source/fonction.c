@@ -597,6 +597,7 @@ void remplir_struct_instruction(instructions* tab_instruction){
     tab_instruction[j].reg = malloc(sizeof(int)*tab_instruction[j].nb_arg);
     tab_instruction[j].reg[0]=1;
     tab_instruction[j].reg[1]=0;
+    tab_instruction[j].reg[2]=1;
     tab_instruction[j].pos_arg = malloc(sizeof(int)*(tab_instruction[j].nb_arg * 2));
     tab_instruction[j].pos_arg[0] = 11;
     tab_instruction[j].pos_arg[1] = 15;
@@ -698,7 +699,6 @@ int recupereInstr(FILE* ficInstr, char* tmp){ /* Retourne 1 si on est à la fin 
                 while(carac != 10){
                     carac = fgetc(ficInstr);
                 }
-                carac = fgetc(ficInstr);
             }
         }
     }
