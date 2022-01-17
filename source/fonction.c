@@ -1053,3 +1053,21 @@ int choix_mode(char* argv_1, char* argv_2, int arg_c){
     }
     return mode;
 }
+
+
+
+void testMemoire(unsigned char *memoire_instr, unsigned char* memoire){
+    int i=0;
+    printf("\nPARTIE INSTRUCTION\n");
+    for(i=0; i<TAILLE_MEMOIRE_INSTR; i++){
+        if(memoire_instr[i]!=0){
+            printf("Instruction dans la memoire à la case %d : %c\n",i, memoire_instr[i]);
+        }
+    }
+    printf("\nPARTIE MEMOIRE\n");
+    for(i=0; i<TAILLE_MEMOIRE; i++){
+        if(memoire[i]!=0){
+            printf("Valeur de la memoire à la case %d : %c\n",i, memoire[i]);
+        }
+    }
+}

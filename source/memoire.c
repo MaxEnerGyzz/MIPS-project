@@ -1,29 +1,33 @@
 #include "../headers/memoire.h"
 
-long* initialiserMemoire(){
-  long* memoire = malloc(sizeof(long) * (TAILLE_MEMOIRE));
+unsigned char* initialiserMemoire(){
+  unsigned char* memoire = malloc(sizeof(unsigned char) * (TAILLE_MEMOIRE));
   for(int i = 0; i < TAILLE_MEMOIRE; i++){
     memoire[i] = 0;
   }
   return memoire;
 }
 
-long* initialiserMemoire_instr(){
-  long* memoire_instr = malloc(sizeof(long) * (TAILLE_MEMOIRE_INSTR));
+unsigned char* initialiserMemoire_instr(){
+  unsigned char* memoire_instr = malloc(sizeof(unsigned char) * (TAILLE_MEMOIRE_INSTR));
   for(int i = 0; i < TAILLE_MEMOIRE_INSTR; i++){
     memoire_instr[i] = 0;
   }
   return memoire_instr;
 }
 
-void remplirMemProg(long* memoire_instr, char* instruction_hex, int nb_instr_actuelle){
-  memoire_instr[nb_instr_actuelle] = valeurDecimale(instruction_hex);
+void remplirMemProg(unsigned char* memoire_instr, unsigned char* instruction_hex, int nb_instr_actuelle){
+    int i=0;
+    for(i=nb_instr_actuelle*8; i<=(nb_instr_actuelle*8+8); i++){
+        memoire_instr[i]=instruction_hex[i-nb_instr_actuelle*8];
+    }
 }
 
-void modifierElmtMem(long* memoire, long valeur, int position){
+
+void modifierElmtMem(unsigned char* memoire, unsigned char valeur, int position){
   memoire[position] = valeur;
 }
 
-long recupererElmtMem(long* memoire, int position){
+long recupererElmtMem(unsigned char* memoire, int position){
   return(memoire[position]);
 }

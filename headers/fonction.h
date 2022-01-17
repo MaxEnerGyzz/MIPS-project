@@ -67,4 +67,6 @@ int compte_nb_instr_val(int nb_instr, liste_instructions* tab_liste_instructions
 
 int choix_mode(char* argv_1, char* argv_2, int arg_c); /* Renvoie 1 si le mode interactif pas a pas selectionne, 0 si c'est le mode non interactif, 2 si c'est le mode pas a pas */
 
+void testMemoire(unsigned char *memoire_instr, unsigned char* memoire);
+
 #endif

@@ -287,9 +287,9 @@ void instruction_SUB(int rd, int rs, int rt, registre* tab_registre){
 }
 
 void instruction_SW(int rt, int offset, int base, registre* tab_registre, long* memoire){
-		long valeur = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
+		/*long valeur = binToDec(valeurDecimale(tab_registre[rt].tab_bin));
 		int position = base + offset;
-		modifierElmtMem(memoire, valeur, position);
+		modifierElmtMem(memoire, valeur, position);*/
 }
 
 void instruction_SYSCALL(){

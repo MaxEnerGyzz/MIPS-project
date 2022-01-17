@@ -10,8 +10,8 @@ int main(int argc, char* argv[]){
     int nb_instructions_entree;
     struct registre tab_registre[NB_REGISTRES + 1];
     struct instructions tab_instruction[NB_INSTRUCTIONS_MIPS];
-    long* memoire = initialiserMemoire();
-    long* memoire_instr = initialiserMemoire_instr();
+    unsigned char* memoire = initialiserMemoire();
+    unsigned char* memoire_instr = initialiserMemoire_instr();
     if(mode != 4){
         if(mode == 0 || mode == 1){ /* Mode non-interactif ou pas-a-pas */
             fic_instr = malloc(sizeof(char)*(myStrlen(argv[1])+1));
@@ -25,6 +25,9 @@ int main(int argc, char* argv[]){
                 mode_non_interactif(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), memoire);
                 ecrire_registres_fichier( tab_registre,argv[3]);
                 ecrit_instr_hexa(nb_instructions_entree, argv[2], tab_liste_instructions);
+                
+                testMemoire(memoire_instr, memoire);
+                
             }
             else{ /* Mode pas-a-pas */
 
