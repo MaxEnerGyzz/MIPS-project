@@ -998,6 +998,7 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
         }
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
+        remplirMemProg(memoire_instr, tab_liste_instructions[nb_instructions].tab_hexa, nb_instructions);
         if(mode == 1){
             execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
             afficher_registres(tab_registre);
