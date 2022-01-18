@@ -2,7 +2,8 @@
 
 Projet étudiant de 3A d'un émulateur de micro-processeur MIPS, avec la gestion des registres et de la mémoire ainsi qu'un jeu de 26 instructions.
 
-Les instructions de "branches" et de "jumps" n'ont pas été implémentées.
+Les instructions de "branches" et de "jumps" n'ont pas été implémentées ainsi que les nombres négatifs.
+Les instructions SW et LW doivent etre écrits sous la forme SW $r1, offset, base pour etre compilé.
 
 ## Execution de l'émulateur MIPS
 3 modes de fonctionnement sont proposés:
