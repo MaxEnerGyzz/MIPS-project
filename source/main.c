@@ -19,18 +19,17 @@ int main(int argc, char* argv[]){
             nb_instructions_entree = compte_nb_inst(fic_instr);
             struct liste_instructions tab_liste_instructions[nb_instructions_entree];
             struct liste_instructions tab_liste_instructions_val[nb_instructions_entree];
-            initialiserEmulateur(mode, fic_instr, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val, memoire_instr);
+            initialiserEmulateur(mode, fic_instr, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val, memoire, memoire_instr);
            
             if (mode == 0){ /* Mode non-interactif */
-                modificationProgCount(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), memoire);
                 ecrire_registres_fichier( tab_registre,argv[3]);
                 ecrit_instr_hexa(nb_instructions_entree, argv[2], tab_liste_instructions);
-                testMemoire(memoire_instr, memoire);
+                /*testMemoire(memoire_instr, memoire);*/
 
             }
-            /* verifier_structure_registre(tab_registre);
-              afficher_registres(tab_registre); */
-            //verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);
+            /*verifier_structure_registre(tab_registre);
+            afficher_registres(tab_registre);
+            verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);*/
 
         }
 
@@ -39,13 +38,13 @@ int main(int argc, char* argv[]){
             nb_instructions_entree = NB_INSTRUCTIONS_MAX;
             struct liste_instructions tab_liste_instructions[nb_instructions_entree];
             struct liste_instructions tab_liste_instructions_val[nb_instructions_entree];
-            initialiserEmulateur(mode, fic_instr, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val, memoire_instr);
+            initialiserEmulateur(mode, fic_instr, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val, memoire, memoire_instr);
         }
 
         /*
-        verifier_structure_instruction(nb_instructions_entree, tab_liste_instructions);*/
-        //verifier_structure_registre(tab_registre);
-        /*verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);*/
+        verifier_structure_instruction(nb_instructions_entree, tab_liste_instructions);
+        verifier_structure_registre(tab_registre);
+        verifier_structure_instruction(compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), tab_liste_instructions_val);*/
     }
 
 

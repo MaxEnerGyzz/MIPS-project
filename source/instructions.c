@@ -1,22 +1,7 @@
 #include "../headers/instructions.h"
 #include "../headers/memoire.h"
 
-void modificationProgCount(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees, unsigned char* memoire){
-	int instruction_actuelle = 0;
-	int PC_modif = 0; /* 1 si l'instruction executee modifie le PC, 0 sinon */
-	while(instruction_actuelle < nb_instructions_val_entrees){
-		PC_modif = execute_instruction(tab_liste_instructions_val, tab_registre, instruction_actuelle, memoire);
-		if(PC_modif){
-			/* On verra comment on implémente le changement de PC */
-		}
-		else{
-			instruction_actuelle++;
-			modifieRegistreParValeur(charbinToDec(tab_registre[32].tab_bin) + 8, "PC", tab_registre); /* Incrémente le PC de 8 (* 4) */
-		}
-	}
-}
-
-int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, unsigned char *memoire){
+int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, unsigned char* memoire){
 	int PC_modif = 0;
 	switch(tab_liste_instructions_val[instruction_actuelle].pos_instr_struct){
 			case 0:
@@ -97,7 +82,7 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				instruction_SUB(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
 				break;
 			case 23:
-				instruction_SW(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre, memoire); /* Arguments bizarres */
+				instruction_SW(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre, memoire);
 				break;
 			case 24:
 				instruction_SYSCALL();
