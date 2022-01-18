@@ -939,7 +939,7 @@ void initialiserEmulateur(int mode, char* fichierInstr, int nb_instructions_entr
 
 int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, instructions* tab_instruction, registre* tab_registre, unsigned char* memoire_instr){
     char instruction[33];
-    int nb_instructions = 0;
+    int nb_instructions = 0, pc_modif = 0;
     printf("Entrez une instruction \n");
     fgets(instruction, 33, stdin);
     instruction[myStrlen(instruction)-1]='\0';
@@ -950,9 +950,16 @@ int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, inst
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
         printf("Instruction en hexa : %s\n", tab_liste_instructions[nb_instructions].tab_hexa);
-        execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
-
+        pc_modif = execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
+        if(pc_modif){
+            /* On verra comment on implémente le changement de PC */
+        }
+        else{
+            modifieRegistreParValeur(charbinToDec(tab_registre[32].tab_bin) + 8, "PC", tab_registre); /* Incrémente le PC de 8 (* 4) */
+        }
         afficher_registres(tab_registre);
+        
+        
         printf("Entrez une instruction\n");
         fgets(instruction, 33, stdin);
         instruction[myStrlen(instruction)-1]='\0';
@@ -978,7 +985,7 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
     FILE* ficInstr;
     ficInstr = fopen(fichierInstr, "r");
     char instruction[33];
-    int nb_instructions = 0;
+    int nb_instructions = 0, pc_modif = 0;
 
 
     if (ficInstr != NULL){
@@ -989,7 +996,13 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
 
             if(mode == 1){
                 
-                execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
+                pc_modif = execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
+                if(pc_modif){
+                    /* On verra comment on implémente le changement de PC */
+                }
+                else{
+                    modifieRegistreParValeur(charbinToDec(tab_registre[32].tab_bin) + 8, "PC", tab_registre); /* Incrémente le PC de 8 (* 4) */
+                }
                 afficher_registres(tab_registre);
                 printf("\nInstruction : %s\n", instruction);
                 printf("Instruction en hexa : %s\n", tab_liste_instructions[nb_instructions].tab_hexa);
@@ -1002,7 +1015,13 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
         remplirMemProg(memoire_instr, tab_liste_instructions[nb_instructions].tab_hexa, nb_instructions);
         if(mode == 1){
-            execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
+            pc_modif = execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
+            if(pc_modif){
+                /* On verra comment on implémente le changement de PC */
+            }
+            else{
+                modifieRegistreParValeur(charbinToDec(tab_registre[32].tab_bin) + 8, "PC", tab_registre); /* Incrémente le PC de 8 (* 4) */
+            }
             afficher_registres(tab_registre);
             printf("\nInstruction : %s\n", instruction);
             printf("\nAppuie sur une touche pour terminer\n");

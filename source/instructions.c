@@ -11,7 +11,7 @@ void modificationProgCount(liste_instructions* tab_liste_instructions_val, regis
 		}
 		else{
 			instruction_actuelle++;
-			modifieRegistreParValeur(charbinToDec(tab_registre[32].tab_bin) + 8, "PC", tab_registre); /* Incrémente le PC de 4 octets, soit 32 bits */
+			modifieRegistreParValeur(charbinToDec(tab_registre[32].tab_bin) + 8, "PC", tab_registre); /* Incrémente le PC de 8 (* 4) */
 		}
 	}
 }
@@ -24,7 +24,6 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				break;
 			case 1:
 				instruction_ADDI(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
-				
 				break;
 			case 2:
 				instruction_AND(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
@@ -32,102 +31,79 @@ int execute_instruction(liste_instructions* tab_liste_instructions_val, registre
 				break;
 			case 3:
 				instruction_BEQ(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
-				
 				PC_modif = 1;
 				break;
 			case 4:
 				instruction_BGTZ(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1]);
-				
 				PC_modif = 1;
 				break;
 			case 5:
 				instruction_BLEZ(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1]);
-				
 				PC_modif = 1;
 				break;
 			case 6:
 				instruction_BNE(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
-				
 				PC_modif = 1;
 				break;
 			case 7:
 				instruction_DIV(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_registre);
-				
 				break;
 			case 8:
 				instruction_J(tab_liste_instructions_val[instruction_actuelle].arg[0]);
-				
 				PC_modif = 1;
 				break;
 			case 9:
 				instruction_JAL(tab_liste_instructions_val[instruction_actuelle].arg[0]);
-				
 				PC_modif = 1;
 				break;
 			case 10:
 				instruction_JR(tab_liste_instructions_val[instruction_actuelle].arg[0]);
-				
 				PC_modif = 1;
 				break;
 			case 11:
 				instruction_LUI(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_registre);
-				
 				break;
 			case 12:
 				instruction_LW(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre, memoire); /* Arguments bizarres*/
-				
 				break;
 			case 13:
 				instruction_MFHI(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_registre);
-				
 				break;
 			case 14:
 				instruction_MFLO(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_registre);
-				
 				break;
 			case 15:
 				instruction_MULT(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_registre);
-				
 				break;
 			case 16:
 				instruction_NOP();
-				
 				break;
 			case 17:
 				instruction_OR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
-				
 				break;
 			case 18:
 				instruction_ROTR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
-				
 				break;
 			case 19:
 				instruction_SLL(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
-				
 				break;
 			case 20:
 				instruction_SLT(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2]);
-				
 				break;
 			case 21:
 				instruction_SRL(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
-				
 				break;
 			case 22:
 				instruction_SUB(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
-				
 				break;
 			case 23:
 				instruction_SW(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre, memoire); /* Arguments bizarres */
-				
 				break;
 			case 24:
 				instruction_SYSCALL();
-				
 				break;
 			case 25:
 				instruction_XOR(tab_liste_instructions_val[instruction_actuelle].arg[0], tab_liste_instructions_val[instruction_actuelle].arg[1], tab_liste_instructions_val[instruction_actuelle].arg[2], tab_registre);
-				
 				break;
 			default:
 				printf("Erreur: Cette instruction n'est pas encore implémentée. (cette erreur n'est pas censee se produire ^^)");
