@@ -594,148 +594,147 @@ void afficher_registres(registre* tab_registre){
 }
 
 void ecrire_registres_fichier(registre* tab_registre, char* nom_fichier){
-	char valeur_hex[9];
 	FILE* fichier = fopen(nom_fichier, "w+");
-	int i = 0;
+	int i = 0, valeur_dec = 0;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$zero: %s   ", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$zero: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$at: %s   ", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$at: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$v0: %s\n", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$v0: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$v1: %s   ", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$v1: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$a0: %s   ", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$a0: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$a1: %s\n", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$a1: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$a2: %s   ", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$a2: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$a3: %s   ", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$a3: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t0: %s\n", valeur_hex);
+    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t0: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t1: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t1: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t2: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t2: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t3: %s\n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t3: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t4: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t4: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t5: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t5: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t6: %s\n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t6: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t7: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t7: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$s0: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s0: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$s1: %s\n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s1: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$s2: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s2: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$s3: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s3: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$s4: %s\n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s4: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$s5: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s5: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$s6: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s6: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$s7: %s\n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s7: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t8: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t8: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$t9: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t9: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$k0: %s\n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$k0: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$k1: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$k1: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$gp: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$gp: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$sp: %s\n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$sp: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$fp: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$fp: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$ra: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$ra: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$pc: %s   \n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$pc: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$hi: %s   ", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$hi: %d\n", valeur_dec);
 	i++;
 
-	binToHex(tab_registre[i].tab_bin, valeur_hex);
-	fprintf(fichier, "$l0: %s   \n", valeur_hex);
+	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$l0: %d\n", valeur_dec);
 	i++;
 
 }
