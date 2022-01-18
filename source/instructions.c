@@ -4,7 +4,6 @@
 void modificationProgCount(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees, unsigned char* memoire){
 	int instruction_actuelle = 0;
 	int PC_modif = 0; /* 1 si l'instruction executee modifie le PC, 0 sinon */
-
 	while(instruction_actuelle < nb_instructions_val_entrees){
 		PC_modif = execute_instruction(tab_liste_instructions_val, tab_registre, instruction_actuelle, memoire);
 		if(PC_modif){
@@ -266,14 +265,18 @@ void instruction_OR(int rd, int rs, int rt, registre* tab_registre){
 }
 
 void instruction_ROTR(int rd, int rt, int sa, registre* tab_registre){
-	char rt_gauche[16];
-	char rt_droite[16];
-	int result;
-	copierChaineGaucheDroite(tab_registre[rt].tab_bin, rt_gauche, 0, 31 - sa);
-	copierChaineGaucheDroite(tab_registre[rt].tab_bin, rt_gauche, 31 - sa + 1, 31);
-	result = binToDec(valeurDecimale(rt_gauche)) & binToDec(valeurDecimale(rt_droite));
-
-	modifieRegistreParValeur(result, tab_registre[rd].nom, tab_registre);
+    char res[33];
+    int i= 0;
+    for(i=0;i<=31-sa;i++){
+        res[sa+i]=tab_registre[rt].tab_bin[i];
+    }
+    for(i=31-sa+1;i<=31;i++){
+        res[i-(31-sa+1)]=tab_registre[rt].tab_bin[i];
+    }
+    res[32]='\0';
+    for(i=0;i<=32;i++){
+        tab_registre[rd].tab_bin[i]=res[i];
+    }
 }
 
 void instruction_SLL(int rd, int rt, int sa, registre* tab_registre){

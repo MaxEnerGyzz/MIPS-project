@@ -20,7 +20,6 @@ int main(int argc, char* argv[]){
             struct liste_instructions tab_liste_instructions[nb_instructions_entree];
             struct liste_instructions tab_liste_instructions_val[nb_instructions_entree];
             initialiserEmulateur(mode, fic_instr, nb_instructions_entree, tab_registre, tab_instruction, tab_liste_instructions, tab_liste_instructions_val, memoire_instr);
-            
            
             if (mode == 0){ /* Mode non-interactif */
                 modificationProgCount(tab_liste_instructions_val, tab_registre, compte_nb_instr_val(nb_instructions_entree, tab_liste_instructions), memoire);
