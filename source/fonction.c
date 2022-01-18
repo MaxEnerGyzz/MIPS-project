@@ -949,6 +949,7 @@ int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, inst
         nb_instructions++;
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
+        printf("Instruction en hexa : %s\n", tab_liste_instructions[nb_instructions].tab_hexa);
         execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
 
         afficher_registres(tab_registre);
@@ -987,10 +988,11 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
             remplirMemProg(memoire_instr, tab_liste_instructions[nb_instructions].tab_hexa, nb_instructions);
 
             if(mode == 1){
-                printf("Nom de l'instr: %s\n\n", tab_liste_instructions[nb_instructions].instr);
+                
                 execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
                 afficher_registres(tab_registre);
                 printf("\nInstruction : %s\n", instruction);
+                printf("Instruction en hexa : %s\n", tab_liste_instructions[nb_instructions].tab_hexa);
                 printf("\nAppuie sur une touche pour aller à l'instruction suivante\n");
                 getchar();
             }
