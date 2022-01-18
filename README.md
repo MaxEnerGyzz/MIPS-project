@@ -14,7 +14,7 @@ Syntaxe d'exécution: `./emul-mips prog_filename in1.hex in1.state`
 
 --> Toutes les instructions sont exécutées: la transcription en hexadécimale des instructions est enregistrée dans le fichier *in1.hex* tandis que l'état finale des registres est enregistrée dans le fichier *in1.state*.
 
-
+---
 
 * Mode pas-a-pas:
 
@@ -25,7 +25,7 @@ Syntaxe d'exécution: `./emul_mips prog_filename -pas`
 
 L'instruction actuelle et la valeur des registres à la fin de l'instruction actuelle en hexadécimale est affichée sur le terminal à la fin de l'exécution de l'instruction.
 
-
+---
 
 * Mode interactif:
 
@@ -35,5 +35,7 @@ Syntaxe d'exécution: `./emul_mips `
 
 
  L'instruction actuelle et la valeur des registres à la fin de l'instruction actuelle en hexadécimale est affichée sur le terminal à la fin de l'exécution de l'instruction.
+
+---
 
 Coded with <3 by Mathis GRENIER and Yanis JULIEN.
