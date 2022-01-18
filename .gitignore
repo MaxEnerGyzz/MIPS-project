@@ -1,4 +1,4 @@
 ./.DS_Store
 Makefile
-*.o
+./objects/*.o
 emul-mips
