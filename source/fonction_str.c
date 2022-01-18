@@ -121,6 +121,15 @@ int charbinToDec(char* binarynum){
     return decimal;
 }
 
+long charbinToLongDec(char* binarynum){
+    long decimal=0;
+    int i=0, taille = myStrlen(binarynum);
+    for(i=0; i<taille;i++){
+        decimal = (2 * decimal + (binarynum[i]-'0'));
+    }
+    return decimal;
+}
+
 
 int comparerChaine(char *chaine1, char* chaine2){
 

@@ -595,146 +595,147 @@ void afficher_registres(registre* tab_registre){
 
 void ecrire_registres_fichier(registre* tab_registre, char* nom_fichier){
 	FILE* fichier = fopen(nom_fichier, "w+");
-	int i = 0, valeur_dec = 0;
+    int i = 0;
+    long valeur_dec = 0;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$zero: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$zero: %ld\n", valeur_dec);
 	i++;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$at: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$at: %ld\n", valeur_dec);
 	i++;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$v0: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$v0: %ld\n", valeur_dec);
 	i++;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$v1: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$v1: %ld\n", valeur_dec);
 	i++;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$a0: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$a0: %ld\n", valeur_dec);
 	i++;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$a1: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$a1: %ld\n", valeur_dec);
 	i++;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$a2: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$a2: %ld\n", valeur_dec);
 	i++;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$a3: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$a3: %ld\n", valeur_dec);
 	i++;
 
-    valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t0: %d\n", valeur_dec);
+    valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t0: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t1: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t1: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t2: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t2: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t3: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t3: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t4: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t4: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t5: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t5: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t6: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t6: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t7: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t7: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$s0: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s0: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$s1: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s1: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$s2: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s2: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$s3: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s3: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$s4: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s4: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$s5: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s5: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$s6: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s6: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$s7: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$s7: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t8: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t8: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$t9: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$t9: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$k0: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$k0: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$k1: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$k1: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$gp: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$gp: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$sp: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$sp: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$fp: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$fp: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$ra: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$ra: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$pc: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$pc: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$hi: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$hi: %ld\n", valeur_dec);
 	i++;
 
-	valeur_dec = charbinToDec(tab_registre[i].tab_bin);
-	fprintf(fichier, "$l0: %d\n", valeur_dec);
+	valeur_dec = charbinToLongDec(tab_registre[i].tab_bin);
+	fprintf(fichier, "$l0: %ld\n", valeur_dec);
 	i++;
 
 }
