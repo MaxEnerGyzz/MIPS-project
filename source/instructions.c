@@ -1,7 +1,7 @@
 #include "../headers/instructions.h"
 #include "../headers/memoire.h"
 
-void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees, unsigned char* memoire){
+void modificationProgCount(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees, unsigned char* memoire){
 	int instruction_actuelle = 0;
 	int PC_modif = 0; /* 1 si l'instruction executee modifie le PC, 0 sinon */
 
@@ -12,7 +12,6 @@ void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registr
 		}
 		else{
 			instruction_actuelle++;
-            printf("PC avant %d",(charbinToDec(tab_registre[32].tab_bin)));
 			modifieRegistreParValeur(charbinToDec(tab_registre[32].tab_bin) + 8, "PC", tab_registre); /* Incrémente le PC de 4 octets, soit 32 bits */
 		}
 	}
