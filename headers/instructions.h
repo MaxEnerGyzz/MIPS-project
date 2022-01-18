@@ -9,7 +9,7 @@
 #include "fonction_str.h"
 
 void mode_non_interactif(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int nb_instructions_val_entrees, unsigned char* memoire);
-int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, int i, unsigned char* memoire); /* Trouve et execute l'instruction demandee | Renvoit 1 si l'instruction modifie le PC, 0 sinon */
+int execute_instruction(liste_instructions* tab_liste_instructions_val, registre* tab_registre, int instruction_actuelle, unsigned char* memoire); /* Trouve et execute l'instruction demandee | Renvoit 1 si l'instruction modifie le PC, 0 sinon */
 void instruction_ADD(int rd, int rs, int rt, registre* tab_registre);
 void instruction_ADDI(int rd, int rs, int imm, registre* tab_registre);
 void instruction_AND(int rd, int rs, int rt, registre* tab_registre);

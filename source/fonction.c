@@ -949,7 +949,7 @@ int ecrireInstructionInteractif(liste_instructions* tab_liste_instructions, inst
         nb_instructions++;
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
-        execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
+        execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
 
         afficher_registres(tab_registre);
         printf("Entrez une instruction\n");
@@ -988,7 +988,7 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
 
             if(mode == 1){
                 printf("Nom de l'instr: %s\n\n", tab_liste_instructions[nb_instructions].instr);
-                execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
+                execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
                 afficher_registres(tab_registre);
                 printf("\nInstruction : %s\n", instruction);
                 printf("\nAppuie sur une touche pour aller à l'instruction suivante\n");
@@ -999,7 +999,7 @@ void lireInstruction(int mode, char* fichierInstr, liste_instructions* tab_liste
         mettreEnMajuscule(instruction);
         remplir_liste_instructions(instruction, nb_instructions, tab_liste_instructions, tab_instruction, tab_registre);
         if(mode == 1){
-            execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, 0, memoire_instr);
+            execute_instruction(tab_liste_instructions, tab_registre, nb_instructions, memoire_instr);
             afficher_registres(tab_registre);
             printf("\nInstruction : %s\n", instruction);
             printf("\nAppuie sur une touche pour terminer\n");
@@ -1077,7 +1077,7 @@ void testMemoire(unsigned char *memoire_instr, unsigned char* memoire){
     printf("\nPARTIE MEMOIRE\n");
     for(i=0; i<TAILLE_MEMOIRE; i++){
         if(memoire[i]!=0){
-            printf("Valeur de la memoire à la case %d : %d\n",i, memoire[i]);
+            printf("Valeur de la memoire à la case %d(%d) : %d\n",i%4, i/4, memoire[i]);
         }
     }
 }

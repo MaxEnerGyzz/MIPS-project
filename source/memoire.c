@@ -23,11 +23,3 @@ void remplirMemProg(unsigned char* memoire_instr, char* instruction_hex, int nb_
     }
 }
 
-
-void modifierElmtMem(unsigned char* memoire, unsigned char valeur, int position){
-  memoire[position] = valeur;
-}
-
-long recupererElmtMem(unsigned char* memoire, int position){
-  return(memoire[position]);
-}
